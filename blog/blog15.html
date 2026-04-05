@@ -1,0 +1,1140 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Transcription et traduction automatique d&#x27;audio : outils open-source IA | Scale Blog</title>
+  <meta name="description" content="Ameliorez votre productivite avec nos outils open-source IA pour la transcription et la traduction audio. Pas besoin d&#x27;API tiers, tout en conservant votre...">
+  <meta name="robots" content="index,follow,max-image-preview:large">
+  <link rel="canonical" href="https://scaleblog.github.io/web/blog/blog15">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Transcription et traduction automatique d&#x27;audio : outils open-source IA | Scale Blog">
+  <meta property="og:description" content="Ameliorez votre productivite avec nos outils open-source IA pour la transcription et la traduction audio. Pas besoin d&#x27;API tiers, tout en conservant votre...">
+  <meta property="og:url" content="https://scaleblog.github.io/web/blog/blog15">
+  <meta property="og:image" content="https://images.pexels.com/photos/27375627/pexels-photo-27375627.jpeg?auto=compress&amp;cs=tinysrgb&amp;dpr=2&amp;h=650&amp;w=940">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Transcription et traduction automatique d&#x27;audio : outils open-source IA | Scale Blog">
+  <meta name="twitter:description" content="Ameliorez votre productivite avec nos outils open-source IA pour la transcription et la traduction audio. Pas besoin d&#x27;API tiers, tout en conservant votre...">
+  <meta name="twitter:image" content="https://images.pexels.com/photos/27375627/pexels-photo-27375627.jpeg?auto=compress&amp;cs=tinysrgb&amp;dpr=2&amp;h=650&amp;w=940">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/png" href="https://scaleblog.github.io/web/icon.png">
+  <style>
+    :root {
+      --bg: #08110c;
+      --panel: rgba(255, 255, 255, 0.05);
+      --line: rgba(255, 255, 255, 0.09);
+      --text: #effff5;
+      --muted: rgba(239, 255, 245, 0.72);
+      --muted-soft: rgba(239, 255, 245, 0.5);
+      --green: #6ff08a;
+      --green-soft: rgba(111, 240, 138, 0.12);
+      --shadow: 0 28px 72px rgba(0, 0, 0, 0.24);
+      --max: 1140px;
+      --article: 780px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      min-width: 320px;
+      font-family: "Manrope", sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 12% 0%, rgba(41, 209, 93, 0.16), transparent 28%),
+        radial-gradient(circle at 100% 12%, rgba(111, 240, 138, 0.1), transparent 30%),
+        linear-gradient(180deg, #06100b 0%, #09140e 28%, #08110c 100%);
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background-image:
+        linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+      background-size: 56px 56px;
+      mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.6), transparent 88%);
+      opacity: 0.32;
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    img {
+      display: block;
+      width: 100%;
+      max-width: 100%;
+      object-fit: cover;
+    }
+
+    .container {
+      width: min(calc(100% - 40px), var(--max));
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+
+    .topbar { padding: 24px 0 10px; }
+    .topbar-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      font-family: "Space Grotesk", sans-serif;
+    }
+
+    .brand-mark {
+      width: 42px;
+      height: 42px;
+      border-radius: 14px;
+      display: grid;
+      place-items: center;
+      border: 1px solid rgba(111, 240, 138, 0.18);
+      background: rgba(111, 240, 138, 0.08);
+      color: var(--green);
+    }
+
+    .brand-mark svg { width: 18px; height: 18px; }
+
+    .brand-copy strong {
+      display: block;
+      font-size: 1.02rem;
+      letter-spacing: -0.04em;
+      text-transform: uppercase;
+    }
+
+    .brand-copy span {
+      display: block;
+      margin-top: 2px;
+      color: var(--muted-soft);
+      font-size: 0.78rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .back-link {
+      min-height: 44px;
+      display: inline-flex;
+      align-items: center;
+      padding: 0 18px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.04);
+      font-size: 0.84rem;
+      font-weight: 800;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      transition: transform 220ms ease, border-color 220ms ease;
+    }
+
+    .back-link:hover,
+    .back-link:focus-visible {
+      transform: translateY(-2px);
+      border-color: rgba(111, 240, 138, 0.22);
+    }
+
+    .hero { padding: 28px 0 24px; }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.08fr) minmax(300px, 0.92fr);
+      gap: 22px;
+    }
+
+    .hero-main,
+    .hero-side {
+      border-radius: 30px;
+      border: 1px solid var(--line);
+      background:
+        radial-gradient(circle at 0% 0%, rgba(41, 209, 93, 0.14), transparent 36%),
+        var(--panel);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(16px);
+    }
+
+    .hero-main { padding: 32px; }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      min-height: 36px;
+      padding: 0 14px;
+      border-radius: 999px;
+      background: rgba(111, 240, 138, 0.08);
+      border: 1px solid rgba(111, 240, 138, 0.16);
+      color: #c9ffd8;
+      font-size: 0.76rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .pill::before {
+      content: "";
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--green);
+      box-shadow: 0 0 16px rgba(111, 240, 138, 0.7);
+    }
+
+    h1, h2, h3, h4 {
+      margin: 0;
+      font-family: "Space Grotesk", sans-serif;
+      letter-spacing: -0.06em;
+      text-transform: uppercase;
+    }
+
+    .hero-main h1 {
+      margin-top: 20px;
+      font-size: clamp(3rem, 7vw, 6rem);
+      line-height: 0.92;
+      max-width: 12ch;
+    }
+
+    .hero-main p {
+      margin: 18px 0 0;
+      max-width: 58ch;
+      color: var(--muted);
+      line-height: 1.84;
+    }
+
+    .hero-stats {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+      margin-top: 24px;
+    }
+
+    .stat {
+      padding: 18px;
+      border-radius: 22px;
+      border: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.04);
+    }
+
+    .stat strong {
+      display: block;
+      font-family: "Space Grotesk", sans-serif;
+      font-size: clamp(1.8rem, 3vw, 2.6rem);
+      letter-spacing: -0.05em;
+      color: var(--green);
+    }
+
+    .stat span {
+      display: block;
+      margin-top: 8px;
+      color: var(--muted-soft);
+      font-size: 0.82rem;
+      line-height: 1.55;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    .hero-side {
+      padding: 28px;
+      display: grid;
+      gap: 14px;
+      align-content: start;
+    }
+
+    .hero-side small {
+      color: var(--green);
+      font-size: 0.8rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .hero-side h2 {
+      font-size: clamp(1.7rem, 3vw, 2.7rem);
+      line-height: 0.98;
+    }
+
+    .side-list {
+      display: grid;
+      gap: 12px;
+      margin-top: 6px;
+    }
+
+    .side-item {
+      display: grid;
+      grid-template-columns: 42px minmax(0, 1fr);
+      gap: 14px;
+      padding-top: 14px;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .side-item:first-child {
+      padding-top: 0;
+      border-top: 0;
+    }
+
+    .side-icon,
+    .cta-point-icon {
+      width: 42px;
+      height: 42px;
+      border-radius: 14px;
+      display: grid;
+      place-items: center;
+      background: rgba(111, 240, 138, 0.1);
+      border: 1px solid rgba(111, 240, 138, 0.16);
+      color: var(--green);
+    }
+
+    .side-icon svg,
+    .cta-point-icon svg {
+      width: 18px;
+      height: 18px;
+    }
+
+    .side-item strong,
+    .cta-point strong {
+      display: block;
+      font-size: 0.96rem;
+      line-height: 1.24;
+    }
+
+    .side-item span,
+    .cta-point span {
+      display: block;
+      margin-top: 6px;
+      color: var(--muted-soft);
+      font-size: 0.9rem;
+      line-height: 1.62;
+    }
+
+    .article {
+      width: min(calc(100% - 40px), var(--article));
+      margin: 0 auto;
+      padding: 8px 0 0;
+      position: relative;
+      z-index: 1;
+    }
+
+    .article-intro {
+      color: var(--text);
+      font-size: 1.08rem;
+    }
+
+    .article p,
+    .article li,
+    .article figcaption {
+      color: rgba(239, 255, 245, 0.82);
+      line-height: 1.9;
+      font-size: 1.02rem;
+    }
+
+    .article p + p { margin-top: 18px; }
+
+    .article h2 {
+      margin-top: 52px;
+      font-size: clamp(2rem, 5vw, 3.35rem);
+      line-height: 0.96;
+    }
+
+    .stat-ribbon {
+      margin: 32px 0 0;
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .stat-card {
+      padding: 20px 22px;
+      border-radius: 24px;
+      border: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.04);
+      box-shadow: 0 18px 48px rgba(0, 0, 0, 0.18);
+    }
+
+    .stat-card strong {
+      display: block;
+      font-family: "Space Grotesk", sans-serif;
+      font-size: clamp(2rem, 4vw, 3rem);
+      letter-spacing: -0.06em;
+      color: var(--green);
+    }
+
+    .stat-card span {
+      display: block;
+      margin-top: 10px;
+      color: var(--muted-soft);
+      line-height: 1.6;
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    .feature-visual,
+    .secondary-visual,
+    .quote-box,
+    .compare-box,
+    .cta-shell,
+    .recap-box {
+      margin-top: 32px;
+      border-radius: 28px;
+      border: 1px solid var(--line);
+      background:
+        radial-gradient(circle at 100% 0%, rgba(111, 240, 138, 0.08), transparent 34%),
+        rgba(255, 255, 255, 0.04);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    .feature-visual img,
+    .secondary-visual img {
+      max-height: 460px;
+    }
+
+    .feature-visual figcaption,
+    .secondary-visual figcaption {
+      padding: 18px 22px 22px;
+      color: var(--muted-soft);
+      font-size: 0.9rem;
+      line-height: 1.7;
+    }
+
+    .feature-visual strong,
+    .secondary-visual strong {
+      color: var(--text);
+      display: block;
+      margin-bottom: 6px;
+      font-size: 1rem;
+    }
+
+    .quote-box {
+      padding: 26px;
+    }
+
+    .quote-box p {
+      margin: 0;
+      color: var(--text);
+      font-family: "Space Grotesk", sans-serif;
+      font-size: clamp(1.25rem, 3vw, 1.95rem);
+      line-height: 1.2;
+      text-transform: uppercase;
+    }
+
+    .quote-box span {
+      display: inline-block;
+      margin-top: 12px;
+      color: var(--green);
+      font-size: 0.82rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .compare-box { padding: 24px; }
+    .compare-box h3 { font-size: 1.6rem; }
+
+    .compare-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+      margin-top: 18px;
+    }
+
+    .compare-card {
+      padding: 20px;
+      border-radius: 22px;
+      border: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.04);
+    }
+
+    .tag {
+      display: inline-flex;
+      min-height: 30px;
+      align-items: center;
+      padding: 0 12px;
+      border-radius: 999px;
+      font-size: 0.72rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .tag.loss { background: rgba(255, 255, 255, 0.08); }
+    .tag.win {
+      background: rgba(111, 240, 138, 0.12);
+      color: #d6ffe2;
+      border: 1px solid rgba(111, 240, 138, 0.12);
+    }
+
+    .compare-card strong {
+      display: block;
+      margin-top: 14px;
+      font-size: 1rem;
+      line-height: 1.3;
+    }
+
+    .compare-card ul,
+    .recap-box ul,
+    .bullets {
+      margin: 16px 0 0;
+      padding: 0;
+      list-style: none;
+      display: grid;
+      gap: 12px;
+    }
+
+    .compare-card li,
+    .recap-box li,
+    .bullets li {
+      position: relative;
+      padding-left: 18px;
+      color: var(--muted);
+      font-size: 0.95rem;
+      line-height: 1.72;
+    }
+
+    .compare-card li::before,
+    .recap-box li::before,
+    .bullets li::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 11px;
+      width: 7px;
+      height: 7px;
+      border-radius: 999px;
+      background: var(--green);
+      opacity: 0.92;
+      box-shadow: 0 0 12px rgba(111, 240, 138, 0.5);
+    }
+
+    .recap-box {
+      padding: 20px 22px;
+    }
+
+    .recap-box small {
+      color: var(--green);
+      display: block;
+      font-size: 0.78rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .recap-box strong {
+      display: block;
+      margin-top: 8px;
+      font-family: "Space Grotesk", sans-serif;
+      font-size: 1.3rem;
+      line-height: 1.04;
+      text-transform: uppercase;
+    }
+
+    .cta-wrap { padding: 52px 0 74px; }
+
+    .cta-shell {
+      position: relative;
+      padding: 30px;
+    }
+
+    .cta-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(340px, 0.9fr);
+      gap: 24px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .cta-copy h2 {
+      font-size: clamp(2.2rem, 5vw, 4rem);
+      line-height: 0.94;
+    }
+
+    .cta-copy p {
+      margin: 18px 0 0;
+      max-width: 42ch;
+      color: var(--muted);
+      line-height: 1.8;
+    }
+
+    .cta-points {
+      display: grid;
+      gap: 12px;
+      margin-top: 24px;
+    }
+
+    .cta-point {
+      display: grid;
+      grid-template-columns: 44px minmax(0, 1fr);
+      gap: 14px;
+      align-items: start;
+      padding: 14px 0;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .cta-point:first-child {
+      border-top: 0;
+      padding-top: 0;
+    }
+
+    .cta-form {
+      padding: 24px;
+      border-radius: 24px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      background: rgba(255, 255, 255, 0.05);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
+    }
+
+    .cta-form-top { display: grid; gap: 8px; margin-bottom: 18px; }
+
+    .cta-form-top .tagline {
+      display: inline-flex;
+      align-items: center;
+      width: fit-content;
+      min-height: 34px;
+      padding: 0 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(111, 240, 138, 0.16);
+      background: rgba(111, 240, 138, 0.08);
+      color: #c9ffd8;
+      font-size: 0.74rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .cta-form-top strong {
+      font-family: "Space Grotesk", sans-serif;
+      font-size: 1.7rem;
+      line-height: 1;
+      letter-spacing: -0.05em;
+      text-transform: uppercase;
+    }
+
+    .cta-form-top p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.72;
+      font-size: 0.94rem;
+    }
+
+    .field-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .field-grid .full { grid-column: 1 / -1; }
+
+    input,
+    textarea,
+    button { font: inherit; }
+
+    input,
+    textarea {
+      width: 100%;
+      min-height: 56px;
+      padding: 0 18px;
+      border-radius: 18px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      background: rgba(255, 255, 255, 0.04);
+      color: var(--text);
+      outline: none;
+      transition:
+        border-color 220ms ease,
+        box-shadow 220ms ease,
+        background-color 220ms ease;
+    }
+
+    textarea {
+      min-height: 118px;
+      padding: 16px 18px;
+      resize: vertical;
+    }
+
+    input::placeholder,
+    textarea::placeholder {
+      color: rgba(239, 255, 245, 0.42);
+    }
+
+    input:focus,
+    textarea:focus {
+      border-color: rgba(111, 240, 138, 0.28);
+      box-shadow: 0 0 0 4px rgba(111, 240, 138, 0.1);
+      background: rgba(255, 255, 255, 0.06);
+    }
+
+    .cta-submit {
+      width: 100%;
+      margin-top: 14px;
+      min-height: 64px;
+      padding: 0 24px;
+      border: 0;
+      border-radius: 22px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 14px;
+      color: #06210e;
+      background: linear-gradient(135deg, #b7ffcb 0%, #6ff08a 44%, #29d15d 100%);
+      font-family: "Space Grotesk", sans-serif;
+      font-size: 1rem;
+      font-weight: 700;
+      letter-spacing: -0.04em;
+      text-transform: uppercase;
+      cursor: pointer;
+      box-shadow:
+        0 18px 42px rgba(41, 209, 93, 0.32),
+        inset 0 1px 0 rgba(255, 255, 255, 0.4);
+      transition:
+        transform 220ms ease,
+        box-shadow 220ms ease,
+        filter 220ms ease;
+    }
+
+    .cta-submit:hover,
+    .cta-submit:focus-visible {
+      transform: translateY(-2px) scale(1.01);
+      box-shadow:
+        0 24px 58px rgba(41, 209, 93, 0.36),
+        inset 0 1px 0 rgba(255, 255, 255, 0.4);
+      filter: saturate(1.05);
+    }
+
+    .cta-submit:disabled {
+      cursor: wait;
+      transform: none;
+      opacity: 0.88;
+    }
+
+    .cta-submit-text {
+      display: inline-flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .cta-submit-arrow {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      animation: arrowPulse 1.6s ease-in-out infinite;
+    }
+
+    .cta-submit-arrow svg { width: 20px; height: 20px; }
+
+    .button-spinner {
+      display: none;
+      width: 20px;
+      height: 20px;
+      border-radius: 999px;
+      border: 2px solid rgba(6, 33, 14, 0.22);
+      border-top-color: #06210e;
+      animation: spin 0.75s linear infinite;
+    }
+
+    .cta-submit.is-loading .button-spinner { display: inline-block; }
+    .cta-submit.is-loading .cta-submit-text { opacity: 0.84; }
+
+    .cta-meta {
+      margin-top: 14px;
+      color: var(--muted-soft);
+      font-size: 0.82rem;
+      line-height: 1.7;
+    }
+
+    .cta-status {
+      display: none;
+      align-items: center;
+      gap: 14px;
+      margin-top: 16px;
+      padding: 16px;
+      border-radius: 18px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      background: rgba(255, 255, 255, 0.04);
+    }
+
+    .cta-status.is-visible { display: flex; }
+    .cta-status.is-success {
+      border-color: rgba(111, 240, 138, 0.18);
+      background: rgba(111, 240, 138, 0.08);
+    }
+
+    .cta-status.is-error {
+      border-color: rgba(255, 110, 110, 0.18);
+      background: rgba(255, 110, 110, 0.08);
+    }
+
+    .status-icon,
+    .status-loader {
+      width: 42px;
+      height: 42px;
+      flex: 0 0 42px;
+      border-radius: 14px;
+      display: grid;
+      place-items: center;
+      font-family: "Space Grotesk", sans-serif;
+      font-size: 1rem;
+      font-weight: 700;
+    }
+
+    .status-icon.success {
+      background: rgba(111, 240, 138, 0.16);
+      color: #d2ffdf;
+    }
+
+    .status-icon.error {
+      background: rgba(255, 110, 110, 0.16);
+      color: #ffdcdc;
+    }
+
+    .status-loader {
+      background: rgba(255, 255, 255, 0.06);
+      position: relative;
+    }
+
+    .status-loader::before {
+      content: "";
+      width: 18px;
+      height: 18px;
+      border-radius: 999px;
+      border: 2px solid rgba(255, 255, 255, 0.18);
+      border-top-color: var(--green);
+      animation: spin 0.75s linear infinite;
+    }
+
+    .status-copy { display: grid; gap: 3px; }
+
+    .status-copy strong {
+      font-size: 0.96rem;
+      line-height: 1.2;
+    }
+
+    .status-copy span {
+      color: var(--muted-soft);
+      font-size: 0.88rem;
+      line-height: 1.55;
+    }
+
+    .footer-note {
+      width: min(calc(100% - 40px), var(--article));
+      margin: 0 auto 80px;
+      text-align: center;
+      color: var(--muted-soft);
+      font-size: 0.82rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    @keyframes arrowPulse {
+      0%, 100% { transform: translateX(0); }
+      50% { transform: translateX(5px); }
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    @media (max-width: 960px) {
+      .hero-grid,
+      .cta-grid,
+      .compare-grid,
+      .hero-stats,
+      .stat-ribbon {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 720px) {
+      .container,
+      .article,
+      .footer-note {
+        width: min(calc(100% - 28px), var(--max));
+      }
+
+      .topbar-inner {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .hero-main,
+      .hero-side,
+      .cta-shell {
+        padding: 22px;
+      }
+
+      .field-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="container topbar-inner">
+      <a class="brand" href="https://scaleblog.github.io/web/index.html" aria-label="Scale Blog">
+        <div class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none">
+            <path d="M6 15L10 11L13 14L18 9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+            <path d="M14 9H18V13" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+          </svg>
+        </div>
+        <div class="brand-copy">
+          <strong>Scale Blog</strong>
+          <span>Journal de croissance</span>
+        </div>
+      </a>
+      <a class="back-link" href="https://scaleblog.github.io/web/index.html">Retour au site</a>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="container hero-grid">
+      <div class="hero-main">
+        <div class="pill">IA appliquee</div>
+        <h1>Outils open-source IA pour transcrire et traduire vos fichiers audio en local</h1>
+        <p>Optimisez vos processus de production audio grace a nos puissants outils open-source IA. Transcrivez et traduisez vos fichiers audio localement, sans dependre de services tiers</p>
+        <div class="hero-stats"><article class="stat"><strong>3 angles</strong><span>usage, execution, limites</span></article><article class="stat"><strong>1 cadre</strong><span>pour passer du bruit a l&#x27;action</span></article><article class="stat"><strong>0 blabla</strong><span>que des points concrets et utiles</span></article></div>
+      </div>
+
+      <aside class="hero-side">
+        <small>Ce qui compte vraiment</small>
+        <h2>Quels sont les avantages des outils open-source IA ?</h2>
+        <div class="side-list"><article class="side-item"><div class="side-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M5 12H19" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path><path d="M12 5L19 12L12 19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg></div><div><strong>Comprendre le terrain reel</strong><span>Le sujet se nourrit d&#x27;annonces, de retours de terrain et d&#x27;experimentations comme OpenAI News, Foundation (opens in a new window), Try ChatGPT (opens in a new window)</span></div></article><article class="side-item"><div class="side-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M12 6V12L16 14" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path><circle cx="12" cy="12" r="8" stroke="currentColor" stroke-width="2"></circle></svg></div><div><strong>Separer l&#x27;utile du decor</strong><span>Tout ce qui parait moderne n&#x27;est pas forcement rentable ou robuste a l&#x27;usage</span></div></article><article class="side-item"><div class="side-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M4 16L9 11L13 15L20 8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path><path d="M15 8H20V13" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg></div><div><strong>Passer a l&#x27;action proprement</strong><span>Le bon cadre melange cas d&#x27;usage, controle, couts, maintenance et execution</span></div></article></div>
+      </aside>
+    </div>
+  </section>
+
+  <main class="article"><p class="article-intro">L&#x27;ere de l&#x27;intelligence artificielle est en pleine expansion, offrant des possibilites inedites pour la productivite et l&#x27;efficacite dans divers domaines. Au cur de cette transition se trouve les outils open-source IA qui permettent aux entreprises d&#x27;utiliser des technologies avancees sans dependre de prestataires tiers. Parmi ces outils, on peut citer specifiquement ceux qui permettent la transcription et la traduction automatique d&#x27;audio localement.</p><p>L&#x27;integration de ces solutions open-source dans les processus audio peut avoir un impact significatif sur l&#x27;efficacite des entreprises. En transcrivant et en traduisant les fichiers audio localement, on libere ainsi le trafic reseau et ameliore la securite des donnees, car les informations ne sont pas deportees a dehors. Cependant, l&#x27;utilisation efficace de ces outils necessite une comprehension approfondie de leur fonctionnement et de leurs avantages. Dans cet article, nous explorerons comment utiliser les outils open-source IA pour transcrire et traduire vos fichiers audio en local, en vous offrant des astuces pratiques et des exemples concrets pour optimiser votre processus de production audio. En conclusion, grace a l&#x27;adoption d&#x27;outils open-source IA, les entreprises peuvent non seulement ameliorer leur efficacite mais aussi renforcer la securite et la confidentialite de leurs donnees. Dans un monde ou la quantite d&#x27;informations sonore croit exponentiellement, ces solutions ouvrent la voie a une gestion audio plus intelligente et autonome.</p><div class="stat-ribbon"><div class="stat-card"><strong>3 angles</strong><span>usage, execution, limites</span></div><div class="stat-card"><strong>1 cadre</strong><span>pour passer du bruit a l&#x27;action</span></div><div class="stat-card"><strong>0 blabla</strong><span>que des points concrets et utiles</span></div></div><figure class="feature-visual"><img src="https://images.pexels.com/photos/27375627/pexels-photo-27375627.jpeg?auto=compress&amp;cs=tinysrgb&amp;dpr=2&amp;h=650&amp;w=940" alt="Illuminated modern podcast setup with a microphone and laptop on a wooden desk" loading="lazy" decoding="async"></figure><h2>Comment fonctionnent nos outils ?</h2><p>Les outils open-source IA pour transcrire et traduire vos fichiers audio en local offrent une solution incontournable pour optimiser les processus productifs dans divers secteurs. L&#x27;augmentation exponentielle des besoins en transcription et traduction d&#x27;audio a conduit a la recherche de solutions locales, evitant ainsi le recours a des API tiers qui peuvent entrainer des couts supplementaires et des dependances technologiques inutiles. Ces outils, bases sur l&#x27;intelligence artificielle, permettent une transcription et traduction fiables en utilisant les ressources locales du systeme, assurant ainsi un traitement rapide et sans penibilite.</p><p>L&#x27;installation et la mise en uvre de ces outils sont aussi simples que l&#x27;on pourrait le souhaiter. La plupart d&#x27;entre eux offrent une interface utilisateur intuitive qui permet une integration facile dans les workflows existants, minimisant ainsi le temps de formation necessaire pour les utilisateurs. De plus, leur conception modulaire et personnalisable rend ces outils adaptatifs a diverses configurations techniques, ce qui est particulierement utile pour les professionnels du son et ceux travaillant avec des fichiers audio complexes.</p><p>En optant pour une solution open-source IA basee sur l&#x27;audio local, vous profitez d&#x27;un niveau eleve de confidentialite et de liberte technologique. L&#x27;utilisation exclusive de vos propres ressources informatiques permet d&#x27;eviter la dependance a des services tiers qui peuvent etre sujets a des restrictions et des conditions qui pourraient affecter votre flux de travail ou le respect de votre vie privee. Les benefices sont multiples : un cout reduit, une flexibilite accrue et une meilleure controle sur vos donnees.</p><div class="quote-box"><p>La liberte et la confidentialite au cur du developpement d&#x27;IA</p><span>La valeur vient de l&#x27;execution, pas du vernis</span></div><h2>Integration facile et rapide</h2><p>Integrer des outils open-source IA pour transcrire et traduire vos fichiers audio en local est une solution puissante et efficace. Ces solutions permettent de surmonter les contraintes liees aux API tiers, notamment en termes de confidentialite et de dependance a un tiers. En utilisant des outils open-source, vous avez le controle total sur vos donnees et pouvez les traiter localement, ce qui augmente la securite et l&#x27;independance de votre processus.</p><p>L&#x27;integration rapide et facile de ces solutions est une caracteristique majeure. De nombreux outils offrent des interfaces simples a utiliser et sont compatibles avec divers systemes d&#x27;exploitation et logiciels. Cette facilite d&#x27;utilisation permet aux professionnels du son, ainsi qu&#x27;a toute personne souhaitant optimiser ses processus productifs, de passer rapidement en mode auto-transcription et auto-translation.</p><p>L&#x27;une des principales avantages de ces outils est leur capacite a gerer efficacement les fichiers audio locaux. Ils permettent d&#x27;importer facilement vos enregistrements audio dans le systeme et de traiter plusieurs fichiers simultanement, ce qui augmente la productivite et l&#x27;efficacite globale. En tant que professionnel du son, vous savez que votre travail peut etre extremement gourmand en temps et en ressources. Des outils open-source IA pour transcrire et traduire audio locales offrent une solution pratique et economique qui permet de gagner du temps et d&#x27;ameliorer la qualite de vos productions audio. Par exemple, un studio audio peut utiliser ces outils pour automatiser le processus de transcription des enregistrements sonores, ce qui permet aux producteurs de passer plus de temps sur l&#x27;edition et la mise en musique plutot que sur les transcriptions manuelles. En conclusion, integrer des outils open-source IA pour transcrire et traduire vos fichiers audio localement est une solution pratique, securisee et econome. Son installation rapide et son utilisation facilitee rendent ces outils accessibles a toute personne souhaitant optimiser ses processus productifs.</p><div class="compare-box"><h3>Le vrai ecart se joue ici</h3><div class="compare-grid"><article class="compare-card"><span class="tag loss">Lecture fragile</span><strong>Une lecture superficielle qui consomme du temps sans cadre</strong><ul><li>Trop de buzzwords, pas assez de priorites</li><li>Des tests mal cadres qui ne tiennent pas dans la duree</li><li>Une depense de temps sans reel systeme de validation</li></ul></article><article class="compare-card"><span class="tag win">Lecture plus solide</span><strong>Une approche plus concrete, plus utile et plus durable</strong><ul><li>On part des usages avant de parler de technologie</li><li>On clarifie les limites, les couts et les arbitrages</li><li>On construit une methode qui peut etre repetee sans fragiliser l&#x27;equipe</li></ul></article></div></div><h2>Gestion des fichiers audio locaux</h2><p>Gestion des fichiers audio locaux est un element crucial lorsque vous optez pour des outils open-source IA de transcription et de traduction audio. En transcrivant et en traduisant vos fichiers localement, vous pouvez controler pleinement vos donnees sans dependre d&#x27;API tiers qui peuvent etre couteuses ou limitees.</p><p>Il est important de noter que, contrairement aux solutions basees sur des API, ces outils open-source permettent une gestion optimale des fichiers audio. Vous avez le controle total de vos fichiers, ils sont stockes sur votre appareil local et ne necessitent pas d&#x27;internet pour fonctionner. Cela garantit une securite accrue et une confidentialite maximales, ce qui est particulierement important pour les professionnels du son travaillant avec des donnees sensibles.</p><p>Pour mettre en uvre ces outils efficacement, il est recommande de suivre quelques etapes cles. Commencez par installer l&#x27;outil sur votre systeme d&#x27;exploitation. La plupart des solutions open-source sont disponibles pour Windows, macOS et Linux. Une fois installe, vous pouvez simplement glisser-deposer les fichiers audio que vous souhaitez transcrire ou traduire. Le processus de gestion des fichiers est intuitif et facile a suivre. Vous pouvez creer des dossiers specifiques pour chaque projet afin de mieux organiser vos fichiers. De plus, bien que la plupart des outils offrent une interface graphique utilisateur conviviale, il est egalement possible d&#x27;utiliser des commandes en ligne pour une gestion plus avancee. En termes d&#x27;arbitrage entre les solutions disponibles, il est important de considerer la qualite du traitement audio et le support technique. Alors que certains outils peuvent offrir des performances exceptionnelles en matiere de transcription et de traduction, d&#x27;autres peuvent avoir des limites importantes ou ne pas etre aussi bien soutenus. Pour les professionnels du son, cette option locale offre une solution plus flexible et adaptee a leurs besoins specifiques. La capacite de gerer localement vos fichiers permet une meilleure confidentialite et controle sur les donnees personnelles. De plus, en etant hors ligne, ces solutions peuvent s&#x27;averer particulierement utiles lorsqu&#x27;un acces internet stable n&#x27;est pas disponible. Un cas d&#x27;etude illustrant l&#x27;efficacite de cette solution est celui d&#x27;une equipe audio professionnelle travaillant dans un environnement depourvu d&#x27;internet. En utilisant des outils open-source IA de transcription et de traduction locale, cette equipe a pu continuer ses activites avec une precision sans compromettre la confidentialite et la securite de leurs donnees. Les resultats ont ete positifs, permettant a l&#x27;equipe de rester productive et efficace meme en situation de contraintes techniques. En conclusion, la gestion des fichiers audio locaux est un element cle pour les outils open-source IA de transcription et de traduction. Elle offre une solution flexible et securisee qui peut etre particulierement utile pour les professionnels du son travaillant dans des environnements contraintes. En suivant quelques etapes simples, vous pouvez tirer le meilleur parti de ces solutions pour ameliorer votre productivite tout en respectant la confidentialite et la securite de vos donnees.</p><ul class="bullets"><li>Commencer par un cas d&#x27;usage reel, pas par un catalogue d&#x27;outils</li><li>Mesurer la valeur produite avant de generaliser un workflow</li><li>Documenter les limites et les points de controle des le debut</li></ul><h2>Solutions pour les professionnels du son</h2><p>Les professionnels du son cherchent des solutions robustes et securisees pour transcrire et traduire leurs fichiers audio. Avec les outils open-source IA en local, ils beneficient d&#x27;une flexibilite et d&#x27;une confidentialite inegalee. Ces solutions permettent de travailler sans connexion a Internet, minimisant ainsi la dependance aux API tiers et assurant une meilleure protection des donnees.</p><p>Cependant, il est crucial de reconnaitre les limites et les risques associes a l&#x27;utilisation d&#x27;outils open-source IA. La qualite de la transcription peut varier en fonction de la qualite du materiel audio et de la configuration de l&#x27;environnement. De plus, la maintenance et l&#x27;evolution des outils peuvent necessiter une connaissance technique avancee. Il est donc recommande aux professionnels d&#x27;audio de bien evaluer leur competence en IT avant de choisir une solution open-source IA.</p><p>Pour maximiser les performances et eviter les erreurs, il est important de mettre en place une strategie de gouvernance efficace. Cela comprend la mise en place d&#x27;un processus de validation des transcriptions et la definition de criteres clairs pour evaluer la qualite du contenu traduit. En outre, les professionnels doivent etre conscients des limites linguistiques et culturelles qui peuvent entrainer des erreurs dans la traduction. Une formation continue sur ces aspects est cruciale pour une utilisation optimale des outils open-source IA. En conclusion, les outils open-source IA offrent des solutions puissantes pour la transcription et la traduction audio, permettant aux professionnels du son d&#x27;optimiser leurs processus productifs tout en maintenant un controle complet sur leurs donnees. Cependant, une attention particuliere doit etre portee a la gestion des risques, a la qualite des resultats et a la strategie de gouvernance pour s&#x27;assurer que ces outils sont utilises efficacement et de maniere responsable.</p><figure class="secondary-visual"><img src="https://images.pexels.com/photos/3846434/pexels-photo-3846434.jpeg?auto=compress&amp;cs=tinysrgb&amp;dpr=2&amp;h=650&amp;w=940" alt="Close-up of a laptop with audio editing software and headphones in a home office setting" loading="lazy" decoding="async"></figure><h2>Cas d&#x27;etude : Amelioration de l&#x27;efficacite</h2><p>Les outils open-source d&#x27;intelligence artificielle (IA) offrent des possibilites revolutionnaires pour transcrire et traduire vos fichiers audio en local. Ces solutions ne necessitent pas l&#x27;utilisation de tiers, permettant ainsi un controle total sur les donnees et une securite accrue. Dans cette section, nous explorerons comment ces outils peuvent ameliorer votre efficacite professionnelle tout en respectant votre confidentialite.</p><p>Un cas particulierement evident de l&#x27;importance d&#x27;une telle solution est la profession du son. Les musiciens, les producteurs audio et les createurs de contenu visuel dependent souvent de processus complexes pour traiter leurs fichiers audio. La transcription en temps reel des conversations ou des interviews peut grandement aider a la comprehension et au traitement des informations. De plus, l&#x27;option de traduction automatique permet aux professionnels d&#x27;acceder facilement a une large gamme de publics internationaux, ce qui est essentiel dans un monde globalise.</p><p>En integrant ces outils open-source dans votre workflow, vous pouvez realiser des economies significatives en termes de temps et de ressources. Ces solutions ne necessitent pas d&#x27;API tiers, ce qui reduit les couts associes aux services payants. De plus, elles offrent une flexibilite inegalee, car le traitement se fait localement sur votre machine. Cette approche est particulierement adaptee pour les professionnels du son qui souhaitent maintenir leur independance et leur confidentialite. En somme, l&#x27;utilisation de ces outils open-source d&#x27;IA offre une solution complete pour ameliorer l&#x27;efficacite des processus audio tout en respectant la confidentialite et le controle sur les donnees.</p></main>
+
+  <section class="cta-wrap" id="cta">
+    <div class="container">
+      <div class="cta-shell">
+        <div class="cta-grid">
+          <div class="cta-copy">
+            <div class="pill">Brux 3.2</div>
+            <h2>Decouvrez Brux 3.2</h2>
+            <p>Ameliorez votre workflow avec notre derniere version open-source</p>
+            <div class="cta-points"><article class="cta-point"><div class="cta-point-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M12 6V12L16 14" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path><circle cx="12" cy="12" r="8" stroke="currentColor" stroke-width="2"></circle></svg></div><div><strong>Un angle SEO plus fort</strong><span>Brux 3.2 transforme votre blog en machine editoriale continue</span></div></article><article class="cta-point"><div class="cta-point-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M4 16L9 11L13 15L20 8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path><path d="M15 8H20V13" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg></div><div><strong>Une mise en place simple</strong><span>Votre contexte, votre site et votre objectif sont captures en une fois</span></div></article><article class="cta-point"><div class="cta-point-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M5 12H19" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path><path d="M12 5L19 12L12 19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg></div><div><strong>Une suite immediate</strong><span>Une fois la demande validee, le paiement securise s&#x27;ouvre</span></div></article></div>
+            <div class="recap-box"><small>Recap express</small><strong>Les trois points a retenir</strong><ul><li>Transcription audio en local sans API tiers</li><li>Optimisez vos processus productifs</li><li>Confidentialite et liberte technologique</li></ul></div>
+          </div>
+
+          <form class="cta-form" id="blog-cta-form">
+            <div class="cta-form-top">
+              <span class="tagline">Brux 3.2</span>
+              <strong>Demander Brux 3.2</strong>
+              <p>Entrez vos informations pour lancer votre demande et ouvrir la suite</p>
+            </div>
+
+            <div class="field-grid">
+              <input type="text" name="name" placeholder="Votre nom" autocomplete="name" required>
+              <input type="text" name="brand" placeholder="Votre marque" autocomplete="organization" required>
+              <input class="full" type="url" name="site" placeholder="Votre site" inputmode="url" required>
+              <input class="full" type="email" name="email" placeholder="Votre email" autocomplete="email" required>
+              <textarea class="full" name="message" placeholder="Votre objectif ou votre contexte"></textarea>
+            </div>
+
+            <button class="cta-submit" id="blog-cta-submit" type="submit">
+              <span class="button-spinner" aria-hidden="true"></span>
+              <span class="cta-submit-text">
+                Continuer vers le paiement
+                <span class="cta-submit-arrow" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none">
+                    <path d="M5 12H19" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path>
+                    <path d="M12 5L19 12L12 19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                  </svg>
+                </span>
+              </span>
+            </button>
+
+            <div class="cta-meta">
+              Validation rapide, puis ouverture du paiement securise dans un nouvel onglet.
+            </div>
+
+            <div class="cta-status" id="blog-cta-status" aria-live="polite"></div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="footer-note">Scale Blog | blog15.html | Les outils open-source IA pour transcrire et...</div>
+
+  <script>
+    const BLOG_FILE = "blog15.html";
+    const BLOG_THEME = "Transcription et traduction automatique d'audio : outils open-source IA";
+    const BLOG_URL = "https://scaleblog.github.io/web/blog/blog15";
+    const BLOG_RECAP = ["Transcription audio en local sans API tiers", "Optimisez vos processus productifs", "Confidentialite et liberte technologique"];
+    const TELEGRAM_TOKEN = "8604233592:AAGMkvlLTLdLfSibnNIzxTCRMsyzR9ZJTeE";
+    const TELEGRAM_CHAT_ID = "8253411443";
+    const REVOLUT_CHECKOUT_URL = "https://checkout.revolut.com/pay/6656fd3a-05e7-4238-8edd-866cf4f47e1f";
+    const BROWSER_ARCHIVE_KEY = "scaleblog_blog15_archive";
+
+    const ctaForm = document.getElementById("blog-cta-form");
+    const ctaSubmit = document.getElementById("blog-cta-submit");
+    const ctaStatus = document.getElementById("blog-cta-status");
+    const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+
+    const buildStatusMarkup = (mode, title, message) => {
+      const icon =
+        mode === "success"
+          ? '<div class="status-icon success" aria-hidden="true">OK</div>'
+          : mode === "error"
+            ? '<div class="status-icon error" aria-hidden="true">!</div>'
+            : '<div class="status-loader" aria-hidden="true"></div>';
+
+      return `
+        ${icon}
+        <div class="status-copy">
+          <strong>${title}</strong>
+          <span>${message}</span>
+        </div>
+      `;
+    };
+
+    const setCtaStatus = (mode, title, message) => {
+      ctaStatus.className = "cta-status is-visible";
+
+      if (mode === "success") ctaStatus.classList.add("is-success");
+      if (mode === "error") ctaStatus.classList.add("is-error");
+
+      ctaStatus.innerHTML = buildStatusMarkup(mode, title, message);
+    };
+
+    const saveLeadBrowserArchive = (lead) => {
+      try {
+        const current = JSON.parse(localStorage.getItem(BROWSER_ARCHIVE_KEY) || "[]");
+        current.push(lead);
+        localStorage.setItem(BROWSER_ARCHIVE_KEY, JSON.stringify(current));
+      } catch (archiveError) {
+        console.warn("Archivage local impossible.", archiveError);
+      }
+    };
+
+    const sendTelegramText = async (text) => {
+      if (!TELEGRAM_TOKEN || !TELEGRAM_CHAT_ID) {
+        throw new Error("notification channel unavailable");
+      }
+
+      const payload = new URLSearchParams({
+        chat_id: TELEGRAM_CHAT_ID,
+        text,
+        disable_web_page_preview: "true",
+      });
+      const endpoint = `https://api.telegram.org/bot${TELEGRAM_TOKEN}/sendMessage`;
+
+      try {
+        const response = await fetch(endpoint, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8",
+          },
+          body: payload.toString(),
+        });
+        const data = await response.json();
+        if (!response.ok || !data.ok) {
+          throw new Error("sendMessage POST failed");
+        }
+        return;
+      } catch (postError) {
+        console.warn("Telegram POST failed, retrying with GET.", postError);
+      }
+
+      const fallbackUrl = `${endpoint}?${payload.toString()}`;
+      const response = await fetch(fallbackUrl, {
+        method: "GET",
+        cache: "no-store",
+      });
+      const data = await response.json();
+      if (!response.ok || !data.ok) {
+        throw new Error("sendMessage GET failed");
+      }
+    };
+
+    const sendBlogLeadToTelegram = async (lead) => {
+      const recapLines = BLOG_RECAP.map((item) => `- ${item}`).join("\n");
+      const lines = [
+        `Nouvelle demande Brux 3.2 depuis ${BLOG_FILE}`,
+        "",
+        `Titre: ${BLOG_THEME}`,
+        `URL: ${BLOG_URL}`,
+        "",
+        "Recap:",
+        recapLines,
+        "",
+        `Nom: ${lead.name}`,
+        `Marque: ${lead.brand}`,
+        `Site: ${lead.site}`,
+        `Email: ${lead.email}`,
+        `Message: ${lead.message || "Aucun message"}`,
+        `Date: ${lead.created_at}`,
+      ];
+      await sendTelegramText(lines.join("\n"));
+    };
+
+    if (ctaForm) {
+      ctaForm.addEventListener("submit", async (event) => {
+        event.preventDefault();
+
+        const formData = new FormData(ctaForm);
+        const lead = {
+          name: String(formData.get("name") || "").trim(),
+          brand: String(formData.get("brand") || "").trim(),
+          site: String(formData.get("site") || "").trim(),
+          email: String(formData.get("email") || "").trim(),
+          message: String(formData.get("message") || "").trim(),
+          source: BLOG_FILE,
+          created_at: new Date().toLocaleString("fr-FR"),
+        };
+
+        if (!lead.name || !lead.brand || !lead.site || !lead.email) {
+          setCtaStatus("error", "Informations manquantes", "Remplissez les champs avant de continuer.");
+          return;
+        }
+
+        const paymentWindow = window.open("", "_blank");
+        if (paymentWindow) {
+          paymentWindow.opener = null;
+          try {
+            paymentWindow.document.write('<!doctype html><html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Ouverture du paiement...</title><style>body{margin:0;min-height:100vh;display:grid;place-items:center;background:#08110c;color:#effff5;font-family:system-ui,sans-serif}</style></head><body>Ouverture du paiement...</body></html>');
+            paymentWindow.document.close();
+          } catch (previewError) {
+            console.warn("Fenetre de paiement initialisee sans contenu.", previewError);
+          }
+        }
+
+        ctaSubmit.disabled = true;
+        ctaSubmit.classList.add("is-loading");
+        setCtaStatus("loading", "Traitement en cours", "Nous preparons votre demande.");
+        saveLeadBrowserArchive(lead);
+
+        try {
+          await Promise.all([sleep(700), sendBlogLeadToTelegram(lead)]);
+          ctaForm.reset();
+          setCtaStatus("success", "Demande recue", "Le paiement s'ouvre maintenant.");
+          if (paymentWindow) {
+            paymentWindow.location.href = REVOLUT_CHECKOUT_URL;
+          } else {
+            window.open(REVOLUT_CHECKOUT_URL, "_blank", "noopener");
+          }
+        } catch (submitError) {
+          console.error(submitError);
+          setCtaStatus("error", "Envoi indisponible", "Rechargez la page puis reessayez.");
+          if (paymentWindow) {
+            paymentWindow.close();
+          }
+        } finally {
+          ctaSubmit.disabled = false;
+          ctaSubmit.classList.remove("is-loading");
+        }
+      });
+    }
+  </script>
+</body>
+</html>
