@@ -1,0 +1,1140 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Le guide pour creer un systeme de prompts systemes (prompt chaining) avec des agents IA locaux | Scale Blog</title>
+  <meta name="description" content="Guide pour creer un systeme de prompts systemes (prompt chaining): usages concrets, stack utile, limites a connaitre et plan d&#x27;execution clair">
+  <meta name="robots" content="index,follow,max-image-preview:large">
+  <link rel="canonical" href="https://scaleblog.github.io/web/blog/Le%20guide%20pour%20creer%20un%20systeme%20de%20prompts%20systemes%20%28prompt%20chaining%29.html">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Le guide pour creer un systeme de prompts systemes (prompt chaining) avec des agents IA locaux | Scale Blog">
+  <meta property="og:description" content="Guide pour creer un systeme de prompts systemes (prompt chaining): usages concrets, stack utile, limites a connaitre et plan d&#x27;execution clair">
+  <meta property="og:url" content="https://scaleblog.github.io/web/blog/Le%20guide%20pour%20creer%20un%20systeme%20de%20prompts%20systemes%20%28prompt%20chaining%29.html">
+  <meta property="og:image" content="https://images.pexels.com/photos/13162091/pexels-photo-13162091.jpeg?auto=compress&amp;cs=tinysrgb&amp;dpr=2&amp;h=650&amp;w=940">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Le guide pour creer un systeme de prompts systemes (prompt chaining) avec des agents IA locaux | Scale Blog">
+  <meta name="twitter:description" content="Guide pour creer un systeme de prompts systemes (prompt chaining): usages concrets, stack utile, limites a connaitre et plan d&#x27;execution clair">
+  <meta name="twitter:image" content="https://images.pexels.com/photos/13162091/pexels-photo-13162091.jpeg?auto=compress&amp;cs=tinysrgb&amp;dpr=2&amp;h=650&amp;w=940">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/png" href="https://scaleblog.github.io/web/icon.png">
+  <style>
+    :root {
+      --bg: #08110c;
+      --panel: rgba(255, 255, 255, 0.05);
+      --line: rgba(255, 255, 255, 0.09);
+      --text: #effff5;
+      --muted: rgba(239, 255, 245, 0.72);
+      --muted-soft: rgba(239, 255, 245, 0.5);
+      --green: #6ff08a;
+      --green-soft: rgba(111, 240, 138, 0.12);
+      --shadow: 0 28px 72px rgba(0, 0, 0, 0.24);
+      --max: 1140px;
+      --article: 780px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      min-width: 320px;
+      font-family: "Manrope", sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 12% 0%, rgba(41, 209, 93, 0.16), transparent 28%),
+        radial-gradient(circle at 100% 12%, rgba(111, 240, 138, 0.1), transparent 30%),
+        linear-gradient(180deg, #06100b 0%, #09140e 28%, #08110c 100%);
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background-image:
+        linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+      background-size: 56px 56px;
+      mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.6), transparent 88%);
+      opacity: 0.32;
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    img {
+      display: block;
+      width: 100%;
+      max-width: 100%;
+      object-fit: cover;
+    }
+
+    .container {
+      width: min(calc(100% - 40px), var(--max));
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+
+    .topbar { padding: 24px 0 10px; }
+    .topbar-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      font-family: "Space Grotesk", sans-serif;
+    }
+
+    .brand-mark {
+      width: 42px;
+      height: 42px;
+      border-radius: 14px;
+      display: grid;
+      place-items: center;
+      border: 1px solid rgba(111, 240, 138, 0.18);
+      background: rgba(111, 240, 138, 0.08);
+      color: var(--green);
+    }
+
+    .brand-mark svg { width: 18px; height: 18px; }
+
+    .brand-copy strong {
+      display: block;
+      font-size: 1.02rem;
+      letter-spacing: -0.04em;
+      text-transform: uppercase;
+    }
+
+    .brand-copy span {
+      display: block;
+      margin-top: 2px;
+      color: var(--muted-soft);
+      font-size: 0.78rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .back-link {
+      min-height: 44px;
+      display: inline-flex;
+      align-items: center;
+      padding: 0 18px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.04);
+      font-size: 0.84rem;
+      font-weight: 800;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      transition: transform 220ms ease, border-color 220ms ease;
+    }
+
+    .back-link:hover,
+    .back-link:focus-visible {
+      transform: translateY(-2px);
+      border-color: rgba(111, 240, 138, 0.22);
+    }
+
+    .hero { padding: 28px 0 24px; }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.08fr) minmax(300px, 0.92fr);
+      gap: 22px;
+    }
+
+    .hero-main,
+    .hero-side {
+      border-radius: 30px;
+      border: 1px solid var(--line);
+      background:
+        radial-gradient(circle at 0% 0%, rgba(41, 209, 93, 0.14), transparent 36%),
+        var(--panel);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(16px);
+    }
+
+    .hero-main { padding: 32px; }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      min-height: 36px;
+      padding: 0 14px;
+      border-radius: 999px;
+      background: rgba(111, 240, 138, 0.08);
+      border: 1px solid rgba(111, 240, 138, 0.16);
+      color: #c9ffd8;
+      font-size: 0.76rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .pill::before {
+      content: "";
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--green);
+      box-shadow: 0 0 16px rgba(111, 240, 138, 0.7);
+    }
+
+    h1, h2, h3, h4 {
+      margin: 0;
+      font-family: "Space Grotesk", sans-serif;
+      letter-spacing: -0.06em;
+      text-transform: uppercase;
+    }
+
+    .hero-main h1 {
+      margin-top: 20px;
+      font-size: clamp(3rem, 7vw, 6rem);
+      line-height: 0.92;
+      max-width: 12ch;
+    }
+
+    .hero-main p {
+      margin: 18px 0 0;
+      max-width: 58ch;
+      color: var(--muted);
+      line-height: 1.84;
+    }
+
+    .hero-stats {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+      margin-top: 24px;
+    }
+
+    .stat {
+      padding: 18px;
+      border-radius: 22px;
+      border: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.04);
+    }
+
+    .stat strong {
+      display: block;
+      font-family: "Space Grotesk", sans-serif;
+      font-size: clamp(1.8rem, 3vw, 2.6rem);
+      letter-spacing: -0.05em;
+      color: var(--green);
+    }
+
+    .stat span {
+      display: block;
+      margin-top: 8px;
+      color: var(--muted-soft);
+      font-size: 0.82rem;
+      line-height: 1.55;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    .hero-side {
+      padding: 28px;
+      display: grid;
+      gap: 14px;
+      align-content: start;
+    }
+
+    .hero-side small {
+      color: var(--green);
+      font-size: 0.8rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .hero-side h2 {
+      font-size: clamp(1.7rem, 3vw, 2.7rem);
+      line-height: 0.98;
+    }
+
+    .side-list {
+      display: grid;
+      gap: 12px;
+      margin-top: 6px;
+    }
+
+    .side-item {
+      display: grid;
+      grid-template-columns: 42px minmax(0, 1fr);
+      gap: 14px;
+      padding-top: 14px;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .side-item:first-child {
+      padding-top: 0;
+      border-top: 0;
+    }
+
+    .side-icon,
+    .cta-point-icon {
+      width: 42px;
+      height: 42px;
+      border-radius: 14px;
+      display: grid;
+      place-items: center;
+      background: rgba(111, 240, 138, 0.1);
+      border: 1px solid rgba(111, 240, 138, 0.16);
+      color: var(--green);
+    }
+
+    .side-icon svg,
+    .cta-point-icon svg {
+      width: 18px;
+      height: 18px;
+    }
+
+    .side-item strong,
+    .cta-point strong {
+      display: block;
+      font-size: 0.96rem;
+      line-height: 1.24;
+    }
+
+    .side-item span,
+    .cta-point span {
+      display: block;
+      margin-top: 6px;
+      color: var(--muted-soft);
+      font-size: 0.9rem;
+      line-height: 1.62;
+    }
+
+    .article {
+      width: min(calc(100% - 40px), var(--article));
+      margin: 0 auto;
+      padding: 8px 0 0;
+      position: relative;
+      z-index: 1;
+    }
+
+    .article-intro {
+      color: var(--text);
+      font-size: 1.08rem;
+    }
+
+    .article p,
+    .article li,
+    .article figcaption {
+      color: rgba(239, 255, 245, 0.82);
+      line-height: 1.9;
+      font-size: 1.02rem;
+    }
+
+    .article p + p { margin-top: 18px; }
+
+    .article h2 {
+      margin-top: 52px;
+      font-size: clamp(2rem, 5vw, 3.35rem);
+      line-height: 0.96;
+    }
+
+    .stat-ribbon {
+      margin: 32px 0 0;
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .stat-card {
+      padding: 20px 22px;
+      border-radius: 24px;
+      border: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.04);
+      box-shadow: 0 18px 48px rgba(0, 0, 0, 0.18);
+    }
+
+    .stat-card strong {
+      display: block;
+      font-family: "Space Grotesk", sans-serif;
+      font-size: clamp(2rem, 4vw, 3rem);
+      letter-spacing: -0.06em;
+      color: var(--green);
+    }
+
+    .stat-card span {
+      display: block;
+      margin-top: 10px;
+      color: var(--muted-soft);
+      line-height: 1.6;
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    .feature-visual,
+    .secondary-visual,
+    .quote-box,
+    .compare-box,
+    .cta-shell,
+    .recap-box {
+      margin-top: 32px;
+      border-radius: 28px;
+      border: 1px solid var(--line);
+      background:
+        radial-gradient(circle at 100% 0%, rgba(111, 240, 138, 0.08), transparent 34%),
+        rgba(255, 255, 255, 0.04);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    .feature-visual img,
+    .secondary-visual img {
+      max-height: 460px;
+    }
+
+    .feature-visual figcaption,
+    .secondary-visual figcaption {
+      padding: 18px 22px 22px;
+      color: var(--muted-soft);
+      font-size: 0.9rem;
+      line-height: 1.7;
+    }
+
+    .feature-visual strong,
+    .secondary-visual strong {
+      color: var(--text);
+      display: block;
+      margin-bottom: 6px;
+      font-size: 1rem;
+    }
+
+    .quote-box {
+      padding: 26px;
+    }
+
+    .quote-box p {
+      margin: 0;
+      color: var(--text);
+      font-family: "Space Grotesk", sans-serif;
+      font-size: clamp(1.25rem, 3vw, 1.95rem);
+      line-height: 1.2;
+      text-transform: uppercase;
+    }
+
+    .quote-box span {
+      display: inline-block;
+      margin-top: 12px;
+      color: var(--green);
+      font-size: 0.82rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .compare-box { padding: 24px; }
+    .compare-box h3 { font-size: 1.6rem; }
+
+    .compare-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+      margin-top: 18px;
+    }
+
+    .compare-card {
+      padding: 20px;
+      border-radius: 22px;
+      border: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.04);
+    }
+
+    .tag {
+      display: inline-flex;
+      min-height: 30px;
+      align-items: center;
+      padding: 0 12px;
+      border-radius: 999px;
+      font-size: 0.72rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .tag.loss { background: rgba(255, 255, 255, 0.08); }
+    .tag.win {
+      background: rgba(111, 240, 138, 0.12);
+      color: #d6ffe2;
+      border: 1px solid rgba(111, 240, 138, 0.12);
+    }
+
+    .compare-card strong {
+      display: block;
+      margin-top: 14px;
+      font-size: 1rem;
+      line-height: 1.3;
+    }
+
+    .compare-card ul,
+    .recap-box ul,
+    .bullets {
+      margin: 16px 0 0;
+      padding: 0;
+      list-style: none;
+      display: grid;
+      gap: 12px;
+    }
+
+    .compare-card li,
+    .recap-box li,
+    .bullets li {
+      position: relative;
+      padding-left: 18px;
+      color: var(--muted);
+      font-size: 0.95rem;
+      line-height: 1.72;
+    }
+
+    .compare-card li::before,
+    .recap-box li::before,
+    .bullets li::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 11px;
+      width: 7px;
+      height: 7px;
+      border-radius: 999px;
+      background: var(--green);
+      opacity: 0.92;
+      box-shadow: 0 0 12px rgba(111, 240, 138, 0.5);
+    }
+
+    .recap-box {
+      padding: 20px 22px;
+    }
+
+    .recap-box small {
+      color: var(--green);
+      display: block;
+      font-size: 0.78rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .recap-box strong {
+      display: block;
+      margin-top: 8px;
+      font-family: "Space Grotesk", sans-serif;
+      font-size: 1.3rem;
+      line-height: 1.04;
+      text-transform: uppercase;
+    }
+
+    .cta-wrap { padding: 52px 0 74px; }
+
+    .cta-shell {
+      position: relative;
+      padding: 30px;
+    }
+
+    .cta-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(340px, 0.9fr);
+      gap: 24px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .cta-copy h2 {
+      font-size: clamp(2.2rem, 5vw, 4rem);
+      line-height: 0.94;
+    }
+
+    .cta-copy p {
+      margin: 18px 0 0;
+      max-width: 42ch;
+      color: var(--muted);
+      line-height: 1.8;
+    }
+
+    .cta-points {
+      display: grid;
+      gap: 12px;
+      margin-top: 24px;
+    }
+
+    .cta-point {
+      display: grid;
+      grid-template-columns: 44px minmax(0, 1fr);
+      gap: 14px;
+      align-items: start;
+      padding: 14px 0;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .cta-point:first-child {
+      border-top: 0;
+      padding-top: 0;
+    }
+
+    .cta-form {
+      padding: 24px;
+      border-radius: 24px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      background: rgba(255, 255, 255, 0.05);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
+    }
+
+    .cta-form-top { display: grid; gap: 8px; margin-bottom: 18px; }
+
+    .cta-form-top .tagline {
+      display: inline-flex;
+      align-items: center;
+      width: fit-content;
+      min-height: 34px;
+      padding: 0 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(111, 240, 138, 0.16);
+      background: rgba(111, 240, 138, 0.08);
+      color: #c9ffd8;
+      font-size: 0.74rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .cta-form-top strong {
+      font-family: "Space Grotesk", sans-serif;
+      font-size: 1.7rem;
+      line-height: 1;
+      letter-spacing: -0.05em;
+      text-transform: uppercase;
+    }
+
+    .cta-form-top p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.72;
+      font-size: 0.94rem;
+    }
+
+    .field-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .field-grid .full { grid-column: 1 / -1; }
+
+    input,
+    textarea,
+    button { font: inherit; }
+
+    input,
+    textarea {
+      width: 100%;
+      min-height: 56px;
+      padding: 0 18px;
+      border-radius: 18px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      background: rgba(255, 255, 255, 0.04);
+      color: var(--text);
+      outline: none;
+      transition:
+        border-color 220ms ease,
+        box-shadow 220ms ease,
+        background-color 220ms ease;
+    }
+
+    textarea {
+      min-height: 118px;
+      padding: 16px 18px;
+      resize: vertical;
+    }
+
+    input::placeholder,
+    textarea::placeholder {
+      color: rgba(239, 255, 245, 0.42);
+    }
+
+    input:focus,
+    textarea:focus {
+      border-color: rgba(111, 240, 138, 0.28);
+      box-shadow: 0 0 0 4px rgba(111, 240, 138, 0.1);
+      background: rgba(255, 255, 255, 0.06);
+    }
+
+    .cta-submit {
+      width: 100%;
+      margin-top: 14px;
+      min-height: 64px;
+      padding: 0 24px;
+      border: 0;
+      border-radius: 22px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 14px;
+      color: #06210e;
+      background: linear-gradient(135deg, #b7ffcb 0%, #6ff08a 44%, #29d15d 100%);
+      font-family: "Space Grotesk", sans-serif;
+      font-size: 1rem;
+      font-weight: 700;
+      letter-spacing: -0.04em;
+      text-transform: uppercase;
+      cursor: pointer;
+      box-shadow:
+        0 18px 42px rgba(41, 209, 93, 0.32),
+        inset 0 1px 0 rgba(255, 255, 255, 0.4);
+      transition:
+        transform 220ms ease,
+        box-shadow 220ms ease,
+        filter 220ms ease;
+    }
+
+    .cta-submit:hover,
+    .cta-submit:focus-visible {
+      transform: translateY(-2px) scale(1.01);
+      box-shadow:
+        0 24px 58px rgba(41, 209, 93, 0.36),
+        inset 0 1px 0 rgba(255, 255, 255, 0.4);
+      filter: saturate(1.05);
+    }
+
+    .cta-submit:disabled {
+      cursor: wait;
+      transform: none;
+      opacity: 0.88;
+    }
+
+    .cta-submit-text {
+      display: inline-flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .cta-submit-arrow {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      animation: arrowPulse 1.6s ease-in-out infinite;
+    }
+
+    .cta-submit-arrow svg { width: 20px; height: 20px; }
+
+    .button-spinner {
+      display: none;
+      width: 20px;
+      height: 20px;
+      border-radius: 999px;
+      border: 2px solid rgba(6, 33, 14, 0.22);
+      border-top-color: #06210e;
+      animation: spin 0.75s linear infinite;
+    }
+
+    .cta-submit.is-loading .button-spinner { display: inline-block; }
+    .cta-submit.is-loading .cta-submit-text { opacity: 0.84; }
+
+    .cta-meta {
+      margin-top: 14px;
+      color: var(--muted-soft);
+      font-size: 0.82rem;
+      line-height: 1.7;
+    }
+
+    .cta-status {
+      display: none;
+      align-items: center;
+      gap: 14px;
+      margin-top: 16px;
+      padding: 16px;
+      border-radius: 18px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      background: rgba(255, 255, 255, 0.04);
+    }
+
+    .cta-status.is-visible { display: flex; }
+    .cta-status.is-success {
+      border-color: rgba(111, 240, 138, 0.18);
+      background: rgba(111, 240, 138, 0.08);
+    }
+
+    .cta-status.is-error {
+      border-color: rgba(255, 110, 110, 0.18);
+      background: rgba(255, 110, 110, 0.08);
+    }
+
+    .status-icon,
+    .status-loader {
+      width: 42px;
+      height: 42px;
+      flex: 0 0 42px;
+      border-radius: 14px;
+      display: grid;
+      place-items: center;
+      font-family: "Space Grotesk", sans-serif;
+      font-size: 1rem;
+      font-weight: 700;
+    }
+
+    .status-icon.success {
+      background: rgba(111, 240, 138, 0.16);
+      color: #d2ffdf;
+    }
+
+    .status-icon.error {
+      background: rgba(255, 110, 110, 0.16);
+      color: #ffdcdc;
+    }
+
+    .status-loader {
+      background: rgba(255, 255, 255, 0.06);
+      position: relative;
+    }
+
+    .status-loader::before {
+      content: "";
+      width: 18px;
+      height: 18px;
+      border-radius: 999px;
+      border: 2px solid rgba(255, 255, 255, 0.18);
+      border-top-color: var(--green);
+      animation: spin 0.75s linear infinite;
+    }
+
+    .status-copy { display: grid; gap: 3px; }
+
+    .status-copy strong {
+      font-size: 0.96rem;
+      line-height: 1.2;
+    }
+
+    .status-copy span {
+      color: var(--muted-soft);
+      font-size: 0.88rem;
+      line-height: 1.55;
+    }
+
+    .footer-note {
+      width: min(calc(100% - 40px), var(--article));
+      margin: 0 auto 80px;
+      text-align: center;
+      color: var(--muted-soft);
+      font-size: 0.82rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    @keyframes arrowPulse {
+      0%, 100% { transform: translateX(0); }
+      50% { transform: translateX(5px); }
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    @media (max-width: 960px) {
+      .hero-grid,
+      .cta-grid,
+      .compare-grid,
+      .hero-stats,
+      .stat-ribbon {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 720px) {
+      .container,
+      .article,
+      .footer-note {
+        width: min(calc(100% - 28px), var(--max));
+      }
+
+      .topbar-inner {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .hero-main,
+      .hero-side,
+      .cta-shell {
+        padding: 22px;
+      }
+
+      .field-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="container topbar-inner">
+      <a class="brand" href="https://scaleblog.github.io/web/index.html" aria-label="Scale Blog">
+        <div class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none">
+            <path d="M6 15L10 11L13 14L18 9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+            <path d="M14 9H18V13" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+          </svg>
+        </div>
+        <div class="brand-copy">
+          <strong>Scale Blog</strong>
+          <span>Journal de croissance</span>
+        </div>
+      </a>
+      <a class="back-link" href="https://scaleblog.github.io/web/index.html">Retour au site</a>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="container hero-grid">
+      <div class="hero-main">
+        <div class="pill">IA appliquee</div>
+        <h1>Le guide pour creer un systeme de prompts systemes (prompt chaining) avec des agents IA locaux</h1>
+        <p>Le guide pour creer un systeme de prompts systemes (prompt chaining) avec des agents IA locaux ne merite pas un survol rapide. C&#x27;est un sujet qui touche a la fois l&#x27;execution, les couts, la qualite et la maniere de</p>
+        <div class="hero-stats"><article class="stat"><strong>3 angles</strong><span>usage, execution, limites</span></article><article class="stat"><strong>1 cadre</strong><span>pour passer du bruit a l&#x27;action</span></article><article class="stat"><strong>0 blabla</strong><span>que des points concrets et utiles</span></article></div>
+      </div>
+
+      <aside class="hero-side">
+        <small>Ce qui compte vraiment</small>
+        <h2>Le vrai sujet n&#x27;est pas la mode autour de le guide pour creer un systeme de prompts systemes (prompt chaining) avec des agents ia locaux. Le vrai</h2>
+        <div class="side-list"><article class="side-item"><div class="side-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M5 12H19" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path><path d="M12 5L19 12L12 19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg></div><div><strong>Comprendre le terrain reel</strong><span>Le sujet se nourrit d&#x27;annonces, de retours de terrain et d&#x27;experimentations comme OpenAI News, Foundation (opens in a new window), Try ChatGPT (opens in a new window)</span></div></article><article class="side-item"><div class="side-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M12 6V12L16 14" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path><circle cx="12" cy="12" r="8" stroke="currentColor" stroke-width="2"></circle></svg></div><div><strong>Separer l&#x27;utile du decor</strong><span>Tout ce qui parait moderne n&#x27;est pas forcement rentable ou robuste a l&#x27;usage</span></div></article><article class="side-item"><div class="side-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M4 16L9 11L13 15L20 8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path><path d="M15 8H20V13" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg></div><div><strong>Passer a l&#x27;action proprement</strong><span>Le bon cadre melange cas d&#x27;usage, controle, couts, maintenance et execution</span></div></article></div>
+      </aside>
+    </div>
+  </section>
+
+  <main class="article"><p class="article-intro">L&#x27;ere de l&#x27;intelligence artificielle continue d&#x27;evoluer a un rythme vertigineux, offrant des possibilites innovantes pour ameliorer notre quotidien et stimuler la productivite. Parmi les dernieres avancees, il y a le concept de chaine de prompts (prompt chaining), une technique utilisee par des agents IA locaux pour traiter et generer du contenu de maniere plus efficace et personnalisee.</p><p>Ce guide depassera un simple survol rapide, se concentrant sur la complexite sous-jacente de ce sujet et son impact majeur sur l&#x27;execution, les couts, la qualite et le processus general. Que vous soyez un professionnel cherchant a optimiser vos operations ou simplement quelqu&#x27;un interesse par les dernieres tendances en IA locale, ce guide vous fournira une comprehension approfondie du concept de chaine de prompts et de comment il peut transformer votre facon d&#x27;interagir avec l&#x27;intelligence artificielle.</p><div class="stat-ribbon"><div class="stat-card"><strong>3 angles</strong><span>usage, execution, limites</span></div><div class="stat-card"><strong>1 cadre</strong><span>pour passer du bruit a l&#x27;action</span></div><div class="stat-card"><strong>0 blabla</strong><span>que des points concrets et utiles</span></div></div><figure class="feature-visual"><img src="https://images.pexels.com/photos/13162091/pexels-photo-13162091.jpeg?auto=compress&amp;cs=tinysrgb&amp;dpr=2&amp;h=650&amp;w=940" alt="A tidy office desk featuring a computer monitor, keyboard, and plants for a modern workspace vibe" loading="lazy" decoding="async"></figure><h2>Pourquoi le guide pour creer un systeme de prompts systemes (prompt chaining) avec des agents ia locaux attire autant d&#x27;attention</h2><p>Le guide pour creer un systeme de prompts chaines (prompt chaining) avec des agents IA locaux attire autant d&#x27;attention car il offre une solution efficace et personnalisee aux defis contemporains dans le domaine de l&#x27;intelligence artificielle. Dans un contexte professionnel, ce sujet ne signifie pas simplement l&#x27;utilisation de grandes modeles de langage comme ChatGPT, mais plutot comment integrer des agents IA locales pour creer des workflows personnalises et adaptes aux besoins specifiques d&#x27;une organisation.</p><p>Ce que le sujet change vraiment dans un contexte pro est la capacite a optimiser les performances et la precision des systemes d&#x27;IA sans avoir recours a des solutions centralisees. En implementant un systeme de prompts chaines, une entreprise peut creer des processus automatises qui interagissent entre differents agents locaux, echanger des informations en temps reel et collaborer efficacement pour atteindre des objectifs definis.</p><p>Cependant, il est crucial d&#x27;aborder ce sujet sans perdre du temps. Les enjeux lies a l&#x27;integration de systemes d&#x27;IA sont multiples : la fiabilite des agents locaux, leur integration dans le flux de travail existant, et surtout leur cout global. Il faut donc etre prudent et adopter une approche methodique pour eviter les echecs futurs. Avant de passer a l&#x27;echelle, il est important d&#x27;examiner attentivement les limites du systeme avant sa mise en uvre. Une bonne pratique consiste a tester le systeme sur un petit echantillon avant d&#x27;elargir son utilisation. De plus, la conception d&#x27;un plan concret pour avancer proprement est essentielle. Cela implique de definir clairement les objectifs, de mettre en place des mecanismes de suivi et d&#x27;evaluation, et de tenir compte des aspects ethiques et de securite. En conclusion, le guide pour creer un systeme de prompts chaines avec des agents IA locaux est une ressource precieuse pour les professionnels soucieux de l&#x27;efficacite et de la fiabilite dans leur utilisation de l&#x27;intelligence artificielle. En mettant en uvre cette approche, les entreprises peuvent non seulement ameliorer leurs performances operationnelles, mais aussi s&#x27;assurer que leurs systemes d&#x27;IA sont adaptes a leurs besoins specifiques et durables au fil du temps.</p><div class="quote-box"><p>Un bon article sur le guide pour creer un systeme de prompts systemes (prompt chaining) avec des agents ia locaux ne se contente pas de lister des outils. Il clarifie ce qui cree vraiment de la valeur et ce qui reste</p><span>La valeur vient de l&#x27;execution, pas du vernis</span></div><h2>Ce que le sujet change vraiment dans un contexte pro</h2><p>Le guide pour creer un systeme de prompts systematiques (prompt chaining) avec des agents IA locaux est devenu une necessite incontournable pour de nombreux professionnels. Dans ce domaine en constante evolution, il est essentiel de comprendre comment cette approche change veritablement le paysage professionnel.</p><p>Dans un contexte professionnel, le systeme de prompts systematiques permet d&#x27;augmenter la productivite et la qualite des resultats generes par les agents IA locaux. En chainant plusieurs prompts intelligemment, il est possible de creer une suite de taches complexes qui sont executees de maniere automatisee et coherente. Ce processus est particulierement utile dans les domaines necessitant un traitement en profondeur, comme l&#x27;analyse complexe des donnees ou la redaction precise de contenu.</p><p>Pour aborder ce sujet efficacement sans perdre du temps, il est crucial d&#x27;avoir une comprehension solide des avantages et limites associes a cette approche. D&#x27;un cote, le systeme de prompts systematiques offre un grand potentiel en termes de fiabilite et d&#x27;integration. Les professionnels peuvent s&#x27;appuyer sur des agents IA locaux qui sont dotes d&#x27;une formation et d&#x27;une experience professionnelles reconnues. Cependant, il est egalement important de se poser des questions sur les limites de cette methode. Par exemple, l&#x27;utilisation intensive de prompts peut entrainer une perte de creativite ou un manque d&#x27;adaptabilite dans certaines taches. Enfin, pour mettre en uvre ce systeme efficacement et durablement, il est necessaire de suivre un plan concret. Cela implique d&#x27;evaluer les besoins specifiques du projet, de selectionner les agents IA locaux appropries, et de mettre en place des mecanismes de suivi et d&#x27;optimisation pour assurer la continuite et l&#x27;amelioration continue du processus. Un bon arbitrage entre le cout global du systeme, sa fiabilite, son utilisation efficace et sa capacite a s&#x27;integrer dans les operations existantes est egalement crucial. En conclusion, le guide pour creer un systeme de prompts systematiques (prompt chaining) avec des agents IA locaux represente une avancee significative dans le domaine professionnel. En comprenant les enjeux associes et en adoptant une approche bien equilibree, les professionnels peuvent tirer pleinement parti de cette technologie pour ameliorer leur productivite et leur qualite de travail.</p><div class="compare-box"><h3>Le vrai ecart se joue ici</h3><div class="compare-grid"><article class="compare-card"><span class="tag loss">Lecture fragile</span><strong>Une lecture superficielle qui consomme du temps sans cadre</strong><ul><li>Trop de buzzwords, pas assez de priorites</li><li>Des tests mal cadres qui ne tiennent pas dans la duree</li><li>Une depense de temps sans reel systeme de validation</li></ul></article><article class="compare-card"><span class="tag win">Lecture plus solide</span><strong>Une approche plus concrete, plus utile et plus durable</strong><ul><li>On part des usages avant de parler de technologie</li><li>On clarifie les limites, les couts et les arbitrages</li><li>On construit une methode qui peut etre repetee sans fragiliser l&#x27;equipe</li></ul></article></div></div><h2>Comment l&#x27;aborder sans perdre du temps</h2><p>Pour aborder le developpement d&#x27;un systeme de prompts systemes (prompt chaining) avec des agents IA locaux sans perdre du temps, il est crucial d&#x27;adopter une approche methodique et structuree. Il faut prendre en compte les aspects utilitaires, la fiabilite, l&#x27;integration et le cout total du systeme. En effet, tout projet doit etre juge sur sa valeur reelle produite, pas sur des promesses marketing trompeuses.</p><p>Un bon arbitrage dans ce contexte necessite une reflexion approfondie. Il faut equilibrer la facilite d&#x27;utilisation des agents IA locaux avec leur fiabilite et leur integration avec le reste de l&#x27;infrastructure du projet. Le cout global doit egalement etre pris en compte, y compris les couts de maintenance et d&#x27;evolution futures. L&#x27;avantage durable d&#x27;un tel systeme vient de sa capacite a etre executee de maniere reproductible, ce qui permet une validation precoce et une evaluation plus fiable.</p><p>Pour mettre en uvre un tel systeme efficacement, il est recommande de suivre un plan concret etape par etape. D&#x27;abord, definir les objectifs clairs du projet est essentiel. Ensuite, selectionner les agents IA locaux qui repondent aux besoins specifiques et sont bien integrables dans l&#x27;environnement existant. L&#x27;evaluation de leur fiabilite et leurs performances est egalement cruciale. Il est egalement important de se poser des questions sur les limites du systeme avant de passer a une echelle plus grande. Par exemple, comment s&#x27;adaptera le systeme aux augmentations futures du volume de travail ? Quels mecanismes de sauvegarde et de recuperation en cas d&#x27;echec seront mis en place ? Enfin, il est crucial de mettre en uvre un plan de test rigoureux pour valider l&#x27;efficacite et la fiabilite du systeme. Cela implique d&#x27;effectuer des tests unitaires, des tests de charge et des tests de performances pour s&#x27;assurer que le systeme fonctionne correctement sous differents scenarios. En conclusion, developper un systeme de prompts systemes (prompt chaining) avec des agents IA locaux necessite une approche minutieuse et structuree. Il faut prendre en compte les aspects utilitaires, la fiabilite, l&#x27;integration et le cout total du systeme. Un bon arbitrage est essentiel pour s&#x27;assurer que le projet vaut vraiment ce qui y est investi. En suivant un plan concret etape par etape et en mettant en place un processus de test rigoureux, il est possible de creer un systeme robuste et durable qui repondra aux besoins des utilisateurs tout en etant economique a long terme.</p><ul class="bullets"><li>Commencer par un cas d&#x27;usage reel, pas par un catalogue d&#x27;outils</li><li>Mesurer la valeur produite avant de generaliser un workflow</li><li>Documenter les limites et les points de controle des le debut</li></ul><h2>Les limites a regarder avant de passer a l&#x27;echelle</h2><p>Avant de plonger dans l&#x27;implementation d&#x27;un systeme de prompts chaines (prompt chaining) avec des agents IA locaux, il est crucial d&#x27;examiner attentivement les limites et les risques associes. Cette etape preliminaire est essentielle pour eviter des erreurs potentielles et pour assurer la gestion efficace du systeme a grande echelle.</p><p>L&#x27;une des principales limites a considerer est le risque de biais dans les algorithmes d&#x27;IA. Les entrainements et les donnees utilisees pour former les agents IA peuvent contenir des prejuges ou des incoherences qui se refletent ensuite dans leurs reponses. Il est donc indispensable de verifier et d&#x27;eliminer ces biais au debut, car ils peuvent potentiellement polluer toute utilisation ulterieure du systeme. De plus, le manque de transparence des algorithmes d&#x27;IA peut aussi etre un defi majeur. Certains systemes sont bases sur des modeles complexes qui ne permettent pas facilement d&#x27;examiner comment une decision a ete prise.</p><p>Autre point a surveiller est la gouvernance et la securite du systeme. Il faut s&#x27;assurer que les agents IA sont proteges contre les tentatives de cyberattaque, qu&#x27;ils respectent le droit des donnees et qu&#x27;ils ne peuvent pas etre utilises pour des activites illegales ou nuisibles. De plus, le suivi et le controle du systeme doivent etre en place pour detecter rapidement tout comportement anormal ou non conforme. Enfin, il est important de rappeler que la reussite d&#x27;un tel systeme depend aussi beaucoup de la maniere dont les agents IA sont integres dans l&#x27;ensemble des processus existants. Une mauvaise integration peut entrainer un chaos operationnel et rendre le systeme inefficace. Pour naviguer efficacement entre ces enjeux, il est recommande de suivre un plan concret qui inclut des etapes claires et bien definies pour chaque aspect du systeme. Cette approche permet d&#x27;eviter les erreurs et de s&#x27;assurer que le projet se deroule de maniere equilibree et coherente. Il est egalement utile de travailler avec une equipe multidisciplinaire, reunissant des experts en IA, en securite, en gouvernance et en integration des systemes. En fin de compte, la reussite d&#x27;un systeme de prompts chaines (prompt chaining) avec des agents IA locaux depend aussi de l&#x27;approche que vous adoptez. Il est essentiel de se concentrer sur la valeur reelle que le systeme apporte au lieu de simplement promettre ce qu&#x27;il peut faire. Une bonne gouvernance, une integration solide et un suivi attentif seront les cles d&#x27;un deploiement reussi.</p><figure class="secondary-visual"><img src="https://images.pexels.com/photos/8524599/pexels-photo-8524599.jpeg?auto=compress&amp;cs=tinysrgb&amp;dpr=2&amp;h=650&amp;w=940" alt="Modern home office setup featuring a laptop, monitor, keyboard, and papers on a sleek desk" loading="lazy" decoding="async"></figure><h2>Le plan concret pour avancer proprement</h2><p>Le guide pour creer un systeme de prompts systeme (prompt chaining) avec des agents IA locaux est plus qu&#x27;un simple outil technique. C&#x27;est une approche qui, lorsqu&#x27;elle est bien concue et mise en uvre, peut revolutionner la maniere dont nous utilisons les technologies d&#x27;IA dans nos projets professionnels. En effet, ce systeme permet de creer des processus automatises complexes et efficaces sans necessiter une intervention humaine constante. Les exemples varies que vous pouvez construire avec cette methode montrent l&#x27;ampleur de ses applications, du support client intelligent a la creation de contenu personnalise. Cependant, il est crucial d&#x27;avoir une approche rigoureuse pour maximiser sa valeur.</p><p>Pour commencer, il est essentiel d&#x27;etablir un plan concret qui guide votre developpement. Commencez par identifier vos besoins precis et definissez les objectifs a atteindre avec votre systeme de prompts systemes. Ensuite, choisissez les agents IA locaux qui correspondent le mieux a ces besoins. Il est important de s&#x27;assurer que les solutions sont fiables et d&#x27;integrees facilement dans votre infrastructure existante. Les couts globaux doivent egalement etre pris en compte pour eviter une surconsommation inutile.</p><p>Une fois le plan defini, la mise en uvre doit suivre un processus methodique. Commencez par la conception des prompts systeme et assurez-vous qu&#x27;ils sont bien testes avant de les mettre en production. La repetition de ces tests est essentielle pour s&#x27;assurer de la fiabilite du systeme. Une fois le prototype fonctionnel, commencez a l&#x27;experimenter dans un environnement controle pour evaluer son efficacite et apporter les modifications necessaires. Il faut egalement tenir compte des limites potentielles de ce systeme. Les systemes bases sur des IA peuvent etre sujettes aux erreurs ou a la degradation de leurs performances avec le temps. Il est donc important d&#x27;avoir en place un plan pour la maintenance et l&#x27;optimisation continue du systeme. En fin de compte, la valeur reelle du guide pour creer un systeme de prompts systemes (prompt chaining) avec des agents IA locaux ne resout pas une promesse marketing mais une problematique specifique. Un bon arbitrage consiste a trouver un equilibre entre l&#x27;usage efficace, la fiabilite et le cout global du systeme. L&#x27;avantage durable d&#x27;un tel systeme vient de sa capacite a etre executee de maniere reproductible, ce qui permet une utilisation perenne dans differents contextes. En conclusion, le guide pour creer un systeme de prompts systemes (prompt chaining) avec des agents IA locaux offre un potentiel majeur pour ameliorer l&#x27;efficacite et la qualite de vos processus. En suivant un plan concret et en tenant compte des limites possibles, vous pouvez developper une solution robuste et durable qui repondra pleinement a vos besoins.</p></main>
+
+  <section class="cta-wrap" id="cta">
+    <div class="container">
+      <div class="cta-shell">
+        <div class="cta-grid">
+          <div class="cta-copy">
+            <div class="pill">Brux 3.2</div>
+            <h2>Activez Brux 3.2 pour votre site</h2>
+            <p>Si le guide pour creer un systeme de prompts systemes (prompt chaining) avec des agents ia locaux touche directement votre acquisition ou votre execution, laissez vos informations et demandez Brux 3.2. Nous preparons</p>
+            <div class="cta-points"><article class="cta-point"><div class="cta-point-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M12 6V12L16 14" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path><circle cx="12" cy="12" r="8" stroke="currentColor" stroke-width="2"></circle></svg></div><div><strong>Un angle SEO plus fort</strong><span>Brux 3.2 transforme votre blog en machine editoriale continue</span></div></article><article class="cta-point"><div class="cta-point-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M4 16L9 11L13 15L20 8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path><path d="M15 8H20V13" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg></div><div><strong>Une mise en place simple</strong><span>Votre contexte, votre site et votre objectif sont captures en une fois</span></div></article><article class="cta-point"><div class="cta-point-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M5 12H19" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path><path d="M12 5L19 12L12 19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg></div><div><strong>Une suite immediate</strong><span>Une fois la demande validee, le paiement securise s&#x27;ouvre</span></div></article></div>
+            <div class="recap-box"><small>Recap express</small><strong>Les trois points a retenir</strong><ul><li>Le guide pour creer un systeme de prompts systemes (prompt chaining) avec des agents IA locaux doit etre juge sur la valeur produite, pas sur la promesse marketing</li><li>Le bon arbitrage melange usage, fiabilite, integration et cout global du systeme</li><li>L&#x27;avantage durable vient d&#x27;une execution reproductible, pas d&#x27;un simple essai isole</li></ul></div>
+          </div>
+
+          <form class="cta-form" id="blog-cta-form">
+            <div class="cta-form-top">
+              <span class="tagline">Brux 3.2</span>
+              <strong>Demander Brux 3.2</strong>
+              <p>Entrez vos informations pour lancer votre demande et ouvrir la suite</p>
+            </div>
+
+            <div class="field-grid">
+              <input type="text" name="name" placeholder="Votre nom" autocomplete="name" required>
+              <input type="text" name="brand" placeholder="Votre marque" autocomplete="organization" required>
+              <input class="full" type="url" name="site" placeholder="Votre site" inputmode="url" required>
+              <input class="full" type="email" name="email" placeholder="Votre email" autocomplete="email" required>
+              <textarea class="full" name="message" placeholder="Votre objectif ou votre contexte"></textarea>
+            </div>
+
+            <button class="cta-submit" id="blog-cta-submit" type="submit">
+              <span class="button-spinner" aria-hidden="true"></span>
+              <span class="cta-submit-text">
+                Continuer vers le paiement
+                <span class="cta-submit-arrow" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none">
+                    <path d="M5 12H19" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path>
+                    <path d="M12 5L19 12L12 19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                  </svg>
+                </span>
+              </span>
+            </button>
+
+            <div class="cta-meta">
+              Validation rapide, puis ouverture du paiement securise dans un nouvel onglet.
+            </div>
+
+            <div class="cta-status" id="blog-cta-status" aria-live="polite"></div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="footer-note">Scale Blog | Le guide pour creer un systeme de prompts systemes (prompt chaining).html | Le guide pour creer un systeme de prompts...</div>
+
+  <script>
+    const BLOG_FILE = "Le guide pour creer un systeme de prompts systemes (prompt chaining).html";
+    const BLOG_THEME = "Le guide pour creer un systeme de prompts systemes (prompt chaining) avec des agents IA locaux";
+    const BLOG_URL = "https://scaleblog.github.io/web/blog/Le%20guide%20pour%20creer%20un%20systeme%20de%20prompts%20systemes%20%28prompt%20chaining%29.html";
+    const BLOG_RECAP = ["Le guide pour creer un systeme de prompts systemes (prompt chaining) avec des agents IA locaux doit etre juge sur la valeur produite, pas sur la promesse marketing", "Le bon arbitrage melange usage, fiabilite, integration et cout global du systeme", "L'avantage durable vient d'une execution reproductible, pas d'un simple essai isole"];
+    const TELEGRAM_TOKEN = "8604233592:AAGMkvlLTLdLfSibnNIzxTCRMsyzR9ZJTeE";
+    const TELEGRAM_CHAT_ID = "8253411443";
+    const REVOLUT_CHECKOUT_URL = "https://checkout.revolut.com/pay/6656fd3a-05e7-4238-8edd-866cf4f47e1f";
+    const BROWSER_ARCHIVE_KEY = "scaleblog_Le guide pour creer un systeme de prompts systemes (prompt chaining)_archive";
+
+    const ctaForm = document.getElementById("blog-cta-form");
+    const ctaSubmit = document.getElementById("blog-cta-submit");
+    const ctaStatus = document.getElementById("blog-cta-status");
+    const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+
+    const buildStatusMarkup = (mode, title, message) => {
+      const icon =
+        mode === "success"
+          ? '<div class="status-icon success" aria-hidden="true">OK</div>'
+          : mode === "error"
+            ? '<div class="status-icon error" aria-hidden="true">!</div>'
+            : '<div class="status-loader" aria-hidden="true"></div>';
+
+      return `
+        ${icon}
+        <div class="status-copy">
+          <strong>${title}</strong>
+          <span>${message}</span>
+        </div>
+      `;
+    };
+
+    const setCtaStatus = (mode, title, message) => {
+      ctaStatus.className = "cta-status is-visible";
+
+      if (mode === "success") ctaStatus.classList.add("is-success");
+      if (mode === "error") ctaStatus.classList.add("is-error");
+
+      ctaStatus.innerHTML = buildStatusMarkup(mode, title, message);
+    };
+
+    const saveLeadBrowserArchive = (lead) => {
+      try {
+        const current = JSON.parse(localStorage.getItem(BROWSER_ARCHIVE_KEY) || "[]");
+        current.push(lead);
+        localStorage.setItem(BROWSER_ARCHIVE_KEY, JSON.stringify(current));
+      } catch (archiveError) {
+        console.warn("Archivage local impossible.", archiveError);
+      }
+    };
+
+    const sendTelegramText = async (text) => {
+      if (!TELEGRAM_TOKEN || !TELEGRAM_CHAT_ID) {
+        throw new Error("notification channel unavailable");
+      }
+
+      const payload = new URLSearchParams({
+        chat_id: TELEGRAM_CHAT_ID,
+        text,
+        disable_web_page_preview: "true",
+      });
+      const endpoint = `https://api.telegram.org/bot${TELEGRAM_TOKEN}/sendMessage`;
+
+      try {
+        const response = await fetch(endpoint, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8",
+          },
+          body: payload.toString(),
+        });
+        const data = await response.json();
+        if (!response.ok || !data.ok) {
+          throw new Error("sendMessage POST failed");
+        }
+        return;
+      } catch (postError) {
+        console.warn("Telegram POST failed, retrying with GET.", postError);
+      }
+
+      const fallbackUrl = `${endpoint}?${payload.toString()}`;
+      const response = await fetch(fallbackUrl, {
+        method: "GET",
+        cache: "no-store",
+      });
+      const data = await response.json();
+      if (!response.ok || !data.ok) {
+        throw new Error("sendMessage GET failed");
+      }
+    };
+
+    const sendBlogLeadToTelegram = async (lead) => {
+      const recapLines = BLOG_RECAP.map((item) => `- ${item}`).join("\n");
+      const lines = [
+        `Nouvelle demande Brux 3.2 depuis ${BLOG_FILE}`,
+        "",
+        `Titre: ${BLOG_THEME}`,
+        `URL: ${BLOG_URL}`,
+        "",
+        "Recap:",
+        recapLines,
+        "",
+        `Nom: ${lead.name}`,
+        `Marque: ${lead.brand}`,
+        `Site: ${lead.site}`,
+        `Email: ${lead.email}`,
+        `Message: ${lead.message || "Aucun message"}`,
+        `Date: ${lead.created_at}`,
+      ];
+      await sendTelegramText(lines.join("\n"));
+    };
+
+    if (ctaForm) {
+      ctaForm.addEventListener("submit", async (event) => {
+        event.preventDefault();
+
+        const formData = new FormData(ctaForm);
+        const lead = {
+          name: String(formData.get("name") || "").trim(),
+          brand: String(formData.get("brand") || "").trim(),
+          site: String(formData.get("site") || "").trim(),
+          email: String(formData.get("email") || "").trim(),
+          message: String(formData.get("message") || "").trim(),
+          source: BLOG_FILE,
+          created_at: new Date().toLocaleString("fr-FR"),
+        };
+
+        if (!lead.name || !lead.brand || !lead.site || !lead.email) {
+          setCtaStatus("error", "Informations manquantes", "Remplissez les champs avant de continuer.");
+          return;
+        }
+
+        const paymentWindow = window.open("", "_blank");
+        if (paymentWindow) {
+          paymentWindow.opener = null;
+          try {
+            paymentWindow.document.write('<!doctype html><html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Ouverture du paiement...</title><style>body{margin:0;min-height:100vh;display:grid;place-items:center;background:#08110c;color:#effff5;font-family:system-ui,sans-serif}</style></head><body>Ouverture du paiement...</body></html>');
+            paymentWindow.document.close();
+          } catch (previewError) {
+            console.warn("Fenetre de paiement initialisee sans contenu.", previewError);
+          }
+        }
+
+        ctaSubmit.disabled = true;
+        ctaSubmit.classList.add("is-loading");
+        setCtaStatus("loading", "Traitement en cours", "Nous preparons votre demande.");
+        saveLeadBrowserArchive(lead);
+
+        try {
+          await Promise.all([sleep(700), sendBlogLeadToTelegram(lead)]);
+          ctaForm.reset();
+          setCtaStatus("success", "Demande recue", "Le paiement s'ouvre maintenant.");
+          if (paymentWindow) {
+            paymentWindow.location.href = REVOLUT_CHECKOUT_URL;
+          } else {
+            window.open(REVOLUT_CHECKOUT_URL, "_blank", "noopener");
+          }
+        } catch (submitError) {
+          console.error(submitError);
+          setCtaStatus("error", "Envoi indisponible", "Rechargez la page puis reessayez.");
+          if (paymentWindow) {
+            paymentWindow.close();
+          }
+        } finally {
+          ctaSubmit.disabled = false;
+          ctaSubmit.classList.remove("is-loading");
+        }
+      });
+    }
+  </script>
+</body>
+</html>
