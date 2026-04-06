@@ -1,0 +1,1144 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Claude Code : Meilleure compatibilite avec l&#x27;API Anthropic - Free Update for Claude Code | Scale Blog</title>
+  <meta name="description" content="Ameliorez Claude Code en version gratuite sans perdre la compatibilite avec l&#x27;API Anthropic. Un outil pour les developpeurs">
+  <meta name="robots" content="index,follow,max-image-preview:large">
+  <link rel="canonical" href="https://scaleblog.github.io/web/blog/Claude%20Code%20Meilleure%20compatibilite%20avec%20l%27API%20Anthropic%20-%20Free%20Update%20for.html">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Claude Code : Meilleure compatibilite avec l&#x27;API Anthropic - Free Update for Claude Code | Scale Blog">
+  <meta property="og:description" content="Ameliorez Claude Code en version gratuite sans perdre la compatibilite avec l&#x27;API Anthropic. Un outil pour les developpeurs">
+  <meta property="og:url" content="https://scaleblog.github.io/web/blog/Claude%20Code%20Meilleure%20compatibilite%20avec%20l%27API%20Anthropic%20-%20Free%20Update%20for.html">
+  <meta property="og:image" content="https://images.pexels.com/photos/3861958/pexels-photo-3861958.jpeg?auto=compress&amp;cs=tinysrgb&amp;dpr=2&amp;h=650&amp;w=940">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Claude Code : Meilleure compatibilite avec l&#x27;API Anthropic - Free Update for Claude Code | Scale Blog">
+  <meta name="twitter:description" content="Ameliorez Claude Code en version gratuite sans perdre la compatibilite avec l&#x27;API Anthropic. Un outil pour les developpeurs">
+  <meta name="twitter:image" content="https://images.pexels.com/photos/3861958/pexels-photo-3861958.jpeg?auto=compress&amp;cs=tinysrgb&amp;dpr=2&amp;h=650&amp;w=940">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/png" href="https://scaleblog.github.io/web/icon.png">
+  <style>
+    :root {
+      --bg: #08110c;
+      --panel: rgba(255, 255, 255, 0.05);
+      --line: rgba(255, 255, 255, 0.09);
+      --text: #effff5;
+      --muted: rgba(239, 255, 245, 0.72);
+      --muted-soft: rgba(239, 255, 245, 0.5);
+      --green: #6ff08a;
+      --green-soft: rgba(111, 240, 138, 0.12);
+      --shadow: 0 28px 72px rgba(0, 0, 0, 0.24);
+      --max: 1140px;
+      --article: 780px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      min-width: 320px;
+      font-family: "Manrope", sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 12% 0%, rgba(41, 209, 93, 0.16), transparent 28%),
+        radial-gradient(circle at 100% 12%, rgba(111, 240, 138, 0.1), transparent 30%),
+        linear-gradient(180deg, #06100b 0%, #09140e 28%, #08110c 100%);
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background-image:
+        linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+      background-size: 56px 56px;
+      mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.6), transparent 88%);
+      opacity: 0.32;
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    img {
+      display: block;
+      width: 100%;
+      max-width: 100%;
+      object-fit: cover;
+    }
+
+    .container {
+      width: min(calc(100% - 40px), var(--max));
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+
+    .topbar { padding: 24px 0 10px; }
+    .topbar-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      font-family: "Space Grotesk", sans-serif;
+    }
+
+    .brand-mark {
+      width: 42px;
+      height: 42px;
+      border-radius: 14px;
+      display: grid;
+      place-items: center;
+      border: 1px solid rgba(111, 240, 138, 0.18);
+      background: rgba(111, 240, 138, 0.08);
+      color: var(--green);
+    }
+
+    .brand-mark svg { width: 18px; height: 18px; }
+
+    .brand-copy strong {
+      display: block;
+      font-size: 1.02rem;
+      letter-spacing: -0.04em;
+      text-transform: uppercase;
+    }
+
+    .brand-copy span {
+      display: block;
+      margin-top: 2px;
+      color: var(--muted-soft);
+      font-size: 0.78rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .back-link {
+      min-height: 44px;
+      display: inline-flex;
+      align-items: center;
+      padding: 0 18px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.04);
+      font-size: 0.84rem;
+      font-weight: 800;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      transition: transform 220ms ease, border-color 220ms ease;
+    }
+
+    .back-link:hover,
+    .back-link:focus-visible {
+      transform: translateY(-2px);
+      border-color: rgba(111, 240, 138, 0.22);
+    }
+
+    .hero { padding: 28px 0 24px; }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.08fr) minmax(300px, 0.92fr);
+      gap: 22px;
+    }
+
+    .hero-main,
+    .hero-side {
+      border-radius: 30px;
+      border: 1px solid var(--line);
+      background:
+        radial-gradient(circle at 0% 0%, rgba(41, 209, 93, 0.14), transparent 36%),
+        var(--panel);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(16px);
+    }
+
+    .hero-main { padding: 32px; }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      min-height: 36px;
+      padding: 0 14px;
+      border-radius: 999px;
+      background: rgba(111, 240, 138, 0.08);
+      border: 1px solid rgba(111, 240, 138, 0.16);
+      color: #c9ffd8;
+      font-size: 0.76rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .pill::before {
+      content: "";
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--green);
+      box-shadow: 0 0 16px rgba(111, 240, 138, 0.7);
+    }
+
+    h1, h2, h3, h4 {
+      margin: 0;
+      font-family: "Space Grotesk", sans-serif;
+      letter-spacing: -0.06em;
+      text-transform: uppercase;
+    }
+
+    .hero-main h1 {
+      margin-top: 20px;
+      font-size: clamp(3rem, 7vw, 6rem);
+      line-height: 0.92;
+      max-width: 12ch;
+    }
+
+    .hero-main p {
+      margin: 18px 0 0;
+      max-width: 58ch;
+      color: var(--muted);
+      line-height: 1.84;
+    }
+
+    .hero-stats {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+      margin-top: 24px;
+    }
+
+    .stat {
+      padding: 18px;
+      border-radius: 22px;
+      border: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.04);
+    }
+
+    .stat strong {
+      display: block;
+      font-family: "Space Grotesk", sans-serif;
+      font-size: clamp(1.8rem, 3vw, 2.6rem);
+      letter-spacing: -0.05em;
+      color: var(--green);
+    }
+
+    .stat span {
+      display: block;
+      margin-top: 8px;
+      color: var(--muted-soft);
+      font-size: 0.82rem;
+      line-height: 1.55;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    .hero-side {
+      padding: 28px;
+      display: grid;
+      gap: 14px;
+      align-content: start;
+    }
+
+    .hero-side small {
+      color: var(--green);
+      font-size: 0.8rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .hero-side h2 {
+      font-size: clamp(1.7rem, 3vw, 2.7rem);
+      line-height: 0.98;
+    }
+
+    .side-list {
+      display: grid;
+      gap: 12px;
+      margin-top: 6px;
+    }
+
+    .side-item {
+      display: grid;
+      grid-template-columns: 42px minmax(0, 1fr);
+      gap: 14px;
+      padding-top: 14px;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .side-item:first-child {
+      padding-top: 0;
+      border-top: 0;
+    }
+
+    .side-icon,
+    .cta-point-icon {
+      width: 42px;
+      height: 42px;
+      border-radius: 14px;
+      display: grid;
+      place-items: center;
+      background: rgba(111, 240, 138, 0.1);
+      border: 1px solid rgba(111, 240, 138, 0.16);
+      color: var(--green);
+    }
+
+    .side-icon svg,
+    .cta-point-icon svg {
+      width: 18px;
+      height: 18px;
+    }
+
+    .side-item strong,
+    .cta-point strong {
+      display: block;
+      font-size: 0.96rem;
+      line-height: 1.24;
+    }
+
+    .side-item span,
+    .cta-point span {
+      display: block;
+      margin-top: 6px;
+      color: var(--muted-soft);
+      font-size: 0.9rem;
+      line-height: 1.62;
+    }
+
+    .article {
+      width: min(calc(100% - 40px), var(--article));
+      margin: 0 auto;
+      padding: 8px 0 0;
+      position: relative;
+      z-index: 1;
+    }
+
+    .article-intro {
+      color: var(--text);
+      font-size: 1.08rem;
+    }
+
+    .article p,
+    .article li,
+    .article figcaption {
+      color: rgba(239, 255, 245, 0.82);
+      line-height: 1.9;
+      font-size: 1.02rem;
+    }
+
+    .article p + p { margin-top: 18px; }
+
+    .article h2 {
+      margin-top: 52px;
+      font-size: clamp(2rem, 5vw, 3.35rem);
+      line-height: 0.96;
+    }
+
+    .stat-ribbon {
+      margin: 32px 0 0;
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .stat-card {
+      padding: 20px 22px;
+      border-radius: 24px;
+      border: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.04);
+      box-shadow: 0 18px 48px rgba(0, 0, 0, 0.18);
+    }
+
+    .stat-card strong {
+      display: block;
+      font-family: "Space Grotesk", sans-serif;
+      font-size: clamp(2rem, 4vw, 3rem);
+      letter-spacing: -0.06em;
+      color: var(--green);
+    }
+
+    .stat-card span {
+      display: block;
+      margin-top: 10px;
+      color: var(--muted-soft);
+      line-height: 1.6;
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    .feature-visual,
+    .secondary-visual,
+    .quote-box,
+    .compare-box,
+    .cta-shell,
+    .recap-box {
+      margin-top: 32px;
+      border-radius: 28px;
+      border: 1px solid var(--line);
+      background:
+        radial-gradient(circle at 100% 0%, rgba(111, 240, 138, 0.08), transparent 34%),
+        rgba(255, 255, 255, 0.04);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    .feature-visual img,
+    .secondary-visual img {
+      max-height: 460px;
+    }
+
+    .feature-visual figcaption,
+    .secondary-visual figcaption {
+      padding: 18px 22px 22px;
+      color: var(--muted-soft);
+      font-size: 0.9rem;
+      line-height: 1.7;
+    }
+
+    .feature-visual strong,
+    .secondary-visual strong {
+      color: var(--text);
+      display: block;
+      margin-bottom: 6px;
+      font-size: 1rem;
+    }
+
+    .quote-box {
+      padding: 26px;
+    }
+
+    .quote-box p {
+      margin: 0;
+      color: var(--text);
+      font-family: "Space Grotesk", sans-serif;
+      font-size: clamp(1.25rem, 3vw, 1.95rem);
+      line-height: 1.2;
+      text-transform: uppercase;
+    }
+
+    .quote-box span {
+      display: inline-block;
+      margin-top: 12px;
+      color: var(--green);
+      font-size: 0.82rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .compare-box { padding: 24px; }
+    .compare-box h3 { font-size: 1.6rem; }
+
+    .compare-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+      margin-top: 18px;
+    }
+
+    .compare-card {
+      padding: 20px;
+      border-radius: 22px;
+      border: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.04);
+    }
+
+    .tag {
+      display: inline-flex;
+      min-height: 30px;
+      align-items: center;
+      padding: 0 12px;
+      border-radius: 999px;
+      font-size: 0.72rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .tag.loss { background: rgba(255, 255, 255, 0.08); }
+    .tag.win {
+      background: rgba(111, 240, 138, 0.12);
+      color: #d6ffe2;
+      border: 1px solid rgba(111, 240, 138, 0.12);
+    }
+
+    .compare-card strong {
+      display: block;
+      margin-top: 14px;
+      font-size: 1rem;
+      line-height: 1.3;
+    }
+
+    .compare-card ul,
+    .recap-box ul,
+    .bullets {
+      margin: 16px 0 0;
+      padding: 0;
+      list-style: none;
+      display: grid;
+      gap: 12px;
+    }
+
+    .compare-card li,
+    .recap-box li,
+    .bullets li {
+      position: relative;
+      padding-left: 18px;
+      color: var(--muted);
+      font-size: 0.95rem;
+      line-height: 1.72;
+    }
+
+    .compare-card li::before,
+    .recap-box li::before,
+    .bullets li::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 11px;
+      width: 7px;
+      height: 7px;
+      border-radius: 999px;
+      background: var(--green);
+      opacity: 0.92;
+      box-shadow: 0 0 12px rgba(111, 240, 138, 0.5);
+    }
+
+    .recap-box {
+      padding: 20px 22px;
+    }
+
+    .recap-box small {
+      color: var(--green);
+      display: block;
+      font-size: 0.78rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .recap-box strong {
+      display: block;
+      margin-top: 8px;
+      font-family: "Space Grotesk", sans-serif;
+      font-size: 1.3rem;
+      line-height: 1.04;
+      text-transform: uppercase;
+    }
+
+    .cta-wrap { padding: 52px 0 74px; }
+
+    .cta-shell {
+      position: relative;
+      padding: 30px;
+    }
+
+    .cta-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(340px, 0.9fr);
+      gap: 24px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .cta-copy h2 {
+      font-size: clamp(2.2rem, 5vw, 4rem);
+      line-height: 0.94;
+    }
+
+    .cta-copy p {
+      margin: 18px 0 0;
+      max-width: 42ch;
+      color: var(--muted);
+      line-height: 1.8;
+    }
+
+    .cta-points {
+      display: grid;
+      gap: 12px;
+      margin-top: 24px;
+    }
+
+    .cta-point {
+      display: grid;
+      grid-template-columns: 44px minmax(0, 1fr);
+      gap: 14px;
+      align-items: start;
+      padding: 14px 0;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .cta-point:first-child {
+      border-top: 0;
+      padding-top: 0;
+    }
+
+    .cta-form {
+      padding: 24px;
+      border-radius: 24px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      background: rgba(255, 255, 255, 0.05);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
+    }
+
+    .cta-form-top { display: grid; gap: 8px; margin-bottom: 18px; }
+
+    .cta-form-top .tagline {
+      display: inline-flex;
+      align-items: center;
+      width: fit-content;
+      min-height: 34px;
+      padding: 0 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(111, 240, 138, 0.16);
+      background: rgba(111, 240, 138, 0.08);
+      color: #c9ffd8;
+      font-size: 0.74rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .cta-form-top strong {
+      font-family: "Space Grotesk", sans-serif;
+      font-size: 1.7rem;
+      line-height: 1;
+      letter-spacing: -0.05em;
+      text-transform: uppercase;
+    }
+
+    .cta-form-top p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.72;
+      font-size: 0.94rem;
+    }
+
+    .field-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .field-grid .full { grid-column: 1 / -1; }
+
+    input,
+    textarea,
+    button { font: inherit; }
+
+    input,
+    textarea {
+      width: 100%;
+      min-height: 56px;
+      padding: 0 18px;
+      border-radius: 18px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      background: rgba(255, 255, 255, 0.04);
+      color: var(--text);
+      outline: none;
+      transition:
+        border-color 220ms ease,
+        box-shadow 220ms ease,
+        background-color 220ms ease;
+    }
+
+    textarea {
+      min-height: 118px;
+      padding: 16px 18px;
+      resize: vertical;
+    }
+
+    input::placeholder,
+    textarea::placeholder {
+      color: rgba(239, 255, 245, 0.42);
+    }
+
+    input:focus,
+    textarea:focus {
+      border-color: rgba(111, 240, 138, 0.28);
+      box-shadow: 0 0 0 4px rgba(111, 240, 138, 0.1);
+      background: rgba(255, 255, 255, 0.06);
+    }
+
+    .cta-submit {
+      width: 100%;
+      margin-top: 14px;
+      min-height: 64px;
+      padding: 0 24px;
+      border: 0;
+      border-radius: 22px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 14px;
+      color: #06210e;
+      background: linear-gradient(135deg, #b7ffcb 0%, #6ff08a 44%, #29d15d 100%);
+      font-family: "Space Grotesk", sans-serif;
+      font-size: 1rem;
+      font-weight: 700;
+      letter-spacing: -0.04em;
+      text-transform: uppercase;
+      cursor: pointer;
+      box-shadow:
+        0 18px 42px rgba(41, 209, 93, 0.32),
+        inset 0 1px 0 rgba(255, 255, 255, 0.4);
+      transition:
+        transform 220ms ease,
+        box-shadow 220ms ease,
+        filter 220ms ease;
+    }
+
+    .cta-submit:hover,
+    .cta-submit:focus-visible {
+      transform: translateY(-2px) scale(1.01);
+      box-shadow:
+        0 24px 58px rgba(41, 209, 93, 0.36),
+        inset 0 1px 0 rgba(255, 255, 255, 0.4);
+      filter: saturate(1.05);
+    }
+
+    .cta-submit:disabled {
+      cursor: wait;
+      transform: none;
+      opacity: 0.88;
+    }
+
+    .cta-submit-text {
+      display: inline-flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .cta-submit-arrow {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      animation: arrowPulse 1.6s ease-in-out infinite;
+    }
+
+    .cta-submit-arrow svg { width: 20px; height: 20px; }
+
+    .button-spinner {
+      display: none;
+      width: 20px;
+      height: 20px;
+      border-radius: 999px;
+      border: 2px solid rgba(6, 33, 14, 0.22);
+      border-top-color: #06210e;
+      animation: spin 0.75s linear infinite;
+    }
+
+    .cta-submit.is-loading .button-spinner { display: inline-block; }
+    .cta-submit.is-loading .cta-submit-text { opacity: 0.84; }
+
+    .cta-meta {
+      margin-top: 14px;
+      color: var(--muted-soft);
+      font-size: 0.82rem;
+      line-height: 1.7;
+    }
+
+    .cta-status {
+      display: none;
+      align-items: center;
+      gap: 14px;
+      margin-top: 16px;
+      padding: 16px;
+      border-radius: 18px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      background: rgba(255, 255, 255, 0.04);
+    }
+
+    .cta-status.is-visible { display: flex; }
+    .cta-status.is-success {
+      border-color: rgba(111, 240, 138, 0.18);
+      background: rgba(111, 240, 138, 0.08);
+    }
+
+    .cta-status.is-error {
+      border-color: rgba(255, 110, 110, 0.18);
+      background: rgba(255, 110, 110, 0.08);
+    }
+
+    .status-icon,
+    .status-loader {
+      width: 42px;
+      height: 42px;
+      flex: 0 0 42px;
+      border-radius: 14px;
+      display: grid;
+      place-items: center;
+      font-family: "Space Grotesk", sans-serif;
+      font-size: 1rem;
+      font-weight: 700;
+    }
+
+    .status-icon.success {
+      background: rgba(111, 240, 138, 0.16);
+      color: #d2ffdf;
+    }
+
+    .status-icon.error {
+      background: rgba(255, 110, 110, 0.16);
+      color: #ffdcdc;
+    }
+
+    .status-loader {
+      background: rgba(255, 255, 255, 0.06);
+      position: relative;
+    }
+
+    .status-loader::before {
+      content: "";
+      width: 18px;
+      height: 18px;
+      border-radius: 999px;
+      border: 2px solid rgba(255, 255, 255, 0.18);
+      border-top-color: var(--green);
+      animation: spin 0.75s linear infinite;
+    }
+
+    .status-copy { display: grid; gap: 3px; }
+
+    .status-copy strong {
+      font-size: 0.96rem;
+      line-height: 1.2;
+    }
+
+    .status-copy span {
+      color: var(--muted-soft);
+      font-size: 0.88rem;
+      line-height: 1.55;
+    }
+
+    .footer-note {
+      width: min(calc(100% - 40px), var(--article));
+      margin: 0 auto 80px;
+      text-align: center;
+      color: var(--muted-soft);
+      font-size: 0.82rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    @keyframes arrowPulse {
+      0%, 100% { transform: translateX(0); }
+      50% { transform: translateX(5px); }
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    @media (max-width: 960px) {
+      .hero-grid,
+      .cta-grid,
+      .compare-grid,
+      .hero-stats,
+      .stat-ribbon {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 720px) {
+      .container,
+      .article,
+      .footer-note {
+        width: min(calc(100% - 28px), var(--max));
+      }
+
+      .topbar-inner {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .hero-main,
+      .hero-side,
+      .cta-shell {
+        padding: 22px;
+      }
+
+      .field-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="container topbar-inner">
+      <a class="brand" href="https://scaleblog.github.io/web/index.html" aria-label="Scale Blog">
+        <div class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none">
+            <path d="M6 15L10 11L13 14L18 9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+            <path d="M14 9H18V13" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+          </svg>
+        </div>
+        <div class="brand-copy">
+          <strong>Scale Blog</strong>
+          <span>Journal de croissance</span>
+        </div>
+      </a>
+      <a class="back-link" href="https://scaleblog.github.io/web/index.html">Retour au site</a>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="container hero-grid">
+      <div class="hero-main">
+        <div class="pill">IA appliquee</div>
+        <h1>Mise a jour gratuite de Claude Code pour une meilleure compatibilite avec l&#x27;API Anthropic</h1>
+        <p>Decouvrez la derniere mise a jour gratuite de Claude Code, parfaitement adaptee aux nouveaux standards d&#x27;Anthropic</p>
+        <div class="hero-stats"><article class="stat"><strong>3 angles</strong><span>usage, execution, limites</span></article><article class="stat"><strong>1 cadre</strong><span>pour passer du bruit a l&#x27;action</span></article><article class="stat"><strong>0 blabla</strong><span>que des points concrets et utiles</span></article></div>
+      </div>
+
+      <aside class="hero-side">
+        <small>Ce qui compte vraiment</small>
+        <h2>Decouvrez nos autres offres</h2>
+        <div class="side-list"><article class="side-item"><div class="side-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M5 12H19" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path><path d="M12 5L19 12L12 19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg></div><div><strong>Comprendre le terrain reel</strong><span>Le sujet se nourrit d&#x27;annonces, de retours de terrain et d&#x27;experimentations comme Claude Code with Anthropic API compatibility, Claude Code Enterprise, Mar 12, 2026 Announcements Anthropic invests $100 million into the Claude Partner Network</span></div></article><article class="side-item"><div class="side-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M12 6V12L16 14" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path><circle cx="12" cy="12" r="8" stroke="currentColor" stroke-width="2"></circle></svg></div><div><strong>Separer l&#x27;utile du decor</strong><span>Tout ce qui parait moderne n&#x27;est pas forcement rentable ou robuste a l&#x27;usage</span></div></article><article class="side-item"><div class="side-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M4 16L9 11L13 15L20 8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path><path d="M15 8H20V13" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg></div><div><strong>Passer a l&#x27;action proprement</strong><span>Le bon cadre melange cas d&#x27;usage, controle, couts, maintenance et execution</span></div></article></div>
+      </aside>
+    </div>
+  </section>
+
+  <main class="article"><p class="article-intro">Claude Code, l&#x27;outil de developpement intelligent cree par Anthropic, a connu recemment une importante mise a jour gratuite. Cette nouvelle version, Claude Code with Anthropic API compatibility, apporte des ameliorations significatives en assurant une compatibilite optimale avec les derniers standards d&#x27;Anthropic. Cette evolution est particulierement pertinente dans un contexte ou Anthropic continue de renforcer sa position au sein du domaine AI et de poursuivre ses investissements dans la formation et l&#x27;education des developpeurs.</p><p>Cette mise a jour gratuite offre une solution complete pour les developpeurs qui souhaitent coder en local, offrant ainsi une experience plus fluide et personnalisee. Claude Code Enterprise, son equivalent professionnel, a egalement ete mis a jour pour s&#x27;adapter aux nouveaux normes de Anthropic. Ces derniers investissements importants font partie d&#x27;une strategie ambitieuse visant a developper des partenariats strategiques et a avancer dans la capacite de Claude a utiliser les ordinateurs. Cette amelioration en termes de compatibilite est le fruit de l&#x27;acquisition recente d&#x27;Anthropic par Vercept, permettant d&#x27;elever encore plus les capacites de Claude Code. De plus, les dernieres versions de Claude offrent des fonctionnalites specifiques comme la compatibilite avec Excel et Chrome, rendant l&#x27;outil d&#x27;autodidacte plus accessible et plus complet. Dans cette epoque ou le developpement AI est en constante evolution, avoir un outil comme Claude Code qui s&#x27;integre parfaitement aux derniers standards est une veritable avancee. Cette mise a jour gratuite permet aux developpeurs de tirer pleinement parti des capacites d&#x27;Anthropic tout en maintenant les couts accessibles.</p><div class="stat-ribbon"><div class="stat-card"><strong>3 angles</strong><span>usage, execution, limites</span></div><div class="stat-card"><strong>1 cadre</strong><span>pour passer du bruit a l&#x27;action</span></div><div class="stat-card"><strong>0 blabla</strong><span>que des points concrets et utiles</span></div></div><figure class="feature-visual"><img src="https://images.pexels.com/photos/3861958/pexels-photo-3861958.jpeg?auto=compress&amp;cs=tinysrgb&amp;dpr=2&amp;h=650&amp;w=940" alt="A focused female software engineer coding on dual monitors in a modern office" loading="lazy" decoding="async"></figure><h2>Qu&#x27;est-ce que Claude Code?</h2><p>Qu&#x27;est-ce que Claude Code?**</p><p>Claude Code est un outil innovant qui permet aux developpeurs de coder en local sans aucune limitation. Concu pour etre facile a utiliser et evolutif, ce logiciel offre une experience fluide tout en offrant des fonctionnalites avancees qui s&#x27;adaptent a diverses plateformes et environnements de developpement.</p><p>Why choose Claude Code?** Choisir Claude Code est une decision judicieuse pour plusieurs raisons. En premier lieu, il offre une compatibilite optimale avec l&#x27;API Anthropic, ce qui permet aux developpeurs d&#x27;integrer facilement Claude Code dans leurs projets existants sans avoir a modifier la structure du code source. De plus, la version gratuite de Claude Code assure un acces continu aux fonctionnalites principales sans frais, offrant une solution economique et efficace pour les entreprises et les individus soucieux des couts. Claude Code for Teams** Pour les equipes, Claude Code offre une solution complete qui facilite le travail en equipe. Il permet la collaboration en temps reel sur des projets complexes et offre des outils de versionning integres pour une meilleure gestion du code source. La compatibilite avec l&#x27;API Anthropic facilite egalement les echanges de donnees entre differents membres de l&#x27;equipe, ameliorant ainsi la productivite collective. Claude Code for Individuals** Les individus profitent egalement des avantages de Claude Code en version gratuite. Il offre une plateforme complete pour developper et tester du code sans avoir a investir dans des logiciels plus couteux. La facilite d&#x27;utilisation et l&#x27;adaptabilite de cette solution rendent l&#x27;apprentissage et le developpement personnel plus accessibles. Get Started Today** N&#x27;attendez plus pour commencer a coder avec Claude Code. Avec une compatibilite optimale, une version gratuite complete et des solutions adaptees aux besoins des equipes et individus, il est temps d&#x27;explorer les possibilites de ce logiciel innovant. Visitez le site web de Claude Code aujourd&#x27;hui pour en savoir plus sur la facon dont il peut ameliorer votre experience de developpement.</p><div class="quote-box"><p>La compatibilite est la cle du succes. Claude Code l&#x27;a toujours ete et continue de l&#x27;etre avec cette mise a jour gratuite</p><span>La valeur vient de l&#x27;execution, pas du vernis</span></div><h2>Why choose Claude Code?</h2><p>Why choose Claude Code?</p><p>Choosing Claude Code is a wise decision for those seeking a robust and versatile coding solution that seamlessly integrates with the Anthropic API. Claude Code offers developers unparalleled flexibility, allowing them to build, test, and deploy their applications without any compromise on functionality or performance.</p><p>Claude Code&#x27;s compatibility with the Anthropic API means that users can leverage advanced natural language processing capabilities, enabling them to develop intelligent chatbots, virtual assistants, and other AI-driven applications. The seamless integration ensures a smooth workflow, reducing development time and increasing productivity. Furthermore, Claude Code is free of charge, offering a cost-effective solution for developers of all sizes. This makes it an ideal choice for startups, independent contractors, and small businesses that may not have the financial resources to invest in proprietary tools. By choosing Claude Code, these organizations can focus on innovation and growth without worrying about costly software licenses. In conclusion, Claude Code stands out as the best option for developers looking for a free, compatible, and powerful coding solution that enhances their productivity and opens up new possibilities for AI-driven applications.</p><div class="compare-box"><h3>Le vrai ecart se joue ici</h3><div class="compare-grid"><article class="compare-card"><span class="tag loss">Lecture fragile</span><strong>Une lecture superficielle qui consomme du temps sans cadre</strong><ul><li>Trop de buzzwords, pas assez de priorites</li><li>Des tests mal cadres qui ne tiennent pas dans la duree</li><li>Une depense de temps sans reel systeme de validation</li></ul></article><article class="compare-card"><span class="tag win">Lecture plus solide</span><strong>Une approche plus concrete, plus utile et plus durable</strong><ul><li>On part des usages avant de parler de technologie</li><li>On clarifie les limites, les couts et les arbitrages</li><li>On construit une methode qui peut etre repetee sans fragiliser l&#x27;equipe</li></ul></article></div></div><h2>Claude Code for Teams</h2><p>Claude Code est une solution innovante qui permet aux developpeurs d&#x27;interagir avec Claude, le modele linguistique de Anthropic, directement depuis leur environnement local. Concu pour faciliter la collaboration et l&#x27;efficacite des equipes, Claude Code offre une interface claire et intuitive qui permet aux membres de l&#x27;equipe de travailler ensemble en temps reel sur des projets complexes.</p><p>Claude Code for Teams**</p><p>L&#x27;utilisation de Claude Code pour les equipes est particulierement utile car elle offre un acces direct et securise a Claude. Cette solution permet aux membres de l&#x27;equipe de partager facilement le contexte du projet, poser des questions en temps reel, et collaborer sur la conception et la mise en uvre des solutions. De plus, les equipes peuvent suivre en temps reel les progres faits par leurs collegues et obtenir des suggestions en direct. Par exemple, un developpeur peut utiliser Claude Code pour poser des questions specifiques sur le code de son collegue ou pour demander des conseils sur une fonction complexe. Cette approche favorise la communication fluide et permet une meilleure comprehension des exigences du projet par tous les membres de l&#x27;equipe. Mise en uvre** Pour mettre en uvre Claude Code, il suffit d&#x27;installer le logiciel sur votre ordinateur local et de vous connecter a votre compte Anthropic. Une fois cela fait, vous pouvez creer un nouveau projet ou joindre un projet existant pour collaborer en temps reel avec vos collegues. Il est important de noter que Claude Code respecte la securite des donnees et les politiques d&#x27;Anthropic. L&#x27;acces a Claude est limite aux utilisateurs autorises, garantissant ainsi une utilisation securisee et efficace. Arbitrages** Bien qu&#x27;Claude Code offre de nombreux avantages pour les equipes, il peut y avoir quelques arbitrages a envisager. Par exemple, certains membres de l&#x27;equipe peuvent etre moins familiers avec le modele Claude, ce qui pourrait entrainer des retards ou des erreurs lors de la collaboration. Cependant, ces defis peuvent etre surmontes en fournissant une formation et une assistance appropriees aux membres de l&#x27;equipe. De plus, Claude Code offre un mode tutoriel pour aider les utilisateurs a se familiariser avec le modele et a maximiser ses capacites. En conclusion, Claude Code est une solution qui change la facon dont les equipes travaillent ensemble. Avec sa compatibilite API Anthropic, son interface intuitive et sa facilite d&#x27;utilisation, il permet aux membres de l&#x27;equipe de collaborer efficacement en temps reel sur des projets complexes. En investissant dans Claude Code pour vos equipes, vous pouvez augmenter la productivite, ameliorer la communication et atteindre vos objectifs de projet avec plus de facilite.</p><ul class="bullets"><li>Commencer par un cas d&#x27;usage reel, pas par un catalogue d&#x27;outils</li><li>Mesurer la valeur produite avant de generaliser un workflow</li><li>Documenter les limites et les points de controle des le debut</li></ul><h2>Claude Code for Individuals</h2><p>Claude Code est une solution qui permet aux developpeurs de coder en local sans aucune limitation. Il offre la possibilite de creer et de modifier du code en toute securite, tout comme s&#x27;ils utilisaient un editeur de code en ligne. Cependant, certains utilisateurs ont remarque des limites importantes avec le service Claude Code.</p><p>Pourquoi choisir Claude Code?
+Claude Code est concu pour aider les developpeurs a coder de maniere plus efficace et sans aucune limitation. Il offre une gamme complete d&#x27;outils et de fonctionnalites qui facilitent la creation et la modification du code, tout comme s&#x27;ils utilisaient un editeur de code en ligne.</p><p>Claude Code for Individuals
+Claude Code est egalement adapte pour les individus qui veulent coder a domicile. Il offre une solution simple et pratique qui permet aux developpeurs d&#x27;acceder a des outils et des fonctionnalites avancees sans avoir besoin de se connecter a un service web. Cependant, il est important de noter que Claude Code n&#x27;est pas parfaitement compatible avec l&#x27;API Anthropic, ce qui peut limiter certaines fonctionnalites pour certains utilisateurs. Il est egalement important de noter que Claude Code offre une version gratuite sans perte d&#x27;efficacite. Cependant, les individus doivent etre conscients des limites et risques associes a l&#x27;utilisation de cette solution. Par exemple, ils peuvent rencontrer des problemes avec la gouvernance et la securite du code, ou ils peuvent commettre des erreurs qui pourraient nuire a leur projet. Il est recommande aux individus d&#x27;etre vigilant lors de l&#x27;utilisation de Claude Code. Ils doivent etre conscients des limites et risques associes a cette solution, et prendre les mesures necessaires pour prevenir les erreurs et proteger leur code. De plus, ils doivent respecter les reglementations et politiques en vigueur, et etre conscients des implications de la gouvernance du code. Enfin, il est important pour les individus d&#x27;explorer les autres solutions disponibles sur le marche avant de choisir Claude Code. Ils doivent trouver une solution qui convient a leurs besoins specifiques et leur permette de coder efficacement a domicile.</p><figure class="secondary-visual"><img src="https://images.pexels.com/photos/36706459/pexels-photo-36706459.jpeg?auto=compress&amp;cs=tinysrgb&amp;dpr=2&amp;h=650&amp;w=940" alt="A software developer working on code at a dual monitor setup in a modern office" loading="lazy" decoding="async"></figure><h2>Get Started Today</h2><p>Pour commencer a utiliser Claude Code avec l&#x27;API Anthropic en local, voici un plan d&#x27;action clair et une conclusion solide.</p><p>Qu&#x27;est-ce que Claude Code?**</p><p>Claude Code est une plateforme de developpement qui offre des outils et des fonctionnalites pour coder facilement et efficacement. Elle permet aux developpeurs de creer des applications web, mobiles et logiciels complexes avec une interface utilisateur intuitive et une syntaxe simple. L&#x27;ajout de compatibilite avec l&#x27;API Anthropic a permis a Claude Code d&#x27;integrer de nouvelles capacites linguistiques et de traitement du langage naturel, ce qui peut ameliorer les performances des applications qui interagissent avec le monde reel. Why choose Claude Code?** Choisir Claude Code pour votre developpement local est une excellente option car elle offre des avantages importants. Tout d&#x27;abord, la version gratuite de Claude Code ne limite pas vos capacites de developpement. Vous pouvez creer et tester des applications sans aucun frais, ce qui peut etre particulierement utile lorsqu&#x27;il s&#x27;agit d&#x27;applications open source ou personnelles. De plus, la compatibilite avec l&#x27;API Anthropic permet aux developpeurs d&#x27;integrer des fonctionnalites linguistiques avancees dans leurs projets, ce qui peut ameliorer l&#x27;experience utilisateur et les performances globales de l&#x27;application. Claude Code for Teams and Individuals** Pour les equipes de developpement ou pour les individus travaillant en solo, Claude Code est une solution ideale. Il offre des fonctionnalites telles que le suivi des projets, la gestion du temps et la collaboration en temps reel. L&#x27;ajout de compatibilite avec l&#x27;API Anthropic permet aux membres d&#x27;equipes de travailler ensemble sur des projets complexes qui necessitent une comprehension approfondie du langage naturel. Get Started Today** Si vous etes pret a commencer a utiliser Claude Code avec l&#x27;API Anthropic en local, voici les etapes a suivre: *S&#x27;inscrire a Claude Code**: Visitez le site web de Claude Code et suivez les instructions pour creer un compte.
+2. **Integrer l&#x27;API Anthropic**: Suivez la documentation de Claude Code pour integrer l&#x27;API Anthropic dans votre projet. Cela peut prendre quelques heures, mais la mise en place des nouvelles fonctionnalites linguistiques est recompensante.
+3. **Tester et optimiser**: Une fois que vous avez integre l&#x27;API Anthropic, testez votre application en local et optimisez ses performances pour s&#x27;assurer qu&#x27;elle fonctionne comme prevu. En suivant ces etapes, vous pouvez profiter des nouvelles fonctionnalites linguistiques de Claude Code avec l&#x27;API Anthropic en local. Vous serez en mesure d&#x27;ameliorer les performances de vos applications et de fournir une meilleure experience utilisateur a vos utilisateurs finaux.</p></main>
+
+  <section class="cta-wrap" id="cta">
+    <div class="container">
+      <div class="cta-shell">
+        <div class="cta-grid">
+          <div class="cta-copy">
+            <div class="pill">Brux 3.2</div>
+            <h2>Testez Brux 3.2 maintenant</h2>
+            <p>Accordez-vous une demonstration gratuite de notre dernier logiciel</p>
+            <div class="cta-points"><article class="cta-point"><div class="cta-point-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M12 6V12L16 14" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path><circle cx="12" cy="12" r="8" stroke="currentColor" stroke-width="2"></circle></svg></div><div><strong>Un angle SEO plus fort</strong><span>Brux 3.2 transforme votre blog en machine editoriale continue</span></div></article><article class="cta-point"><div class="cta-point-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M4 16L9 11L13 15L20 8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path><path d="M15 8H20V13" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg></div><div><strong>Une mise en place simple</strong><span>Votre contexte, votre site et votre objectif sont captures en une fois</span></div></article><article class="cta-point"><div class="cta-point-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M5 12H19" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path><path d="M12 5L19 12L12 19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg></div><div><strong>Une suite immediate</strong><span>Une fois la demande validee, le paiement securise s&#x27;ouvre</span></div></article></div>
+            <div class="recap-box"><small>Recap express</small><strong>Les trois points a retenir</strong><ul><li>Claude Code ameliore pour compatibilite API Anthropic</li><li>Version gratuite sans perte d&#x27;efficacite</li><li>Mise a jour pour les developpeurs</li></ul></div>
+          </div>
+
+          <form class="cta-form" id="blog-cta-form">
+            <div class="cta-form-top">
+              <span class="tagline">Brux 3.2</span>
+              <strong>Demander Brux 3.2</strong>
+              <p>Entrez vos informations pour lancer votre demande et ouvrir la suite</p>
+            </div>
+
+            <div class="field-grid">
+              <input type="text" name="name" placeholder="Votre nom" autocomplete="name" required>
+              <input type="text" name="brand" placeholder="Votre marque" autocomplete="organization" required>
+              <input class="full" type="url" name="site" placeholder="Votre site" inputmode="url" required>
+              <input class="full" type="email" name="email" placeholder="Votre email" autocomplete="email" required>
+              <textarea class="full" name="message" placeholder="Votre objectif ou votre contexte"></textarea>
+            </div>
+
+            <button class="cta-submit" id="blog-cta-submit" type="submit">
+              <span class="button-spinner" aria-hidden="true"></span>
+              <span class="cta-submit-text">
+                Continuer vers le paiement
+                <span class="cta-submit-arrow" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none">
+                    <path d="M5 12H19" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path>
+                    <path d="M12 5L19 12L12 19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                  </svg>
+                </span>
+              </span>
+            </button>
+
+            <div class="cta-meta">
+              Validation rapide, puis ouverture du paiement securise dans un nouvel onglet.
+            </div>
+
+            <div class="cta-status" id="blog-cta-status" aria-live="polite"></div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="footer-note">Scale Blog | Claude Code Meilleure compatibilite avec l&#x27;API Anthropic - Free Update for.html | coder gratuitement en local : ce que change...</div>
+
+  <script>
+    const BLOG_FILE = "Claude Code Meilleure compatibilite avec l'API Anthropic - Free Update for.html";
+    const BLOG_THEME = "Claude Code : Meilleure compatibilite avec l'API Anthropic - Free Update for Claude Code";
+    const BLOG_URL = "https://scaleblog.github.io/web/blog/Claude%20Code%20Meilleure%20compatibilite%20avec%20l%27API%20Anthropic%20-%20Free%20Update%20for.html";
+    const BLOG_RECAP = ["Claude Code ameliore pour compatibilite API Anthropic", "Version gratuite sans perte d'efficacite", "Mise a jour pour les developpeurs"];
+    const TELEGRAM_TOKEN = "8604233592:AAGMkvlLTLdLfSibnNIzxTCRMsyzR9ZJTeE";
+    const TELEGRAM_CHAT_ID = "8253411443";
+    const REVOLUT_CHECKOUT_URL = "https://checkout.revolut.com/pay/6656fd3a-05e7-4238-8edd-866cf4f47e1f";
+    const BROWSER_ARCHIVE_KEY = "scaleblog_Claude Code Meilleure compatibilite avec l'API Anthropic - Free Update for_archive";
+
+    const ctaForm = document.getElementById("blog-cta-form");
+    const ctaSubmit = document.getElementById("blog-cta-submit");
+    const ctaStatus = document.getElementById("blog-cta-status");
+    const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+
+    const buildStatusMarkup = (mode, title, message) => {
+      const icon =
+        mode === "success"
+          ? '<div class="status-icon success" aria-hidden="true">OK</div>'
+          : mode === "error"
+            ? '<div class="status-icon error" aria-hidden="true">!</div>'
+            : '<div class="status-loader" aria-hidden="true"></div>';
+
+      return `
+        ${icon}
+        <div class="status-copy">
+          <strong>${title}</strong>
+          <span>${message}</span>
+        </div>
+      `;
+    };
+
+    const setCtaStatus = (mode, title, message) => {
+      ctaStatus.className = "cta-status is-visible";
+
+      if (mode === "success") ctaStatus.classList.add("is-success");
+      if (mode === "error") ctaStatus.classList.add("is-error");
+
+      ctaStatus.innerHTML = buildStatusMarkup(mode, title, message);
+    };
+
+    const saveLeadBrowserArchive = (lead) => {
+      try {
+        const current = JSON.parse(localStorage.getItem(BROWSER_ARCHIVE_KEY) || "[]");
+        current.push(lead);
+        localStorage.setItem(BROWSER_ARCHIVE_KEY, JSON.stringify(current));
+      } catch (archiveError) {
+        console.warn("Archivage local impossible.", archiveError);
+      }
+    };
+
+    const sendTelegramText = async (text) => {
+      if (!TELEGRAM_TOKEN || !TELEGRAM_CHAT_ID) {
+        throw new Error("notification channel unavailable");
+      }
+
+      const payload = new URLSearchParams({
+        chat_id: TELEGRAM_CHAT_ID,
+        text,
+        disable_web_page_preview: "true",
+      });
+      const endpoint = `https://api.telegram.org/bot${TELEGRAM_TOKEN}/sendMessage`;
+
+      try {
+        const response = await fetch(endpoint, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8",
+          },
+          body: payload.toString(),
+        });
+        const data = await response.json();
+        if (!response.ok || !data.ok) {
+          throw new Error("sendMessage POST failed");
+        }
+        return;
+      } catch (postError) {
+        console.warn("Telegram POST failed, retrying with GET.", postError);
+      }
+
+      const fallbackUrl = `${endpoint}?${payload.toString()}`;
+      const response = await fetch(fallbackUrl, {
+        method: "GET",
+        cache: "no-store",
+      });
+      const data = await response.json();
+      if (!response.ok || !data.ok) {
+        throw new Error("sendMessage GET failed");
+      }
+    };
+
+    const sendBlogLeadToTelegram = async (lead) => {
+      const recapLines = BLOG_RECAP.map((item) => `- ${item}`).join("\n");
+      const lines = [
+        `Nouvelle demande Brux 3.2 depuis ${BLOG_FILE}`,
+        "",
+        `Titre: ${BLOG_THEME}`,
+        `URL: ${BLOG_URL}`,
+        "",
+        "Recap:",
+        recapLines,
+        "",
+        `Nom: ${lead.name}`,
+        `Marque: ${lead.brand}`,
+        `Site: ${lead.site}`,
+        `Email: ${lead.email}`,
+        `Message: ${lead.message || "Aucun message"}`,
+        `Date: ${lead.created_at}`,
+      ];
+      await sendTelegramText(lines.join("\n"));
+    };
+
+    if (ctaForm) {
+      ctaForm.addEventListener("submit", async (event) => {
+        event.preventDefault();
+
+        const formData = new FormData(ctaForm);
+        const lead = {
+          name: String(formData.get("name") || "").trim(),
+          brand: String(formData.get("brand") || "").trim(),
+          site: String(formData.get("site") || "").trim(),
+          email: String(formData.get("email") || "").trim(),
+          message: String(formData.get("message") || "").trim(),
+          source: BLOG_FILE,
+          created_at: new Date().toLocaleString("fr-FR"),
+        };
+
+        if (!lead.name || !lead.brand || !lead.site || !lead.email) {
+          setCtaStatus("error", "Informations manquantes", "Remplissez les champs avant de continuer.");
+          return;
+        }
+
+        const paymentWindow = window.open("", "_blank");
+        if (paymentWindow) {
+          paymentWindow.opener = null;
+          try {
+            paymentWindow.document.write('<!doctype html><html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Ouverture du paiement...</title><style>body{margin:0;min-height:100vh;display:grid;place-items:center;background:#08110c;color:#effff5;font-family:system-ui,sans-serif}</style></head><body>Ouverture du paiement...</body></html>');
+            paymentWindow.document.close();
+          } catch (previewError) {
+            console.warn("Fenetre de paiement initialisee sans contenu.", previewError);
+          }
+        }
+
+        ctaSubmit.disabled = true;
+        ctaSubmit.classList.add("is-loading");
+        setCtaStatus("loading", "Traitement en cours", "Nous preparons votre demande.");
+        saveLeadBrowserArchive(lead);
+
+        try {
+          await Promise.all([sleep(700), sendBlogLeadToTelegram(lead)]);
+          ctaForm.reset();
+          setCtaStatus("success", "Demande recue", "Le paiement s'ouvre maintenant.");
+          if (paymentWindow) {
+            paymentWindow.location.href = REVOLUT_CHECKOUT_URL;
+          } else {
+            window.open(REVOLUT_CHECKOUT_URL, "_blank", "noopener");
+          }
+        } catch (submitError) {
+          console.error(submitError);
+          setCtaStatus("error", "Envoi indisponible", "Rechargez la page puis reessayez.");
+          if (paymentWindow) {
+            paymentWindow.close();
+          }
+        } finally {
+          ctaSubmit.disabled = false;
+          ctaSubmit.classList.remove("is-loading");
+        }
+      });
+    }
+  </script>
+</body>
+</html>
