@@ -1,0 +1,1140 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Comment coder en local : ce que vous devez savoir pour la securite | Scale Blog</title>
+  <meta name="description" content="Ameliorez votre code local avec des astuces de securite. Decouvrez comment proteger vos projets sur Firefox">
+  <meta name="robots" content="index,follow,max-image-preview:large">
+  <link rel="canonical" href="https://scaleblog.github.io/web/blog/Comment%20coder%20en%20local%20ce%20que%20vous%20devez%20savoir%20pour%20la%20securite.html">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Comment coder en local : ce que vous devez savoir pour la securite | Scale Blog">
+  <meta property="og:description" content="Ameliorez votre code local avec des astuces de securite. Decouvrez comment proteger vos projets sur Firefox">
+  <meta property="og:url" content="https://scaleblog.github.io/web/blog/Comment%20coder%20en%20local%20ce%20que%20vous%20devez%20savoir%20pour%20la%20securite.html">
+  <meta property="og:image" content="https://images.pexels.com/photos/3861958/pexels-photo-3861958.jpeg?auto=compress&amp;cs=tinysrgb&amp;dpr=2&amp;h=650&amp;w=940">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Comment coder en local : ce que vous devez savoir pour la securite | Scale Blog">
+  <meta name="twitter:description" content="Ameliorez votre code local avec des astuces de securite. Decouvrez comment proteger vos projets sur Firefox">
+  <meta name="twitter:image" content="https://images.pexels.com/photos/3861958/pexels-photo-3861958.jpeg?auto=compress&amp;cs=tinysrgb&amp;dpr=2&amp;h=650&amp;w=940">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/png" href="https://scaleblog.github.io/web/icon.png">
+  <style>
+    :root {
+      --bg: #08110c;
+      --panel: rgba(255, 255, 255, 0.05);
+      --line: rgba(255, 255, 255, 0.09);
+      --text: #effff5;
+      --muted: rgba(239, 255, 245, 0.72);
+      --muted-soft: rgba(239, 255, 245, 0.5);
+      --green: #6ff08a;
+      --green-soft: rgba(111, 240, 138, 0.12);
+      --shadow: 0 28px 72px rgba(0, 0, 0, 0.24);
+      --max: 1140px;
+      --article: 780px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      min-width: 320px;
+      font-family: "Manrope", sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 12% 0%, rgba(41, 209, 93, 0.16), transparent 28%),
+        radial-gradient(circle at 100% 12%, rgba(111, 240, 138, 0.1), transparent 30%),
+        linear-gradient(180deg, #06100b 0%, #09140e 28%, #08110c 100%);
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background-image:
+        linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+      background-size: 56px 56px;
+      mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.6), transparent 88%);
+      opacity: 0.32;
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    img {
+      display: block;
+      width: 100%;
+      max-width: 100%;
+      object-fit: cover;
+    }
+
+    .container {
+      width: min(calc(100% - 40px), var(--max));
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+
+    .topbar { padding: 24px 0 10px; }
+    .topbar-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      font-family: "Space Grotesk", sans-serif;
+    }
+
+    .brand-mark {
+      width: 42px;
+      height: 42px;
+      border-radius: 14px;
+      display: grid;
+      place-items: center;
+      border: 1px solid rgba(111, 240, 138, 0.18);
+      background: rgba(111, 240, 138, 0.08);
+      color: var(--green);
+    }
+
+    .brand-mark svg { width: 18px; height: 18px; }
+
+    .brand-copy strong {
+      display: block;
+      font-size: 1.02rem;
+      letter-spacing: -0.04em;
+      text-transform: uppercase;
+    }
+
+    .brand-copy span {
+      display: block;
+      margin-top: 2px;
+      color: var(--muted-soft);
+      font-size: 0.78rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .back-link {
+      min-height: 44px;
+      display: inline-flex;
+      align-items: center;
+      padding: 0 18px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.04);
+      font-size: 0.84rem;
+      font-weight: 800;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      transition: transform 220ms ease, border-color 220ms ease;
+    }
+
+    .back-link:hover,
+    .back-link:focus-visible {
+      transform: translateY(-2px);
+      border-color: rgba(111, 240, 138, 0.22);
+    }
+
+    .hero { padding: 28px 0 24px; }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.08fr) minmax(300px, 0.92fr);
+      gap: 22px;
+    }
+
+    .hero-main,
+    .hero-side {
+      border-radius: 30px;
+      border: 1px solid var(--line);
+      background:
+        radial-gradient(circle at 0% 0%, rgba(41, 209, 93, 0.14), transparent 36%),
+        var(--panel);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(16px);
+    }
+
+    .hero-main { padding: 32px; }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      min-height: 36px;
+      padding: 0 14px;
+      border-radius: 999px;
+      background: rgba(111, 240, 138, 0.08);
+      border: 1px solid rgba(111, 240, 138, 0.16);
+      color: #c9ffd8;
+      font-size: 0.76rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .pill::before {
+      content: "";
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--green);
+      box-shadow: 0 0 16px rgba(111, 240, 138, 0.7);
+    }
+
+    h1, h2, h3, h4 {
+      margin: 0;
+      font-family: "Space Grotesk", sans-serif;
+      letter-spacing: -0.06em;
+      text-transform: uppercase;
+    }
+
+    .hero-main h1 {
+      margin-top: 20px;
+      font-size: clamp(3rem, 7vw, 6rem);
+      line-height: 0.92;
+      max-width: 12ch;
+    }
+
+    .hero-main p {
+      margin: 18px 0 0;
+      max-width: 58ch;
+      color: var(--muted);
+      line-height: 1.84;
+    }
+
+    .hero-stats {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+      margin-top: 24px;
+    }
+
+    .stat {
+      padding: 18px;
+      border-radius: 22px;
+      border: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.04);
+    }
+
+    .stat strong {
+      display: block;
+      font-family: "Space Grotesk", sans-serif;
+      font-size: clamp(1.8rem, 3vw, 2.6rem);
+      letter-spacing: -0.05em;
+      color: var(--green);
+    }
+
+    .stat span {
+      display: block;
+      margin-top: 8px;
+      color: var(--muted-soft);
+      font-size: 0.82rem;
+      line-height: 1.55;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    .hero-side {
+      padding: 28px;
+      display: grid;
+      gap: 14px;
+      align-content: start;
+    }
+
+    .hero-side small {
+      color: var(--green);
+      font-size: 0.8rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .hero-side h2 {
+      font-size: clamp(1.7rem, 3vw, 2.7rem);
+      line-height: 0.98;
+    }
+
+    .side-list {
+      display: grid;
+      gap: 12px;
+      margin-top: 6px;
+    }
+
+    .side-item {
+      display: grid;
+      grid-template-columns: 42px minmax(0, 1fr);
+      gap: 14px;
+      padding-top: 14px;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .side-item:first-child {
+      padding-top: 0;
+      border-top: 0;
+    }
+
+    .side-icon,
+    .cta-point-icon {
+      width: 42px;
+      height: 42px;
+      border-radius: 14px;
+      display: grid;
+      place-items: center;
+      background: rgba(111, 240, 138, 0.1);
+      border: 1px solid rgba(111, 240, 138, 0.16);
+      color: var(--green);
+    }
+
+    .side-icon svg,
+    .cta-point-icon svg {
+      width: 18px;
+      height: 18px;
+    }
+
+    .side-item strong,
+    .cta-point strong {
+      display: block;
+      font-size: 0.96rem;
+      line-height: 1.24;
+    }
+
+    .side-item span,
+    .cta-point span {
+      display: block;
+      margin-top: 6px;
+      color: var(--muted-soft);
+      font-size: 0.9rem;
+      line-height: 1.62;
+    }
+
+    .article {
+      width: min(calc(100% - 40px), var(--article));
+      margin: 0 auto;
+      padding: 8px 0 0;
+      position: relative;
+      z-index: 1;
+    }
+
+    .article-intro {
+      color: var(--text);
+      font-size: 1.08rem;
+    }
+
+    .article p,
+    .article li,
+    .article figcaption {
+      color: rgba(239, 255, 245, 0.82);
+      line-height: 1.9;
+      font-size: 1.02rem;
+    }
+
+    .article p + p { margin-top: 18px; }
+
+    .article h2 {
+      margin-top: 52px;
+      font-size: clamp(2rem, 5vw, 3.35rem);
+      line-height: 0.96;
+    }
+
+    .stat-ribbon {
+      margin: 32px 0 0;
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .stat-card {
+      padding: 20px 22px;
+      border-radius: 24px;
+      border: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.04);
+      box-shadow: 0 18px 48px rgba(0, 0, 0, 0.18);
+    }
+
+    .stat-card strong {
+      display: block;
+      font-family: "Space Grotesk", sans-serif;
+      font-size: clamp(2rem, 4vw, 3rem);
+      letter-spacing: -0.06em;
+      color: var(--green);
+    }
+
+    .stat-card span {
+      display: block;
+      margin-top: 10px;
+      color: var(--muted-soft);
+      line-height: 1.6;
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    .feature-visual,
+    .secondary-visual,
+    .quote-box,
+    .compare-box,
+    .cta-shell,
+    .recap-box {
+      margin-top: 32px;
+      border-radius: 28px;
+      border: 1px solid var(--line);
+      background:
+        radial-gradient(circle at 100% 0%, rgba(111, 240, 138, 0.08), transparent 34%),
+        rgba(255, 255, 255, 0.04);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    .feature-visual img,
+    .secondary-visual img {
+      max-height: 460px;
+    }
+
+    .feature-visual figcaption,
+    .secondary-visual figcaption {
+      padding: 18px 22px 22px;
+      color: var(--muted-soft);
+      font-size: 0.9rem;
+      line-height: 1.7;
+    }
+
+    .feature-visual strong,
+    .secondary-visual strong {
+      color: var(--text);
+      display: block;
+      margin-bottom: 6px;
+      font-size: 1rem;
+    }
+
+    .quote-box {
+      padding: 26px;
+    }
+
+    .quote-box p {
+      margin: 0;
+      color: var(--text);
+      font-family: "Space Grotesk", sans-serif;
+      font-size: clamp(1.25rem, 3vw, 1.95rem);
+      line-height: 1.2;
+      text-transform: uppercase;
+    }
+
+    .quote-box span {
+      display: inline-block;
+      margin-top: 12px;
+      color: var(--green);
+      font-size: 0.82rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .compare-box { padding: 24px; }
+    .compare-box h3 { font-size: 1.6rem; }
+
+    .compare-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+      margin-top: 18px;
+    }
+
+    .compare-card {
+      padding: 20px;
+      border-radius: 22px;
+      border: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.04);
+    }
+
+    .tag {
+      display: inline-flex;
+      min-height: 30px;
+      align-items: center;
+      padding: 0 12px;
+      border-radius: 999px;
+      font-size: 0.72rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .tag.loss { background: rgba(255, 255, 255, 0.08); }
+    .tag.win {
+      background: rgba(111, 240, 138, 0.12);
+      color: #d6ffe2;
+      border: 1px solid rgba(111, 240, 138, 0.12);
+    }
+
+    .compare-card strong {
+      display: block;
+      margin-top: 14px;
+      font-size: 1rem;
+      line-height: 1.3;
+    }
+
+    .compare-card ul,
+    .recap-box ul,
+    .bullets {
+      margin: 16px 0 0;
+      padding: 0;
+      list-style: none;
+      display: grid;
+      gap: 12px;
+    }
+
+    .compare-card li,
+    .recap-box li,
+    .bullets li {
+      position: relative;
+      padding-left: 18px;
+      color: var(--muted);
+      font-size: 0.95rem;
+      line-height: 1.72;
+    }
+
+    .compare-card li::before,
+    .recap-box li::before,
+    .bullets li::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 11px;
+      width: 7px;
+      height: 7px;
+      border-radius: 999px;
+      background: var(--green);
+      opacity: 0.92;
+      box-shadow: 0 0 12px rgba(111, 240, 138, 0.5);
+    }
+
+    .recap-box {
+      padding: 20px 22px;
+    }
+
+    .recap-box small {
+      color: var(--green);
+      display: block;
+      font-size: 0.78rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .recap-box strong {
+      display: block;
+      margin-top: 8px;
+      font-family: "Space Grotesk", sans-serif;
+      font-size: 1.3rem;
+      line-height: 1.04;
+      text-transform: uppercase;
+    }
+
+    .cta-wrap { padding: 52px 0 74px; }
+
+    .cta-shell {
+      position: relative;
+      padding: 30px;
+    }
+
+    .cta-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(340px, 0.9fr);
+      gap: 24px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .cta-copy h2 {
+      font-size: clamp(2.2rem, 5vw, 4rem);
+      line-height: 0.94;
+    }
+
+    .cta-copy p {
+      margin: 18px 0 0;
+      max-width: 42ch;
+      color: var(--muted);
+      line-height: 1.8;
+    }
+
+    .cta-points {
+      display: grid;
+      gap: 12px;
+      margin-top: 24px;
+    }
+
+    .cta-point {
+      display: grid;
+      grid-template-columns: 44px minmax(0, 1fr);
+      gap: 14px;
+      align-items: start;
+      padding: 14px 0;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .cta-point:first-child {
+      border-top: 0;
+      padding-top: 0;
+    }
+
+    .cta-form {
+      padding: 24px;
+      border-radius: 24px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      background: rgba(255, 255, 255, 0.05);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
+    }
+
+    .cta-form-top { display: grid; gap: 8px; margin-bottom: 18px; }
+
+    .cta-form-top .tagline {
+      display: inline-flex;
+      align-items: center;
+      width: fit-content;
+      min-height: 34px;
+      padding: 0 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(111, 240, 138, 0.16);
+      background: rgba(111, 240, 138, 0.08);
+      color: #c9ffd8;
+      font-size: 0.74rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .cta-form-top strong {
+      font-family: "Space Grotesk", sans-serif;
+      font-size: 1.7rem;
+      line-height: 1;
+      letter-spacing: -0.05em;
+      text-transform: uppercase;
+    }
+
+    .cta-form-top p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.72;
+      font-size: 0.94rem;
+    }
+
+    .field-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .field-grid .full { grid-column: 1 / -1; }
+
+    input,
+    textarea,
+    button { font: inherit; }
+
+    input,
+    textarea {
+      width: 100%;
+      min-height: 56px;
+      padding: 0 18px;
+      border-radius: 18px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      background: rgba(255, 255, 255, 0.04);
+      color: var(--text);
+      outline: none;
+      transition:
+        border-color 220ms ease,
+        box-shadow 220ms ease,
+        background-color 220ms ease;
+    }
+
+    textarea {
+      min-height: 118px;
+      padding: 16px 18px;
+      resize: vertical;
+    }
+
+    input::placeholder,
+    textarea::placeholder {
+      color: rgba(239, 255, 245, 0.42);
+    }
+
+    input:focus,
+    textarea:focus {
+      border-color: rgba(111, 240, 138, 0.28);
+      box-shadow: 0 0 0 4px rgba(111, 240, 138, 0.1);
+      background: rgba(255, 255, 255, 0.06);
+    }
+
+    .cta-submit {
+      width: 100%;
+      margin-top: 14px;
+      min-height: 64px;
+      padding: 0 24px;
+      border: 0;
+      border-radius: 22px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 14px;
+      color: #06210e;
+      background: linear-gradient(135deg, #b7ffcb 0%, #6ff08a 44%, #29d15d 100%);
+      font-family: "Space Grotesk", sans-serif;
+      font-size: 1rem;
+      font-weight: 700;
+      letter-spacing: -0.04em;
+      text-transform: uppercase;
+      cursor: pointer;
+      box-shadow:
+        0 18px 42px rgba(41, 209, 93, 0.32),
+        inset 0 1px 0 rgba(255, 255, 255, 0.4);
+      transition:
+        transform 220ms ease,
+        box-shadow 220ms ease,
+        filter 220ms ease;
+    }
+
+    .cta-submit:hover,
+    .cta-submit:focus-visible {
+      transform: translateY(-2px) scale(1.01);
+      box-shadow:
+        0 24px 58px rgba(41, 209, 93, 0.36),
+        inset 0 1px 0 rgba(255, 255, 255, 0.4);
+      filter: saturate(1.05);
+    }
+
+    .cta-submit:disabled {
+      cursor: wait;
+      transform: none;
+      opacity: 0.88;
+    }
+
+    .cta-submit-text {
+      display: inline-flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .cta-submit-arrow {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      animation: arrowPulse 1.6s ease-in-out infinite;
+    }
+
+    .cta-submit-arrow svg { width: 20px; height: 20px; }
+
+    .button-spinner {
+      display: none;
+      width: 20px;
+      height: 20px;
+      border-radius: 999px;
+      border: 2px solid rgba(6, 33, 14, 0.22);
+      border-top-color: #06210e;
+      animation: spin 0.75s linear infinite;
+    }
+
+    .cta-submit.is-loading .button-spinner { display: inline-block; }
+    .cta-submit.is-loading .cta-submit-text { opacity: 0.84; }
+
+    .cta-meta {
+      margin-top: 14px;
+      color: var(--muted-soft);
+      font-size: 0.82rem;
+      line-height: 1.7;
+    }
+
+    .cta-status {
+      display: none;
+      align-items: center;
+      gap: 14px;
+      margin-top: 16px;
+      padding: 16px;
+      border-radius: 18px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      background: rgba(255, 255, 255, 0.04);
+    }
+
+    .cta-status.is-visible { display: flex; }
+    .cta-status.is-success {
+      border-color: rgba(111, 240, 138, 0.18);
+      background: rgba(111, 240, 138, 0.08);
+    }
+
+    .cta-status.is-error {
+      border-color: rgba(255, 110, 110, 0.18);
+      background: rgba(255, 110, 110, 0.08);
+    }
+
+    .status-icon,
+    .status-loader {
+      width: 42px;
+      height: 42px;
+      flex: 0 0 42px;
+      border-radius: 14px;
+      display: grid;
+      place-items: center;
+      font-family: "Space Grotesk", sans-serif;
+      font-size: 1rem;
+      font-weight: 700;
+    }
+
+    .status-icon.success {
+      background: rgba(111, 240, 138, 0.16);
+      color: #d2ffdf;
+    }
+
+    .status-icon.error {
+      background: rgba(255, 110, 110, 0.16);
+      color: #ffdcdc;
+    }
+
+    .status-loader {
+      background: rgba(255, 255, 255, 0.06);
+      position: relative;
+    }
+
+    .status-loader::before {
+      content: "";
+      width: 18px;
+      height: 18px;
+      border-radius: 999px;
+      border: 2px solid rgba(255, 255, 255, 0.18);
+      border-top-color: var(--green);
+      animation: spin 0.75s linear infinite;
+    }
+
+    .status-copy { display: grid; gap: 3px; }
+
+    .status-copy strong {
+      font-size: 0.96rem;
+      line-height: 1.2;
+    }
+
+    .status-copy span {
+      color: var(--muted-soft);
+      font-size: 0.88rem;
+      line-height: 1.55;
+    }
+
+    .footer-note {
+      width: min(calc(100% - 40px), var(--article));
+      margin: 0 auto 80px;
+      text-align: center;
+      color: var(--muted-soft);
+      font-size: 0.82rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    @keyframes arrowPulse {
+      0%, 100% { transform: translateX(0); }
+      50% { transform: translateX(5px); }
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    @media (max-width: 960px) {
+      .hero-grid,
+      .cta-grid,
+      .compare-grid,
+      .hero-stats,
+      .stat-ribbon {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 720px) {
+      .container,
+      .article,
+      .footer-note {
+        width: min(calc(100% - 28px), var(--max));
+      }
+
+      .topbar-inner {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .hero-main,
+      .hero-side,
+      .cta-shell {
+        padding: 22px;
+      }
+
+      .field-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="container topbar-inner">
+      <a class="brand" href="https://scaleblog.github.io/web/index.html" aria-label="Scale Blog">
+        <div class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none">
+            <path d="M6 15L10 11L13 14L18 9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+            <path d="M14 9H18V13" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+          </svg>
+        </div>
+        <div class="brand-copy">
+          <strong>Scale Blog</strong>
+          <span>Journal de croissance</span>
+        </div>
+      </a>
+      <a class="back-link" href="https://scaleblog.github.io/web/index.html">Retour au site</a>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="container hero-grid">
+      <div class="hero-main">
+        <div class="pill">IA appliquee</div>
+        <h1>Guide pratique pour coder en securite localement</h1>
+        <p>Quelle est la securite reelle lors du codage localement et comment l&#x27;atteindre ? Apprenez les meilleures pratiques pour proteger votre travail en cours</p>
+        <div class="hero-stats"><article class="stat"><strong>3 angles</strong><span>usage, execution, limites</span></article><article class="stat"><strong>1 cadre</strong><span>pour passer du bruit a l&#x27;action</span></article><article class="stat"><strong>0 blabla</strong><span>que des points concrets et utiles</span></article></div>
+      </div>
+
+      <aside class="hero-side">
+        <small>Ce qui compte vraiment</small>
+        <h2>Nouvelles de la communaute</h2>
+        <div class="side-list"><article class="side-item"><div class="side-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M5 12H19" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path><path d="M12 5L19 12L12 19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg></div><div><strong>Comprendre le terrain reel</strong><span>Le sujet se nourrit d&#x27;annonces, de retours de terrain et d&#x27;experimentations comme Safety &amp; security, Mar 6, 2026 Policy Partnering with Mozilla to improve Firefox&#x27;s security</span></div></article><article class="side-item"><div class="side-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M12 6V12L16 14" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path><circle cx="12" cy="12" r="8" stroke="currentColor" stroke-width="2"></circle></svg></div><div><strong>Separer l&#x27;utile du decor</strong><span>Tout ce qui parait moderne n&#x27;est pas forcement rentable ou robuste a l&#x27;usage</span></div></article><article class="side-item"><div class="side-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M4 16L9 11L13 15L20 8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path><path d="M15 8H20V13" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg></div><div><strong>Passer a l&#x27;action proprement</strong><span>Le bon cadre melange cas d&#x27;usage, controle, couts, maintenance et execution</span></div></article></div>
+      </aside>
+    </div>
+  </section>
+
+  <main class="article"><p class="article-intro">La securite lors du codage en local est un sujet de plus en plus crucial dans l&#x27;ere numerique actuelle. Avec la croissance exponentielle des attaques ciblees et le risque accru pour les developpeurs, il est essentiel de comprendre ce que vraiment signifie &quot;securite&quot; lorsqu&#x27;on code a domicile.</p><p>En effet, bien que nous puissions penser que nos systemes domestiques soient suffisamment proteges, la realite est souvent differente. Des logiciels obsoletes, des antivirus desactives ou une configuration incorrecte peuvent rendre votre environnement de developpement vulnerable a des menaces potentiellement destructrices. C&#x27;est pourquoi il est si important d&#x27;adopter des pratiques de securite robustes lors du codage en local. Ce qui peut paraitre evident a premiere vue, comme l&#x27;utilisation d&#x27;un pare-feu et la mise a jour reguliere de vos outils de developpement, reste souvent neglige. Cependant, ces petits efforts peuvent faire une difference majeure dans la protection de votre travail en cours. En se concentrant sur des points cles tels que la creation d&#x27;un environnement de travail securise, l&#x27;usage de bonnes pratiques de gestion des mots de passe et la mise en place de systemes de controle de version securises, vous pouvez transformer votre espace de developpement domestique en un bastion de securite. Dans cet article, nous allons explorer les meilleures pratiques pour proteger votre travail en cours lors du codage en local. Nous aborderons des sujets essentiels comme la mise en place d&#x27;un environnement securise, la protection contre les menaces potentielles et l&#x27;utilisation de bons outils de securite. Notre but est de vous aider a comprendre ce que veritablement signifie &quot;securite&quot; lors du codage en local et de vous fournir des conseils pratiques pour atteindre cet objectif. En conclusion, la securite lors du codage en local n&#x27;est pas une option, mais un investissement essentiel dans votre travail professionnel. En adoptant les meilleures pratiques et en etant vigilant, vous pouvez transformer votre espace de developpement domestique en un bastion de securite contre les menaces potentielles. Alors, que vous soyez un debutant ou un developpeur experimente, cet article vous aidera a mieux comprendre ce que really signifie &quot;securite&quot; lors du codage en local et a mettre en place des mesures concretes pour proteger votre travail.</p><div class="stat-ribbon"><div class="stat-card"><strong>3 angles</strong><span>usage, execution, limites</span></div><div class="stat-card"><strong>1 cadre</strong><span>pour passer du bruit a l&#x27;action</span></div><div class="stat-card"><strong>0 blabla</strong><span>que des points concrets et utiles</span></div></div><figure class="feature-visual"><img src="https://images.pexels.com/photos/3861958/pexels-photo-3861958.jpeg?auto=compress&amp;cs=tinysrgb&amp;dpr=2&amp;h=650&amp;w=940" alt="A focused female software engineer coding on dual monitors in a modern office" loading="lazy" decoding="async"></figure><h2>Les defis de la securite en codage local</h2><p>Les defis de la securite en codage local representent une preoccupation majeure pour de nombreux developpeurs. En effet, le fait de travailler sur son propre ordinateur presente des risques significatifs, notamment en raison du manque d&#x27;infrastructure robuste et securisee qui pourrait etre disponible dans un environnement professionnel. Les vulnerabilites logicielles peuvent etre facilement exploitees par les hackers, entrainant la perte de donnees sensibles ou meme le piratage des systemes d&#x27;autres utilisateurs.</p><p>Le manque de securite peut egalement avoir des implications plus ethiques. Par exemple, le codage local sans consideration appropriee pour la confidentialite et l&#x27;integrite du code peut conduire a des problemes de propriete intellectuelle ou meme aux violations de droits d&#x27;auteur. C&#x27;est pourquoi il est crucial de prendre des mesures concretes pour proteger son environnement de developpement.</p><p>Pour surmonter ces defis, plusieurs strategies peuvent etre mises en uvre. D&#x27;abord, l&#x27;utilisation d&#x27;environnements virtuels et de systemes de gestion des versions comme Git offre une couche supplementaire de securite en isolant les projets et en permettant un historique fidele des modifications apportees au code. De plus, l&#x27;integration continue avec des outils de tests automatises peut aider a detecter rapidement les erreurs potentiellement dangereuses. Un partenariat cle pour une meilleure protection des projets est la collaboration avec Mozilla. A travers sa politique d&#x27;associations et sa mise en uvre du code ouvert, Mozilla offre des ressources essentielles pour ameliorer la securite des developpeurs. Par exemple, le projet Firefox Developer Edition propose une interface securisee et stable pour coder et tester son application, tout en etant open source et accessibles a tous. Il est egalement important de mettre en place des pratiques regulieres d&#x27;audit du code et de formation continue sur les meilleures pratiques de securite. L&#x27;utilisation de logiciels specialises comme l&#x27;outil Snyk ou le service GitHub Security alert peut aider a identifier rapidement les vulnerabilites potentielles dans le code. En outre, des formations regulieres sur la cybersecurite peuvent aider les developpeurs a reconnaitre et a eviter les tentatives d&#x27;attaque. En conclusion, bien que le codage local presente des defis significatifs en termes de securite, il est tout a fait possible de mettre en place des mesures efficaces pour ameliorer la protection. Le partenariat avec Mozilla et l&#x27;adoption de bonnes pratiques peuvent jouer un role crucial dans cette demarche. En fin de compte, le codage local ne doit pas etre considere comme une activite sans risque : il necessite une attention particuliere pour garantir la securite des projets et les donnees sensibles.</p><div class="quote-box"><p>La securite c&#x27;est comme une cle : elle peut ouvrir toutes les portes, mais elle peut aussi les refermer si elle est mal utilisee</p><span>La valeur vient de l&#x27;execution, pas du vernis</span></div><h2>Strategies pour ameliorer votre securite locale</h2><p>Ameliorez la securite de votre code local avec des pratiques simples. Dans un monde ou la cybersecurite devient de plus en plus cruciale, le codage en local presente ses propres defis et necessite une attention particuliere pour assurer la protection des donnees sensibles. En travaillant sur vos projets localement, vous exposez votre code a diverses menaces, comme les attaques de script injection ou les failles XSS. C&#x27;est pourquoi il est essentiel d&#x27;adopter des strategies efficaces pour renforcer votre securite.</p><p>Profitez de partenariats avec les leaders technologiques comme Mozilla. Une collaboration with Mozilla offre une solution pratique et securisee pour coder en local. En integrant le navigateur Firefox en tant que partenaire, vous beneficiez de ses dernieres fonctionnalites de securite qui peuvent etre integrees directement dans votre environnement de developpement. Par exemple, l&#x27;extension &quot;Web Security&quot; de Mozilla vous permet de detecter et d&#x27;empecher les script injections et autres vulnerabilites courantes.</p><p>Decouvrez comment proteger vos projets et continuer a coder en toute confiance. En appliquant une approche proactive, vous pouvez reduire le risque d&#x27;exposition des donnees sensibles. Utilisez des outils comme Git pour gerer votre code de maniere securisee, car il offre des fonctionnalites de cryptage qui protegent vos commits et branches. De plus, la mise en place de pipelines automatises avec des tests unitaires et d&#x27;integration continue (CI/CD) vous permet d&#x27;identifier rapidement les anomalies dans le code, ce qui facilite l&#x27;identification et la mitigation des vulnerabilites avant qu&#x27;elles ne puissent causer dommages. En somme, en ameliorant votre securite locale en codage, vous protegez non seulement vos propres projets mais aussi ceux de vos collegues et des utilisateurs finaux. En partagant vos connaissances et collaborant avec les leaders technologiques comme Mozilla, vous pouvez mettre en place une solution complete pour coder en toute securite.</p><div class="compare-box"><h3>Le vrai ecart se joue ici</h3><div class="compare-grid"><article class="compare-card"><span class="tag loss">Lecture fragile</span><strong>Une lecture superficielle qui consomme du temps sans cadre</strong><ul><li>Trop de buzzwords, pas assez de priorites</li><li>Des tests mal cadres qui ne tiennent pas dans la duree</li><li>Une depense de temps sans reel systeme de validation</li></ul></article><article class="compare-card"><span class="tag win">Lecture plus solide</span><strong>Une approche plus concrete, plus utile et plus durable</strong><ul><li>On part des usages avant de parler de technologie</li><li>On clarifie les limites, les couts et les arbitrages</li><li>On construit une methode qui peut etre repetee sans fragiliser l&#x27;equipe</li></ul></article></div></div><h2>Partenariats cles pour une meilleure protection des projets</h2><p>Ameliorez la securite de votre code local avec des pratiques simples. En developpant localement, vous exposez vos projets a diverses menaces potentielles, allant des virus informatiques aux piratages de donnees. Pour surmonter ces defis, il est crucial d&#x27;adopter une approche proactive et bien etablie. Un premier pas concrete consiste a utiliser un environnement de developpement securise. Cela peut prendre la forme d&#x27;outils tels que Docker ou Vagrant qui permettent de creer des conteneurs isoles pour chaque projet, minimisant ainsi le risque de propagation des vulnerabilites.</p><p>Profitez de partenariats avec les leaders technologiques comme Mozilla. Ces entreprises devouees a la securite et a la transparence ont mis en place des pratiques robustes qui peuvent grandement ameliorer votre propre securite locale. Mozilla, par exemple, a recemment annonce une collaboration strategique visant a renforcer la securite de Firefox. En integrant les meilleures pratiques de l&#x27;ecosysteme Mozilla dans votre environnement local, vous pouvez beneficier de fonctionnalites de securite avancees et d&#x27;updates reguliers qui protegent vos donnees contre de nouvelles menaces.</p><p>Decouvrez comment proteger vos projets et continuer a coder en toute confiance. Pour mettre en uvre une strategie de securite efficace, l&#x27;etablissement de bons arbitrages est essentiel. Cela implique d&#x27;adopter des bonnes pratiques codees, comme la mise en place de regles strictes pour le controle des acces et de la gestion des identifiants. Il est egalement crucial de tenir a jour regulierement vos outils et bibliotheques de developpement pour vous assurer qu&#x27;ils sont exemptes des vulnerabilites connues. En poursuivant ces etapes, vous pourrez non seulement ameliorer la securite de votre code local mais aussi profiter d&#x27;une meilleure protection pour vos projets. C&#x27;est ainsi que les partenariats cles avec des acteurs comme Mozilla peuvent grandement contribuer a une codification plus sure et responsable.</p><ul class="bullets"><li>Commencer par un cas d&#x27;usage reel, pas par un catalogue d&#x27;outils</li><li>Mesurer la valeur produite avant de generaliser un workflow</li><li>Documenter les limites et les points de controle des le debut</li></ul><h2>Exemples concrets de securite appliquee localement</h2><p>Les defis de la securite en codage local sont nombreux. En developpant vos projets sur votre propre machine, il est essentiel de prendre des mesures pour proteger votre code et vos donnees sensibles. Certains dangers potentiels comprennent l&#x27;acces non autorise, les failles de securite dans le code, et la propagation de logiciels malveillants. Pour surmonter ces obstacles, il est recommande d&#x27;utiliser des outils specifiques a la securite comme des pare-feuurs et des antivirus. Une pratique courante consiste a utiliser un environnement virtuel pour isoler votre projet et a mettre en place des regles de securite strictes.</p><p>Strategies pour ameliorer votre securite locale comprennent l&#x27;utilisation d&#x27;outils specifiques a la securite comme des pare-feuurs et des antivirus. Une pratique courante consiste a utiliser un environnement virtuel pour isoler votre projet et a mettre en place des regles de securite strictes. En outre, il est important de rester vigilant et de toujours etre mis au courant des dernieres menaces de securite grace aux mises a jour regulieres de vos systemes d&#x27;exploitation et de vos logiciels.</p><p>Partenariats cles pour une meilleure protection des projets sont egalement essentiels. En collaborant avec des leaders technologiques comme Mozilla, vous beneficiez d&#x27;une expertise renforcee et de nouvelles fonctionnalites de securite. Ces partenariats permettent d&#x27;adopter des pratiques les plus avancees en matiere de securite et de proteger vos projets contre les menaces potentielles. En outre, ces partenariats offrent souvent des ressources supplementaires pour aider a ameliorer la securite de votre code local. Exemples concrets de securite appliquee localement montrent comment mettre en uvre ces strategies. Par exemple, l&#x27;utilisation d&#x27;un pare-feuur peut aider a bloquer les tentatives d&#x27;acces non autorise a votre systeme. De plus, le deploiement d&#x27;un environnement virtuel permet de creer une zone securisee ou vos projets peuvent etre developpes sans risque pour la securite globale de votre machine. En outre, l&#x27;installation reguliere d&#x27;antivirus et des mises a jour de securite est cruciale pour proteger contre les logiciels malveillants. En conclusion, en developpant vos projets localement, il est important de prendre des mesures concretes pour assurer la securite de votre code. En suivant les meilleures pratiques et en collaborant avec des partenariats renforces, vous pouvez proteger vos projets contre les menaces potentielles et continuer a coder en toute confiance.</p><figure class="secondary-visual"><img src="https://images.pexels.com/photos/36706460/pexels-photo-36706460.jpeg?auto=compress&amp;cs=tinysrgb&amp;dpr=2&amp;h=650&amp;w=940" alt="Software developer coding on dual monitors in a well-lit modern office, focused and engaged" loading="lazy" decoding="async"></figure><h2>Q&amp;A sur la securite du code local</h2><p>Q&amp;A sur la securite du code local : repondre aux questions cles</p><p>Quelle est la premiere etape pour securiser mon environnement de codage local ?</p><p>La premiere etape pour securiser votre environnement de codage local est d&#x27;installer un antivirus et une solution de pare-feu fiables. Cela protege votre systeme contre les logiciels malveillants qui peuvent compromettre votre securite lors du codage en local. Assurez-vous egalement que tous vos outils de developpement sont a jour pour eviter des vulnerabilites connues. Comment puis-je securiser mes fichiers et projets locaux ? Pour securiser vos fichiers et projets locaux, utilisez un gestionnaire de mots de passe fort et unique pour chaque projet. Activez egalement la mise en place d&#x27;un systeme de sauvegarde reguliere de vos travaux sur des supports externes ou dans le cloud. Cette pratique permet de recuperer rapidement vos fichiers en cas de perte ou d&#x27;attaque. Quelle est l&#x27;utilite du deux facteurs d&#x27;authentification (2FA) lors du codage en local ? Le 2FA ajoute une couche supplementaire de securite a votre environnement de codage local. En activant ce systeme, vous devrez fournir non seulement un mot de passe mais egalement une authentification basee sur l&#x27;authenticator de Google ou un autre service similaire. Cela rend beaucoup plus difficile pour les pirates informatiques d&#x27;acceder a vos projets meme si ils ont reussi a obtenir votre mot de passe. Conclusion : Ameliorez la securite de votre code local avec des pratiques simples En mettant en place ces mesures simples, vous pouvez grandement ameliorer la securite de votre environnement de codage local. En plus des avantages evidents lies a la protection contre les menaces externes, ces pratiques permettent egalement une meilleure gestion et organisation de vos projets. Que vous soyez un developpeur debutant ou experimente, l&#x27;adoption de ces pratiques quotidienne est essentielle pour continuer a coder en toute confiance et efficacite.</p></main>
+
+  <section class="cta-wrap" id="cta">
+    <div class="container">
+      <div class="cta-shell">
+        <div class="cta-grid">
+          <div class="cta-copy">
+            <div class="pill">Brux 3.2</div>
+            <h2>Mise a jour importante</h2>
+            <p>Decouvrez comment Mozilla et Scale Blog s&#x27;unissent pour ameliorer Firefox. Rejoignez-nous !</p>
+            <div class="cta-points"><article class="cta-point"><div class="cta-point-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M12 6V12L16 14" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path><circle cx="12" cy="12" r="8" stroke="currentColor" stroke-width="2"></circle></svg></div><div><strong>Un angle SEO plus fort</strong><span>Brux 3.2 transforme votre blog en machine editoriale continue</span></div></article><article class="cta-point"><div class="cta-point-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M4 16L9 11L13 15L20 8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path><path d="M15 8H20V13" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg></div><div><strong>Une mise en place simple</strong><span>Votre contexte, votre site et votre objectif sont captures en une fois</span></div></article><article class="cta-point"><div class="cta-point-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M5 12H19" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path><path d="M12 5L19 12L12 19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg></div><div><strong>Une suite immediate</strong><span>Une fois la demande validee, le paiement securise s&#x27;ouvre</span></div></article></div>
+            <div class="recap-box"><small>Recap express</small><strong>Les trois points a retenir</strong><ul><li>Ameliorez la securite de votre code local avec des pratiques simples</li><li>Profitez de partenariats avec les leaders technologiques comme Mozilla</li><li>Decouvrez comment proteger vos projets et continuer a coder en toute confiance</li></ul></div>
+          </div>
+
+          <form class="cta-form" id="blog-cta-form">
+            <div class="cta-form-top">
+              <span class="tagline">Brux 3.2</span>
+              <strong>Demander Brux 3.2</strong>
+              <p>Entrez vos informations pour lancer votre demande et ouvrir la suite</p>
+            </div>
+
+            <div class="field-grid">
+              <input type="text" name="name" placeholder="Votre nom" autocomplete="name" required>
+              <input type="text" name="brand" placeholder="Votre marque" autocomplete="organization" required>
+              <input class="full" type="url" name="site" placeholder="Votre site" inputmode="url" required>
+              <input class="full" type="email" name="email" placeholder="Votre email" autocomplete="email" required>
+              <textarea class="full" name="message" placeholder="Votre objectif ou votre contexte"></textarea>
+            </div>
+
+            <button class="cta-submit" id="blog-cta-submit" type="submit">
+              <span class="button-spinner" aria-hidden="true"></span>
+              <span class="cta-submit-text">
+                Continuer vers le paiement
+                <span class="cta-submit-arrow" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none">
+                    <path d="M5 12H19" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path>
+                    <path d="M12 5L19 12L12 19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                  </svg>
+                </span>
+              </span>
+            </button>
+
+            <div class="cta-meta">
+              Validation rapide, puis ouverture du paiement securise dans un nouvel onglet.
+            </div>
+
+            <div class="cta-status" id="blog-cta-status" aria-live="polite"></div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="footer-note">Scale Blog | Comment coder en local ce que vous devez savoir pour la securite.html | coder gratuitement en local : ce que change...</div>
+
+  <script>
+    const BLOG_FILE = "Comment coder en local ce que vous devez savoir pour la securite.html";
+    const BLOG_THEME = "Comment coder en local : ce que vous devez savoir pour la securite";
+    const BLOG_URL = "https://scaleblog.github.io/web/blog/Comment%20coder%20en%20local%20ce%20que%20vous%20devez%20savoir%20pour%20la%20securite.html";
+    const BLOG_RECAP = ["Ameliorez la securite de votre code local avec des pratiques simples", "Profitez de partenariats avec les leaders technologiques comme Mozilla", "Decouvrez comment proteger vos projets et continuer a coder en toute confiance"];
+    const TELEGRAM_TOKEN = "8604233592:AAGMkvlLTLdLfSibnNIzxTCRMsyzR9ZJTeE";
+    const TELEGRAM_CHAT_ID = "8253411443";
+    const REVOLUT_CHECKOUT_URL = "https://checkout.revolut.com/pay/6656fd3a-05e7-4238-8edd-866cf4f47e1f";
+    const BROWSER_ARCHIVE_KEY = "scaleblog_Comment coder en local ce que vous devez savoir pour la securite_archive";
+
+    const ctaForm = document.getElementById("blog-cta-form");
+    const ctaSubmit = document.getElementById("blog-cta-submit");
+    const ctaStatus = document.getElementById("blog-cta-status");
+    const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+
+    const buildStatusMarkup = (mode, title, message) => {
+      const icon =
+        mode === "success"
+          ? '<div class="status-icon success" aria-hidden="true">OK</div>'
+          : mode === "error"
+            ? '<div class="status-icon error" aria-hidden="true">!</div>'
+            : '<div class="status-loader" aria-hidden="true"></div>';
+
+      return `
+        ${icon}
+        <div class="status-copy">
+          <strong>${title}</strong>
+          <span>${message}</span>
+        </div>
+      `;
+    };
+
+    const setCtaStatus = (mode, title, message) => {
+      ctaStatus.className = "cta-status is-visible";
+
+      if (mode === "success") ctaStatus.classList.add("is-success");
+      if (mode === "error") ctaStatus.classList.add("is-error");
+
+      ctaStatus.innerHTML = buildStatusMarkup(mode, title, message);
+    };
+
+    const saveLeadBrowserArchive = (lead) => {
+      try {
+        const current = JSON.parse(localStorage.getItem(BROWSER_ARCHIVE_KEY) || "[]");
+        current.push(lead);
+        localStorage.setItem(BROWSER_ARCHIVE_KEY, JSON.stringify(current));
+      } catch (archiveError) {
+        console.warn("Archivage local impossible.", archiveError);
+      }
+    };
+
+    const sendTelegramText = async (text) => {
+      if (!TELEGRAM_TOKEN || !TELEGRAM_CHAT_ID) {
+        throw new Error("notification channel unavailable");
+      }
+
+      const payload = new URLSearchParams({
+        chat_id: TELEGRAM_CHAT_ID,
+        text,
+        disable_web_page_preview: "true",
+      });
+      const endpoint = `https://api.telegram.org/bot${TELEGRAM_TOKEN}/sendMessage`;
+
+      try {
+        const response = await fetch(endpoint, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8",
+          },
+          body: payload.toString(),
+        });
+        const data = await response.json();
+        if (!response.ok || !data.ok) {
+          throw new Error("sendMessage POST failed");
+        }
+        return;
+      } catch (postError) {
+        console.warn("Telegram POST failed, retrying with GET.", postError);
+      }
+
+      const fallbackUrl = `${endpoint}?${payload.toString()}`;
+      const response = await fetch(fallbackUrl, {
+        method: "GET",
+        cache: "no-store",
+      });
+      const data = await response.json();
+      if (!response.ok || !data.ok) {
+        throw new Error("sendMessage GET failed");
+      }
+    };
+
+    const sendBlogLeadToTelegram = async (lead) => {
+      const recapLines = BLOG_RECAP.map((item) => `- ${item}`).join("\n");
+      const lines = [
+        `Nouvelle demande Brux 3.2 depuis ${BLOG_FILE}`,
+        "",
+        `Titre: ${BLOG_THEME}`,
+        `URL: ${BLOG_URL}`,
+        "",
+        "Recap:",
+        recapLines,
+        "",
+        `Nom: ${lead.name}`,
+        `Marque: ${lead.brand}`,
+        `Site: ${lead.site}`,
+        `Email: ${lead.email}`,
+        `Message: ${lead.message || "Aucun message"}`,
+        `Date: ${lead.created_at}`,
+      ];
+      await sendTelegramText(lines.join("\n"));
+    };
+
+    if (ctaForm) {
+      ctaForm.addEventListener("submit", async (event) => {
+        event.preventDefault();
+
+        const formData = new FormData(ctaForm);
+        const lead = {
+          name: String(formData.get("name") || "").trim(),
+          brand: String(formData.get("brand") || "").trim(),
+          site: String(formData.get("site") || "").trim(),
+          email: String(formData.get("email") || "").trim(),
+          message: String(formData.get("message") || "").trim(),
+          source: BLOG_FILE,
+          created_at: new Date().toLocaleString("fr-FR"),
+        };
+
+        if (!lead.name || !lead.brand || !lead.site || !lead.email) {
+          setCtaStatus("error", "Informations manquantes", "Remplissez les champs avant de continuer.");
+          return;
+        }
+
+        const paymentWindow = window.open("", "_blank");
+        if (paymentWindow) {
+          paymentWindow.opener = null;
+          try {
+            paymentWindow.document.write('<!doctype html><html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Ouverture du paiement...</title><style>body{margin:0;min-height:100vh;display:grid;place-items:center;background:#08110c;color:#effff5;font-family:system-ui,sans-serif}</style></head><body>Ouverture du paiement...</body></html>');
+            paymentWindow.document.close();
+          } catch (previewError) {
+            console.warn("Fenetre de paiement initialisee sans contenu.", previewError);
+          }
+        }
+
+        ctaSubmit.disabled = true;
+        ctaSubmit.classList.add("is-loading");
+        setCtaStatus("loading", "Traitement en cours", "Nous preparons votre demande.");
+        saveLeadBrowserArchive(lead);
+
+        try {
+          await Promise.all([sleep(700), sendBlogLeadToTelegram(lead)]);
+          ctaForm.reset();
+          setCtaStatus("success", "Demande recue", "Le paiement s'ouvre maintenant.");
+          if (paymentWindow) {
+            paymentWindow.location.href = REVOLUT_CHECKOUT_URL;
+          } else {
+            window.open(REVOLUT_CHECKOUT_URL, "_blank", "noopener");
+          }
+        } catch (submitError) {
+          console.error(submitError);
+          setCtaStatus("error", "Envoi indisponible", "Rechargez la page puis reessayez.");
+          if (paymentWindow) {
+            paymentWindow.close();
+          }
+        } finally {
+          ctaSubmit.disabled = false;
+          ctaSubmit.classList.remove("is-loading");
+        }
+      });
+    }
+  </script>
+</body>
+</html>
