@@ -1,0 +1,1140 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Scale Blog - Systeme Editorial Mesurable Pour La Cybersecurite | Scale Blog</title>
+  <meta name="description" content="Ameliorez votre referencement avec Brux 3.2 de Scale Blog : IA editoriale et edition humaine pour un SEO credible">
+  <meta name="robots" content="index,follow,max-image-preview:large">
+  <link rel="canonical" href="https://scaleblog.github.io/web/blog/Scale%20Blog%20-%20Systeme%20Editorial%20Mesurable%20Pour%20La%20Cybersecurite.html">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Scale Blog - Systeme Editorial Mesurable Pour La Cybersecurite | Scale Blog">
+  <meta property="og:description" content="Ameliorez votre referencement avec Brux 3.2 de Scale Blog : IA editoriale et edition humaine pour un SEO credible">
+  <meta property="og:url" content="https://scaleblog.github.io/web/blog/Scale%20Blog%20-%20Systeme%20Editorial%20Mesurable%20Pour%20La%20Cybersecurite.html">
+  <meta property="og:image" content="https://images.pexels.com/photos/27588991/pexels-photo-27588991.jpeg?auto=compress&amp;cs=tinysrgb&amp;dpr=2&amp;h=650&amp;w=940">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Scale Blog - Systeme Editorial Mesurable Pour La Cybersecurite | Scale Blog">
+  <meta name="twitter:description" content="Ameliorez votre referencement avec Brux 3.2 de Scale Blog : IA editoriale et edition humaine pour un SEO credible">
+  <meta name="twitter:image" content="https://images.pexels.com/photos/27588991/pexels-photo-27588991.jpeg?auto=compress&amp;cs=tinysrgb&amp;dpr=2&amp;h=650&amp;w=940">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/png" href="https://scaleblog.github.io/web/icon.png">
+  <style>
+    :root {
+      --bg: #08110c;
+      --panel: rgba(255, 255, 255, 0.05);
+      --line: rgba(255, 255, 255, 0.09);
+      --text: #effff5;
+      --muted: rgba(239, 255, 245, 0.72);
+      --muted-soft: rgba(239, 255, 245, 0.5);
+      --green: #6ff08a;
+      --green-soft: rgba(111, 240, 138, 0.12);
+      --shadow: 0 28px 72px rgba(0, 0, 0, 0.24);
+      --max: 1140px;
+      --article: 780px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      min-width: 320px;
+      font-family: "Manrope", sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 12% 0%, rgba(41, 209, 93, 0.16), transparent 28%),
+        radial-gradient(circle at 100% 12%, rgba(111, 240, 138, 0.1), transparent 30%),
+        linear-gradient(180deg, #06100b 0%, #09140e 28%, #08110c 100%);
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background-image:
+        linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+      background-size: 56px 56px;
+      mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.6), transparent 88%);
+      opacity: 0.32;
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    img {
+      display: block;
+      width: 100%;
+      max-width: 100%;
+      object-fit: cover;
+    }
+
+    .container {
+      width: min(calc(100% - 40px), var(--max));
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+
+    .topbar { padding: 24px 0 10px; }
+    .topbar-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      font-family: "Space Grotesk", sans-serif;
+    }
+
+    .brand-mark {
+      width: 42px;
+      height: 42px;
+      border-radius: 14px;
+      display: grid;
+      place-items: center;
+      border: 1px solid rgba(111, 240, 138, 0.18);
+      background: rgba(111, 240, 138, 0.08);
+      color: var(--green);
+    }
+
+    .brand-mark svg { width: 18px; height: 18px; }
+
+    .brand-copy strong {
+      display: block;
+      font-size: 1.02rem;
+      letter-spacing: -0.04em;
+      text-transform: uppercase;
+    }
+
+    .brand-copy span {
+      display: block;
+      margin-top: 2px;
+      color: var(--muted-soft);
+      font-size: 0.78rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .back-link {
+      min-height: 44px;
+      display: inline-flex;
+      align-items: center;
+      padding: 0 18px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.04);
+      font-size: 0.84rem;
+      font-weight: 800;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      transition: transform 220ms ease, border-color 220ms ease;
+    }
+
+    .back-link:hover,
+    .back-link:focus-visible {
+      transform: translateY(-2px);
+      border-color: rgba(111, 240, 138, 0.22);
+    }
+
+    .hero { padding: 28px 0 24px; }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.08fr) minmax(300px, 0.92fr);
+      gap: 22px;
+    }
+
+    .hero-main,
+    .hero-side {
+      border-radius: 30px;
+      border: 1px solid var(--line);
+      background:
+        radial-gradient(circle at 0% 0%, rgba(41, 209, 93, 0.14), transparent 36%),
+        var(--panel);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(16px);
+    }
+
+    .hero-main { padding: 32px; }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      min-height: 36px;
+      padding: 0 14px;
+      border-radius: 999px;
+      background: rgba(111, 240, 138, 0.08);
+      border: 1px solid rgba(111, 240, 138, 0.16);
+      color: #c9ffd8;
+      font-size: 0.76rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .pill::before {
+      content: "";
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--green);
+      box-shadow: 0 0 16px rgba(111, 240, 138, 0.7);
+    }
+
+    h1, h2, h3, h4 {
+      margin: 0;
+      font-family: "Space Grotesk", sans-serif;
+      letter-spacing: -0.06em;
+      text-transform: uppercase;
+    }
+
+    .hero-main h1 {
+      margin-top: 20px;
+      font-size: clamp(3rem, 7vw, 6rem);
+      line-height: 0.92;
+      max-width: 12ch;
+    }
+
+    .hero-main p {
+      margin: 18px 0 0;
+      max-width: 58ch;
+      color: var(--muted);
+      line-height: 1.84;
+    }
+
+    .hero-stats {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+      margin-top: 24px;
+    }
+
+    .stat {
+      padding: 18px;
+      border-radius: 22px;
+      border: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.04);
+    }
+
+    .stat strong {
+      display: block;
+      font-family: "Space Grotesk", sans-serif;
+      font-size: clamp(1.8rem, 3vw, 2.6rem);
+      letter-spacing: -0.05em;
+      color: var(--green);
+    }
+
+    .stat span {
+      display: block;
+      margin-top: 8px;
+      color: var(--muted-soft);
+      font-size: 0.82rem;
+      line-height: 1.55;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    .hero-side {
+      padding: 28px;
+      display: grid;
+      gap: 14px;
+      align-content: start;
+    }
+
+    .hero-side small {
+      color: var(--green);
+      font-size: 0.8rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .hero-side h2 {
+      font-size: clamp(1.7rem, 3vw, 2.7rem);
+      line-height: 0.98;
+    }
+
+    .side-list {
+      display: grid;
+      gap: 12px;
+      margin-top: 6px;
+    }
+
+    .side-item {
+      display: grid;
+      grid-template-columns: 42px minmax(0, 1fr);
+      gap: 14px;
+      padding-top: 14px;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .side-item:first-child {
+      padding-top: 0;
+      border-top: 0;
+    }
+
+    .side-icon,
+    .cta-point-icon {
+      width: 42px;
+      height: 42px;
+      border-radius: 14px;
+      display: grid;
+      place-items: center;
+      background: rgba(111, 240, 138, 0.1);
+      border: 1px solid rgba(111, 240, 138, 0.16);
+      color: var(--green);
+    }
+
+    .side-icon svg,
+    .cta-point-icon svg {
+      width: 18px;
+      height: 18px;
+    }
+
+    .side-item strong,
+    .cta-point strong {
+      display: block;
+      font-size: 0.96rem;
+      line-height: 1.24;
+    }
+
+    .side-item span,
+    .cta-point span {
+      display: block;
+      margin-top: 6px;
+      color: var(--muted-soft);
+      font-size: 0.9rem;
+      line-height: 1.62;
+    }
+
+    .article {
+      width: min(calc(100% - 40px), var(--article));
+      margin: 0 auto;
+      padding: 8px 0 0;
+      position: relative;
+      z-index: 1;
+    }
+
+    .article-intro {
+      color: var(--text);
+      font-size: 1.08rem;
+    }
+
+    .article p,
+    .article li,
+    .article figcaption {
+      color: rgba(239, 255, 245, 0.82);
+      line-height: 1.9;
+      font-size: 1.02rem;
+    }
+
+    .article p + p { margin-top: 18px; }
+
+    .article h2 {
+      margin-top: 52px;
+      font-size: clamp(2rem, 5vw, 3.35rem);
+      line-height: 0.96;
+    }
+
+    .stat-ribbon {
+      margin: 32px 0 0;
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .stat-card {
+      padding: 20px 22px;
+      border-radius: 24px;
+      border: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.04);
+      box-shadow: 0 18px 48px rgba(0, 0, 0, 0.18);
+    }
+
+    .stat-card strong {
+      display: block;
+      font-family: "Space Grotesk", sans-serif;
+      font-size: clamp(2rem, 4vw, 3rem);
+      letter-spacing: -0.06em;
+      color: var(--green);
+    }
+
+    .stat-card span {
+      display: block;
+      margin-top: 10px;
+      color: var(--muted-soft);
+      line-height: 1.6;
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    .feature-visual,
+    .secondary-visual,
+    .quote-box,
+    .compare-box,
+    .cta-shell,
+    .recap-box {
+      margin-top: 32px;
+      border-radius: 28px;
+      border: 1px solid var(--line);
+      background:
+        radial-gradient(circle at 100% 0%, rgba(111, 240, 138, 0.08), transparent 34%),
+        rgba(255, 255, 255, 0.04);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    .feature-visual img,
+    .secondary-visual img {
+      max-height: 460px;
+    }
+
+    .feature-visual figcaption,
+    .secondary-visual figcaption {
+      padding: 18px 22px 22px;
+      color: var(--muted-soft);
+      font-size: 0.9rem;
+      line-height: 1.7;
+    }
+
+    .feature-visual strong,
+    .secondary-visual strong {
+      color: var(--text);
+      display: block;
+      margin-bottom: 6px;
+      font-size: 1rem;
+    }
+
+    .quote-box {
+      padding: 26px;
+    }
+
+    .quote-box p {
+      margin: 0;
+      color: var(--text);
+      font-family: "Space Grotesk", sans-serif;
+      font-size: clamp(1.25rem, 3vw, 1.95rem);
+      line-height: 1.2;
+      text-transform: uppercase;
+    }
+
+    .quote-box span {
+      display: inline-block;
+      margin-top: 12px;
+      color: var(--green);
+      font-size: 0.82rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .compare-box { padding: 24px; }
+    .compare-box h3 { font-size: 1.6rem; }
+
+    .compare-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+      margin-top: 18px;
+    }
+
+    .compare-card {
+      padding: 20px;
+      border-radius: 22px;
+      border: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.04);
+    }
+
+    .tag {
+      display: inline-flex;
+      min-height: 30px;
+      align-items: center;
+      padding: 0 12px;
+      border-radius: 999px;
+      font-size: 0.72rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .tag.loss { background: rgba(255, 255, 255, 0.08); }
+    .tag.win {
+      background: rgba(111, 240, 138, 0.12);
+      color: #d6ffe2;
+      border: 1px solid rgba(111, 240, 138, 0.12);
+    }
+
+    .compare-card strong {
+      display: block;
+      margin-top: 14px;
+      font-size: 1rem;
+      line-height: 1.3;
+    }
+
+    .compare-card ul,
+    .recap-box ul,
+    .bullets {
+      margin: 16px 0 0;
+      padding: 0;
+      list-style: none;
+      display: grid;
+      gap: 12px;
+    }
+
+    .compare-card li,
+    .recap-box li,
+    .bullets li {
+      position: relative;
+      padding-left: 18px;
+      color: var(--muted);
+      font-size: 0.95rem;
+      line-height: 1.72;
+    }
+
+    .compare-card li::before,
+    .recap-box li::before,
+    .bullets li::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 11px;
+      width: 7px;
+      height: 7px;
+      border-radius: 999px;
+      background: var(--green);
+      opacity: 0.92;
+      box-shadow: 0 0 12px rgba(111, 240, 138, 0.5);
+    }
+
+    .recap-box {
+      padding: 20px 22px;
+    }
+
+    .recap-box small {
+      color: var(--green);
+      display: block;
+      font-size: 0.78rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .recap-box strong {
+      display: block;
+      margin-top: 8px;
+      font-family: "Space Grotesk", sans-serif;
+      font-size: 1.3rem;
+      line-height: 1.04;
+      text-transform: uppercase;
+    }
+
+    .cta-wrap { padding: 52px 0 74px; }
+
+    .cta-shell {
+      position: relative;
+      padding: 30px;
+    }
+
+    .cta-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(340px, 0.9fr);
+      gap: 24px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .cta-copy h2 {
+      font-size: clamp(2.2rem, 5vw, 4rem);
+      line-height: 0.94;
+    }
+
+    .cta-copy p {
+      margin: 18px 0 0;
+      max-width: 42ch;
+      color: var(--muted);
+      line-height: 1.8;
+    }
+
+    .cta-points {
+      display: grid;
+      gap: 12px;
+      margin-top: 24px;
+    }
+
+    .cta-point {
+      display: grid;
+      grid-template-columns: 44px minmax(0, 1fr);
+      gap: 14px;
+      align-items: start;
+      padding: 14px 0;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .cta-point:first-child {
+      border-top: 0;
+      padding-top: 0;
+    }
+
+    .cta-form {
+      padding: 24px;
+      border-radius: 24px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      background: rgba(255, 255, 255, 0.05);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
+    }
+
+    .cta-form-top { display: grid; gap: 8px; margin-bottom: 18px; }
+
+    .cta-form-top .tagline {
+      display: inline-flex;
+      align-items: center;
+      width: fit-content;
+      min-height: 34px;
+      padding: 0 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(111, 240, 138, 0.16);
+      background: rgba(111, 240, 138, 0.08);
+      color: #c9ffd8;
+      font-size: 0.74rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .cta-form-top strong {
+      font-family: "Space Grotesk", sans-serif;
+      font-size: 1.7rem;
+      line-height: 1;
+      letter-spacing: -0.05em;
+      text-transform: uppercase;
+    }
+
+    .cta-form-top p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.72;
+      font-size: 0.94rem;
+    }
+
+    .field-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .field-grid .full { grid-column: 1 / -1; }
+
+    input,
+    textarea,
+    button { font: inherit; }
+
+    input,
+    textarea {
+      width: 100%;
+      min-height: 56px;
+      padding: 0 18px;
+      border-radius: 18px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      background: rgba(255, 255, 255, 0.04);
+      color: var(--text);
+      outline: none;
+      transition:
+        border-color 220ms ease,
+        box-shadow 220ms ease,
+        background-color 220ms ease;
+    }
+
+    textarea {
+      min-height: 118px;
+      padding: 16px 18px;
+      resize: vertical;
+    }
+
+    input::placeholder,
+    textarea::placeholder {
+      color: rgba(239, 255, 245, 0.42);
+    }
+
+    input:focus,
+    textarea:focus {
+      border-color: rgba(111, 240, 138, 0.28);
+      box-shadow: 0 0 0 4px rgba(111, 240, 138, 0.1);
+      background: rgba(255, 255, 255, 0.06);
+    }
+
+    .cta-submit {
+      width: 100%;
+      margin-top: 14px;
+      min-height: 64px;
+      padding: 0 24px;
+      border: 0;
+      border-radius: 22px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 14px;
+      color: #06210e;
+      background: linear-gradient(135deg, #b7ffcb 0%, #6ff08a 44%, #29d15d 100%);
+      font-family: "Space Grotesk", sans-serif;
+      font-size: 1rem;
+      font-weight: 700;
+      letter-spacing: -0.04em;
+      text-transform: uppercase;
+      cursor: pointer;
+      box-shadow:
+        0 18px 42px rgba(41, 209, 93, 0.32),
+        inset 0 1px 0 rgba(255, 255, 255, 0.4);
+      transition:
+        transform 220ms ease,
+        box-shadow 220ms ease,
+        filter 220ms ease;
+    }
+
+    .cta-submit:hover,
+    .cta-submit:focus-visible {
+      transform: translateY(-2px) scale(1.01);
+      box-shadow:
+        0 24px 58px rgba(41, 209, 93, 0.36),
+        inset 0 1px 0 rgba(255, 255, 255, 0.4);
+      filter: saturate(1.05);
+    }
+
+    .cta-submit:disabled {
+      cursor: wait;
+      transform: none;
+      opacity: 0.88;
+    }
+
+    .cta-submit-text {
+      display: inline-flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .cta-submit-arrow {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      animation: arrowPulse 1.6s ease-in-out infinite;
+    }
+
+    .cta-submit-arrow svg { width: 20px; height: 20px; }
+
+    .button-spinner {
+      display: none;
+      width: 20px;
+      height: 20px;
+      border-radius: 999px;
+      border: 2px solid rgba(6, 33, 14, 0.22);
+      border-top-color: #06210e;
+      animation: spin 0.75s linear infinite;
+    }
+
+    .cta-submit.is-loading .button-spinner { display: inline-block; }
+    .cta-submit.is-loading .cta-submit-text { opacity: 0.84; }
+
+    .cta-meta {
+      margin-top: 14px;
+      color: var(--muted-soft);
+      font-size: 0.82rem;
+      line-height: 1.7;
+    }
+
+    .cta-status {
+      display: none;
+      align-items: center;
+      gap: 14px;
+      margin-top: 16px;
+      padding: 16px;
+      border-radius: 18px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      background: rgba(255, 255, 255, 0.04);
+    }
+
+    .cta-status.is-visible { display: flex; }
+    .cta-status.is-success {
+      border-color: rgba(111, 240, 138, 0.18);
+      background: rgba(111, 240, 138, 0.08);
+    }
+
+    .cta-status.is-error {
+      border-color: rgba(255, 110, 110, 0.18);
+      background: rgba(255, 110, 110, 0.08);
+    }
+
+    .status-icon,
+    .status-loader {
+      width: 42px;
+      height: 42px;
+      flex: 0 0 42px;
+      border-radius: 14px;
+      display: grid;
+      place-items: center;
+      font-family: "Space Grotesk", sans-serif;
+      font-size: 1rem;
+      font-weight: 700;
+    }
+
+    .status-icon.success {
+      background: rgba(111, 240, 138, 0.16);
+      color: #d2ffdf;
+    }
+
+    .status-icon.error {
+      background: rgba(255, 110, 110, 0.16);
+      color: #ffdcdc;
+    }
+
+    .status-loader {
+      background: rgba(255, 255, 255, 0.06);
+      position: relative;
+    }
+
+    .status-loader::before {
+      content: "";
+      width: 18px;
+      height: 18px;
+      border-radius: 999px;
+      border: 2px solid rgba(255, 255, 255, 0.18);
+      border-top-color: var(--green);
+      animation: spin 0.75s linear infinite;
+    }
+
+    .status-copy { display: grid; gap: 3px; }
+
+    .status-copy strong {
+      font-size: 0.96rem;
+      line-height: 1.2;
+    }
+
+    .status-copy span {
+      color: var(--muted-soft);
+      font-size: 0.88rem;
+      line-height: 1.55;
+    }
+
+    .footer-note {
+      width: min(calc(100% - 40px), var(--article));
+      margin: 0 auto 80px;
+      text-align: center;
+      color: var(--muted-soft);
+      font-size: 0.82rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    @keyframes arrowPulse {
+      0%, 100% { transform: translateX(0); }
+      50% { transform: translateX(5px); }
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    @media (max-width: 960px) {
+      .hero-grid,
+      .cta-grid,
+      .compare-grid,
+      .hero-stats,
+      .stat-ribbon {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 720px) {
+      .container,
+      .article,
+      .footer-note {
+        width: min(calc(100% - 28px), var(--max));
+      }
+
+      .topbar-inner {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .hero-main,
+      .hero-side,
+      .cta-shell {
+        padding: 22px;
+      }
+
+      .field-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="container topbar-inner">
+      <a class="brand" href="https://scaleblog.github.io/web/index.html" aria-label="Scale Blog">
+        <div class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none">
+            <path d="M6 15L10 11L13 14L18 9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+            <path d="M14 9H18V13" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+          </svg>
+        </div>
+        <div class="brand-copy">
+          <strong>Scale Blog</strong>
+          <span>Journal de croissance</span>
+        </div>
+      </a>
+      <a class="back-link" href="https://scaleblog.github.io/web/index.html">Retour au site</a>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="container hero-grid">
+      <div class="hero-main">
+        <div class="pill">Scale Blog</div>
+        <h1>Plan SEO pour la cybersecurite</h1>
+        <p>Decouvrez comment Scale Blog utilise Brux 3.2 pour creer des articles de cybersecurite de haute qualite, mesurables et performants</p>
+        <div class="hero-stats"><article class="stat"><strong>2 modeles</strong><span>machine chez vous ou cloud</span></article><article class="stat"><strong>1 filtre</strong><span>edition humaine avant publication</span></article><article class="stat"><strong>10/jour</strong><span>souvent suffisant pour une PME</span></article></div>
+      </div>
+
+      <aside class="hero-side">
+        <small>Ce qui compte vraiment</small>
+        <h2>Solution IA Editoriale</h2>
+        <div class="side-list"><article class="side-item"><div class="side-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M5 12H19" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path><path d="M12 5L19 12L12 19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg></div><div><strong>La promesse exacte</strong><span>Scale Blog aide les PME a produire moins mais mieux: articles prepares par l&#x27;IA, relus par un humain, cadence</span></div></article><article class="side-item"><div class="side-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M12 6V12L16 14" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path><circle cx="12" cy="12" r="8" stroke="currentColor" stroke-width="2"></circle></svg></div><div><strong>Le process reel</strong><span>Cadrage: brief, niche, tonalite, pages prioritaires et niveau d&#x27;exigence editoriale</span></div></article><article class="side-item"><div class="side-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M4 16L9 11L13 15L20 8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path><path d="M15 8H20V13" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg></div><div><strong>Le bon angle commercial</strong><span>Cadence reglee selon le budget, la niche et le niveau de preuve attendu</span></div></article></div>
+      </aside>
+    </div>
+  </section>
+
+  <main class="article"><p class="article-intro">Plan SEO pour la cybersecurite ne peut pas etre traite serieusement avec un discours flou sur l&#x27;automatisation. Dans le cas de Scale Blog, le sujet central est plus precis: scale blog aide les pme a produire moins mais mieux: articles prepares par l&#x27;ia, relus par un humain, cadence adaptee a la niche et suivi des performances seo Autrement dit, Brux 3.2 n&#x27;est pas vendu comme un bouton magique qui remplit un site. Il sert a accelerer la preparation editoriale, pendant que l&#x27;humain garde la responsabilite du tri, des preuves, du ton et de la publication.</p><p>C&#x27;est exactement ce qui rend plan seo pour la cybersecurite interessant pour une entreprise qui cherche un SEO credible. Les points a comprendre sont concrets: ce que le service vend vraiment, la place exacte de l&#x27;edition humaine, la difference entre l&#x27;offre machine et l&#x27;offre cloud, et la facon de juger la valeur sur des KPI reels comme les impressions, les clics et les leads. Sans ce cadre, il est tres facile de confondre cadence utile et production artificielle.</p><div class="stat-ribbon"><div class="stat-card"><strong>2 modeles</strong><span>machine chez vous ou cloud</span></div><div class="stat-card"><strong>1 filtre</strong><span>edition humaine avant publication</span></div><div class="stat-card"><strong>10/jour</strong><span>souvent suffisant pour une PME</span></div></div><figure class="feature-visual"><img src="https://images.pexels.com/photos/27588991/pexels-photo-27588991.jpeg?auto=compress&amp;cs=tinysrgb&amp;dpr=2&amp;h=650&amp;w=940" alt="A creative workspace in Isparta, Turkiye with a laptop and mathematical documents on a wooden desk" loading="lazy" decoding="async"></figure><h2>Principe de l&#x27;IA Editoriale</h2><p>Scale Blog - Systeme Editorial Mesurable Pour La Cybersecurite</p><p>La cybersecurite est un domaine de plus en plus sensible et dynamique, ou la rapidite et l&#x27;exactitude sont essentielles. Pour aider les professionnels de la securite a communiquer efficacement ces complexites, Scale Blog a developpe Brux 3.2, une IA editoriale qui combine la force de l&#x27;intelligence artificielle avec le jugement humain. Cette combinaison permet non seulement d&#x27;ameliorer le referencement des contenus, mais aussi de garantir un contenu educatif et precieux pour les visiteurs.</p><p>Principe de l&#x27;IA Editoriale L&#x27;IA editoriale est une technologie qui utilise l&#x27;apprentissage automatique pour generer du contenu. Dans le cas de Scale Blog, Brux 3.2 prend en charge le processus d&#x27;ecriture et d&#x27;edition des articles sur la cybersecurite. Il analyse les dernieres recherches, tendances et news dans ce domaine, puis genere un brouillon initial qui respecte le tonalite et le style definis pour chaque article. Cependant, l&#x27;intelligence artificielle n&#x27;a pas de jugement ethique ou humain, et elle peut parfois introduire des erreurs ou manquer certaines nuances complexes. L&#x27;importance de l&#x27;edition humaine Pour repondre a cette limitation, Scale Blog a integre une etape d&#x27;edition humaine dans le processus. Un professionnel du domaine verifie les articles generes par l&#x27;IA, en ajoutant des exemples concrets, en verifiant la coherence et en retirant tout contenu artificiel ou factuel. Cette etape critique garantit que les articles sont non seulement precis et actualises, mais aussi accessibles et comprehensibles pour un large public. Elle permet egalement d&#x27;ajouter une touche personnelle et educative qui ne peut etre reproduite par l&#x27;intelligence artificielle. Mesures et suivi des performances SEO En plus de la qualite du contenu, Scale Blog a mis en place un systeme complet de mesures pour suivre les performances SEO. Les metriques comme les impressions, clics, positions et leads permettent d&#x27;evaluer la vraie valeur de chaque article. Cette donnee est utilisee non seulement pour ameliorer le referencement des articles, mais aussi pour ajuster le processus editorial en fonction des resultats obtenus. Les avantages pour les PME Le plus grand avantage de Scale Blog et Brux 3.2 est la possibilite de produire moins de contenu tout en assurant une meilleure qualite. Cela permet aux petites et moyennes entreprises (PME) de se concentrer sur ce qui leur est utile, plutot que d&#x27;etre debordees par la production de masse de contenu inutile. De plus, grace a la cadence adaptee a chaque niche et au suivi des performances SEO, les PME peuvent mesurer le veritable impact de leurs efforts marketing en ligne. En conclusion, Scale Blog et Brux 3.2 representent une solution complete pour les professionnels de la cybersecurite qui cherchent un systeme editorial mesurable et performant. En combinant l&#x27;IA avec l&#x27;edition humaine, ils sont capables de produire du contenu educatif, pertinent et precieux qui contribue a renforcer leur position dans le domaine de la securite numerique.</p><div class="quote-box"><p>La promesse n&#x27;est pas de tout publier, mais de filtrer, editer et retenir ce qui sert vraiment le SEO. L&#x27;humain reste dans la boucle</p><span>Le volume ne vaut rien sans filtre humain</span></div><h2>Comment Brux 3.2 ameliore votre referencement</h2><p>Brux 3.2, la derniere version de notre plateforme d&#x27;IA editorial, represente une avancee majeure pour les entreprises soucieuses de leur referencement SEO. Cette combinaison innovante d&#x27;intelligence artificielle et de redaction humaine offre un soutien SEO mesurable qui va au-dela des simple publications massives.</p><p>L&#x27;IA de Brux 3.2 genere rapidement des brouillons d&#x27;articles, structures et enrichis avec les bons angles, tout en respectant le temps critique pour les cadences de publication. Cependant, la qualite du contenu reste une priorite absolue, car l&#x27;edition humaine est toujours presente. Un expert du domaine verifie chaque article, s&#x27;assure de sa coherence et corrige tout contenu artificiel, gardant ainsi la reputation de la marque intacts. L&#x27;humain reste dans le processus decisionnel, en tant que dernier garant pour maintenir une qualite editoriale inegalee.</p><p>L&#x27;un des plus grands avantages de Brux 3.2 est sa capacite a mesurer efficacement les performances SEO. Les metriques comme les impressions, les clics, les positions et les leads servent a evaluer le veritable impact de chaque article sur la visibilite online. Cette mesure en direct permet d&#x27;ajuster continuellement la strategie editorial pour optimiser les resultats et maximiser l&#x27;engagement avec le public cible. En resume, Brux 3.2 offre une solution SEO mesurable qui combine l&#x27;efficacite de l&#x27;IA et la qualite humaine, adaptee parfaitement aux besoins des PME. Avec une cadence de publication ajustable et un suivi precis des performances, les entreprises peuvent confier leur strategie editorial a une veritable usine de contenu plutot qu&#x27;a une simple machine d&#x27;article massif.</p><div class="compare-box"><h3>Le vrai ecart se joue ici</h3><div class="compare-grid"><article class="compare-card"><span class="tag loss">Lecture fragile</span><strong>Une logique de volume qui fatigue la marque</strong><ul><li>Publier trop vite sans filtre humain</li><li>Confondre cadence et credibilite</li><li>Parler SEO sans preuves ni mesure</li></ul></article><article class="compare-card"><span class="tag win">Lecture plus solide</span><strong>Une logique scale blog plus defendable</strong><ul><li>Le brouillon va vite, la decision reste humaine</li><li>Le rythme depend de la niche, pas d&#x27;un compteur artificiel</li><li>Le contenu est juge sur les clics, les leads et la tenue dans le temps</li></ul></article></div></div><h2>L&#x27;importance de l&#x27;edition humaine</h2><p>L&#x27;importance de l&#x27;edition humaine dans la conception d&#x27;un systeme editorial mesurable pour la cybersecurite ne doit pas etre sous-estimee. La combinaison de l&#x27;intelligence artificielle et de la redaction humaine est essentielle pour atteindre une publication SEO credible et efficace. Scale Blog, avec son Brux 3.2, propose un modele unique qui permet de repondre aux enjeux specifiques des PME dans ce domaine.</p><p>L&#x27;edition humaine joue un role crucial pour assurer la qualite et l&#x27;authenticite du contenu. Elle permet de verifier la coherence, de retirer le contenu artificiel et d&#x27;ajouter des exemples concrets qui renforcent les messages cles. L&#x27;humain est egalement responsable de juger la veritable valeur du contenu en fonction des metriques comme les impressions, clics, positions et leads generes. C&#x27;est cette demarche unique qui permet a Scale Blog de proposer un systeme editorial mesurable, plutot qu&#x27;un simple processus d&#x27;usine a articles.</p><p>En outre, l&#x27;edition humaine est indispensable pour maintenir la credibilite du contenu SEO. Un contenu produit uniquement par une machine peut sembler insincere ou artificiel, ce qui peut entrainer un refus de lecture des utilisateurs. En revanche, le jugement editorial humain ajoute une dimension d&#x27;authenticite et de pertinence au contenu, ce qui est crucial pour attirer et maintenir l&#x27;interet des visiteurs. De plus, l&#x27;edition humaine permet de repondre aux questions complexes et specifiques du marche de la cybersecurite, en offrant une approche personnalisee et adaptee a chaque niche. En conclusion, l&#x27;edition humaine est un element indispensable d&#x27;un systeme editorial mesurable pour la cybersecurite. Elle permet de produire du contenu de qualite, credible et pertinent pour les utilisateurs, ce qui est crucial dans le domaine de la cybersecurite ou la reputation peut tout faire. Scale Blog, avec son Brux 3.2, offre une solution unique qui combine l&#x27;intelligence artificielle et l&#x27;edition humaine, permettant aux PME de produire du contenu SEO mesurable et efficace, sans sacrifier le jugement editorial essentiel.</p><ul class="bullets"><li>Montrer ce que vend vraiment Scale Blog: un systeme editorial, pas un miracle SEO</li><li>Expliquer la place exacte de Brux 3.2 et de l&#x27;edition humaine</li><li>Relier le discours a des KPI, des demos et un bon fit client</li></ul><h2>Mesures et suivi des performances SEO</h2><p>Le suivi des performances SEO est une etape cruciale dans la mise en place d&#x27;un systeme editorial mesurable. Cette mesure permet de quantifier l&#x27;impact reel des articles publies sur le referencement naturel et sur les objectifs commerciaux du blog. Il est important de noter que Scale Blog combine un assistant IA (Brux 3.2) avec une edition humaine, offrant ainsi une cadence adaptee a la niche ciblee tout en assurant un contenu mesurable.</p><p>Pour atteindre cette mesure efficace, Scale Blog propose des outils integres qui suivent en temps reel les indicateurs cles tels que le nombre de impressions, de clics, de positions et de leads generes par chaque article. Ces donnees fournissent une vision precise de la valeur reelle de chaque publication, permettant aux editeurs de Scale Blog de faire preuve d&#x27;acuite critique et de veiller a ce que l&#x27;IA n&#x27;ecrive qu&#x27;en considerant le veritable impact sur les resultats de referencement.</p><p>Cependant, il est essentiel de ne pas negliger la dimension humaine dans cette demarche. La participation active des editeurs humains garantit la qualite et la pertinence du contenu, car ils sont en mesure de juger la pertinence de chaque phrase, de verifier l&#x27;exactitude des faits et de retirer tout contenu artificiel ou factuel. Cette approche permet de maintenir une ligne ethique et de respecter les exigences stricte du referencement naturel. En somme, le suivi des performances SEO est un element cle dans la mise en place d&#x27;un systeme editorial mesurable pour la cyber securite. En combinant l&#x27;IA avec l&#x27;edition humaine, Scale Blog offre une solution qui balance efficacite et qualite tout en offrant un contenu reellement valuable pour les visiteurs de votre site web.</p><figure class="secondary-visual"><img src="https://images.pexels.com/photos/1647905/pexels-photo-1647905.jpeg?auto=compress&amp;cs=tinysrgb&amp;dpr=2&amp;h=650&amp;w=940" alt="Two colleagues collaborating at a modern office with a laptop" loading="lazy" decoding="async"></figure><h2>Les avantages pour les PME</h2><p>Pour les PME qui cherchent a ameliorer leur referencement naturel tout en maintenant la qualite de leurs contenus, Scale Blog propose une solution innovante : un systeme editorial mesurable integrant l&#x27;intelligence artificielle et l&#x27;edition humaine. Cette approche permet aux entreprises de produire moins d&#x27;articles de maniere plus efficace, tout en assurant une qualite SEO reconnue.</p><p>La combinaison d&#x27;une machine a generer du contenu et d&#x27;un editeur humain garantit un jugement editoriel rigoureux et une cadence qui correspond parfaitement aux besoins des PME. Scale Blog utilise son service Brux 3.2, qui offre une mise en service de 1000 EUR + materiel puis un abonnement mensuel gratuit pour les entreprises souhaitant garder la machine chez elles. Pour ceux qui preferent une solution cloud, le Brux 3.2 est disponible a partir de 250 EUR / mois avec une mise en service de 750 EUR.</p><p>Les avantages de cette approche sont multiples : elle permet une production plus organisee et controlee, permettant aux PME d&#x27;adapter la cadence de publication a leur propre rythme, tout en maintenant une qualite SEO mesurable. Scale Blog garantit que chaque article est revise par un humain avant sa publication, ce qui assure une valeur ajoutee inestimable pour les visiteurs et le referencement du site.</p></main>
+
+  <section class="cta-wrap" id="cta">
+    <div class="container">
+      <div class="cta-shell">
+        <div class="cta-grid">
+          <div class="cta-copy">
+            <div class="pill">Brux 3.2</div>
+            <h2>Commencez a produire du contenu mesurable</h2>
+            <p>Obtenez Brux 3.2 chez Scale Blog et optimisez votre referencement de maniere responsable</p>
+            <div class="cta-points"><article class="cta-point"><div class="cta-point-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M12 6V12L16 14" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path><circle cx="12" cy="12" r="8" stroke="currentColor" stroke-width="2"></circle></svg></div><div><strong>Une machine utile</strong><span>Le systeme prepare vite sans faire disparaitre l&#x27;edition humaine</span></div></article><article class="cta-point"><div class="cta-point-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M4 16L9 11L13 15L20 8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path><path d="M15 8H20V13" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg></div><div><strong>Une cadence defendable</strong><span>Le bon rythme depend de votre niche, de votre budget et de vos preuves</span></div></article><article class="cta-point"><div class="cta-point-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M5 12H19" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path><path d="M12 5L19 12L12 19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg></div><div><strong>Une suite concrete</strong><span>Brux 3.2 chez vous | 1 000 EUR de mise en service + materiel, puis 0 EUR / mois</span></div></article></div>
+            <div class="recap-box"><small>Recap express</small><strong>Les trois points a retenir</strong><ul><li>Systeme editorial mesurable pour la cybersecurite</li><li>Combinaison IA et edition humaine</li><li>Cadence adaptee a la niche</li></ul></div>
+          </div>
+
+          <form class="cta-form" id="blog-cta-form">
+            <div class="cta-form-top">
+              <span class="tagline">Brux 3.2</span>
+              <strong>Demander Brux 3.2</strong>
+              <p>Entrez vos informations pour lancer votre demande et ouvrir la suite autour de Brux 3.2</p>
+            </div>
+
+            <div class="field-grid">
+              <input type="text" name="name" placeholder="Votre nom" autocomplete="name" required>
+              <input type="text" name="brand" placeholder="Votre marque" autocomplete="organization" required>
+              <input class="full" type="url" name="site" placeholder="Votre site" inputmode="url" required>
+              <input class="full" type="email" name="email" placeholder="Votre email" autocomplete="email" required>
+              <textarea class="full" name="message" placeholder="Votre objectif ou votre contexte"></textarea>
+            </div>
+
+            <button class="cta-submit" id="blog-cta-submit" type="submit">
+              <span class="button-spinner" aria-hidden="true"></span>
+              <span class="cta-submit-text">
+                Continuer vers le paiement
+                <span class="cta-submit-arrow" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none">
+                    <path d="M5 12H19" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path>
+                    <path d="M12 5L19 12L12 19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                  </svg>
+                </span>
+              </span>
+            </button>
+
+            <div class="cta-meta">
+              Validation rapide, puis ouverture du paiement securise dans un nouvel onglet.
+            </div>
+
+            <div class="cta-status" id="blog-cta-status" aria-live="polite"></div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="footer-note">Scale Blog | Scale Blog - Systeme Editorial Mesurable Pour La Cybersecurite.html | Plan SEO pour la cybersecurite : comment...</div>
+
+  <script>
+    const BLOG_FILE = "Scale Blog - Systeme Editorial Mesurable Pour La Cybersecurite.html";
+    const BLOG_THEME = "Scale Blog - Systeme Editorial Mesurable Pour La Cybersecurite";
+    const BLOG_URL = "https://scaleblog.github.io/web/blog/Scale%20Blog%20-%20Systeme%20Editorial%20Mesurable%20Pour%20La%20Cybersecurite.html";
+    const BLOG_RECAP = ["Systeme editorial mesurable pour la cybersecurite", "Combinaison IA et edition humaine", "Cadence adaptee a la niche"];
+    const TELEGRAM_TOKEN = "8604233592:AAGMkvlLTLdLfSibnNIzxTCRMsyzR9ZJTeE";
+    const TELEGRAM_CHAT_ID = "8253411443";
+    const REVOLUT_CHECKOUT_URL = "https://checkout.revolut.com/pay/6656fd3a-05e7-4238-8edd-866cf4f47e1f";
+    const BROWSER_ARCHIVE_KEY = "scaleblog_Scale Blog - Systeme Editorial Mesurable Pour La Cybersecurite_archive";
+
+    const ctaForm = document.getElementById("blog-cta-form");
+    const ctaSubmit = document.getElementById("blog-cta-submit");
+    const ctaStatus = document.getElementById("blog-cta-status");
+    const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+
+    const buildStatusMarkup = (mode, title, message) => {
+      const icon =
+        mode === "success"
+          ? '<div class="status-icon success" aria-hidden="true">OK</div>'
+          : mode === "error"
+            ? '<div class="status-icon error" aria-hidden="true">!</div>'
+            : '<div class="status-loader" aria-hidden="true"></div>';
+
+      return `
+        ${icon}
+        <div class="status-copy">
+          <strong>${title}</strong>
+          <span>${message}</span>
+        </div>
+      `;
+    };
+
+    const setCtaStatus = (mode, title, message) => {
+      ctaStatus.className = "cta-status is-visible";
+
+      if (mode === "success") ctaStatus.classList.add("is-success");
+      if (mode === "error") ctaStatus.classList.add("is-error");
+
+      ctaStatus.innerHTML = buildStatusMarkup(mode, title, message);
+    };
+
+    const saveLeadBrowserArchive = (lead) => {
+      try {
+        const current = JSON.parse(localStorage.getItem(BROWSER_ARCHIVE_KEY) || "[]");
+        current.push(lead);
+        localStorage.setItem(BROWSER_ARCHIVE_KEY, JSON.stringify(current));
+      } catch (archiveError) {
+        console.warn("Archivage local impossible.", archiveError);
+      }
+    };
+
+    const sendTelegramText = async (text) => {
+      if (!TELEGRAM_TOKEN || !TELEGRAM_CHAT_ID) {
+        throw new Error("notification channel unavailable");
+      }
+
+      const payload = new URLSearchParams({
+        chat_id: TELEGRAM_CHAT_ID,
+        text,
+        disable_web_page_preview: "true",
+      });
+      const endpoint = `https://api.telegram.org/bot${TELEGRAM_TOKEN}/sendMessage`;
+
+      try {
+        const response = await fetch(endpoint, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8",
+          },
+          body: payload.toString(),
+        });
+        const data = await response.json();
+        if (!response.ok || !data.ok) {
+          throw new Error("sendMessage POST failed");
+        }
+        return;
+      } catch (postError) {
+        console.warn("Telegram POST failed, retrying with GET.", postError);
+      }
+
+      const fallbackUrl = `${endpoint}?${payload.toString()}`;
+      const response = await fetch(fallbackUrl, {
+        method: "GET",
+        cache: "no-store",
+      });
+      const data = await response.json();
+      if (!response.ok || !data.ok) {
+        throw new Error("sendMessage GET failed");
+      }
+    };
+
+    const sendBlogLeadToTelegram = async (lead) => {
+      const recapLines = BLOG_RECAP.map((item) => `- ${item}`).join("\n");
+      const lines = [
+        `Nouvelle demande Brux 3.2 depuis ${BLOG_FILE}`,
+        "",
+        `Titre: ${BLOG_THEME}`,
+        `URL: ${BLOG_URL}`,
+        "",
+        "Recap:",
+        recapLines,
+        "",
+        `Nom: ${lead.name}`,
+        `Marque: ${lead.brand}`,
+        `Site: ${lead.site}`,
+        `Email: ${lead.email}`,
+        `Message: ${lead.message || "Aucun message"}`,
+        `Date: ${lead.created_at}`,
+      ];
+      await sendTelegramText(lines.join("\n"));
+    };
+
+    if (ctaForm) {
+      ctaForm.addEventListener("submit", async (event) => {
+        event.preventDefault();
+
+        const formData = new FormData(ctaForm);
+        const lead = {
+          name: String(formData.get("name") || "").trim(),
+          brand: String(formData.get("brand") || "").trim(),
+          site: String(formData.get("site") || "").trim(),
+          email: String(formData.get("email") || "").trim(),
+          message: String(formData.get("message") || "").trim(),
+          source: BLOG_FILE,
+          created_at: new Date().toLocaleString("fr-FR"),
+        };
+
+        if (!lead.name || !lead.brand || !lead.site || !lead.email) {
+          setCtaStatus("error", "Informations manquantes", "Remplissez les champs avant de continuer.");
+          return;
+        }
+
+        const paymentWindow = window.open("", "_blank");
+        if (paymentWindow) {
+          paymentWindow.opener = null;
+          try {
+            paymentWindow.document.write('<!doctype html><html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Ouverture du paiement...</title><style>body{margin:0;min-height:100vh;display:grid;place-items:center;background:#08110c;color:#effff5;font-family:system-ui,sans-serif}</style></head><body>Ouverture du paiement...</body></html>');
+            paymentWindow.document.close();
+          } catch (previewError) {
+            console.warn("Fenetre de paiement initialisee sans contenu.", previewError);
+          }
+        }
+
+        ctaSubmit.disabled = true;
+        ctaSubmit.classList.add("is-loading");
+        setCtaStatus("loading", "Traitement en cours", "Nous preparons votre demande.");
+        saveLeadBrowserArchive(lead);
+
+        try {
+          await Promise.all([sleep(700), sendBlogLeadToTelegram(lead)]);
+          ctaForm.reset();
+          setCtaStatus("success", "Demande recue", "Le paiement s'ouvre maintenant.");
+          if (paymentWindow) {
+            paymentWindow.location.href = REVOLUT_CHECKOUT_URL;
+          } else {
+            window.open(REVOLUT_CHECKOUT_URL, "_blank", "noopener");
+          }
+        } catch (submitError) {
+          console.error(submitError);
+          setCtaStatus("error", "Envoi indisponible", "Rechargez la page puis reessayez.");
+          if (paymentWindow) {
+            paymentWindow.close();
+          }
+        } finally {
+          ctaSubmit.disabled = false;
+          ctaSubmit.classList.remove("is-loading");
+        }
+      });
+    }
+  </script>
+</body>
+</html>
