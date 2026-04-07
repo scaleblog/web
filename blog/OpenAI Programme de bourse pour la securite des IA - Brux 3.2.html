@@ -1,0 +1,1144 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>OpenAI: Programme de bourse pour la securite des IA - Brux 3.2 | Scale Blog</title>
+  <meta name="description" content="Transformez le monde grace a la securite des IA. Rejoignez le programme de bourse d&#x27;OpenAI!">
+  <meta name="robots" content="index,follow,max-image-preview:large">
+  <link rel="canonical" href="https://scaleblog.github.io/web/blog/OpenAI%20Programme%20de%20bourse%20pour%20la%20securite%20des%20IA%20-%20Brux%203.2.html">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="OpenAI: Programme de bourse pour la securite des IA - Brux 3.2 | Scale Blog">
+  <meta property="og:description" content="Transformez le monde grace a la securite des IA. Rejoignez le programme de bourse d&#x27;OpenAI!">
+  <meta property="og:url" content="https://scaleblog.github.io/web/blog/OpenAI%20Programme%20de%20bourse%20pour%20la%20securite%20des%20IA%20-%20Brux%203.2.html">
+  <meta property="og:image" content="https://images.pexels.com/photos/13162091/pexels-photo-13162091.jpeg?auto=compress&amp;cs=tinysrgb&amp;dpr=2&amp;h=650&amp;w=940">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="OpenAI: Programme de bourse pour la securite des IA - Brux 3.2 | Scale Blog">
+  <meta name="twitter:description" content="Transformez le monde grace a la securite des IA. Rejoignez le programme de bourse d&#x27;OpenAI!">
+  <meta name="twitter:image" content="https://images.pexels.com/photos/13162091/pexels-photo-13162091.jpeg?auto=compress&amp;cs=tinysrgb&amp;dpr=2&amp;h=650&amp;w=940">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/png" href="https://scaleblog.github.io/web/icon.png">
+  <style>
+    :root {
+      --bg: #08110c;
+      --panel: rgba(255, 255, 255, 0.05);
+      --line: rgba(255, 255, 255, 0.09);
+      --text: #effff5;
+      --muted: rgba(239, 255, 245, 0.72);
+      --muted-soft: rgba(239, 255, 245, 0.5);
+      --green: #6ff08a;
+      --green-soft: rgba(111, 240, 138, 0.12);
+      --shadow: 0 28px 72px rgba(0, 0, 0, 0.24);
+      --max: 1140px;
+      --article: 780px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      min-width: 320px;
+      font-family: "Manrope", sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 12% 0%, rgba(41, 209, 93, 0.16), transparent 28%),
+        radial-gradient(circle at 100% 12%, rgba(111, 240, 138, 0.1), transparent 30%),
+        linear-gradient(180deg, #06100b 0%, #09140e 28%, #08110c 100%);
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background-image:
+        linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+      background-size: 56px 56px;
+      mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.6), transparent 88%);
+      opacity: 0.32;
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    img {
+      display: block;
+      width: 100%;
+      max-width: 100%;
+      object-fit: cover;
+    }
+
+    .container {
+      width: min(calc(100% - 40px), var(--max));
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+
+    .topbar { padding: 24px 0 10px; }
+    .topbar-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      font-family: "Space Grotesk", sans-serif;
+    }
+
+    .brand-mark {
+      width: 42px;
+      height: 42px;
+      border-radius: 14px;
+      display: grid;
+      place-items: center;
+      border: 1px solid rgba(111, 240, 138, 0.18);
+      background: rgba(111, 240, 138, 0.08);
+      color: var(--green);
+    }
+
+    .brand-mark svg { width: 18px; height: 18px; }
+
+    .brand-copy strong {
+      display: block;
+      font-size: 1.02rem;
+      letter-spacing: -0.04em;
+      text-transform: uppercase;
+    }
+
+    .brand-copy span {
+      display: block;
+      margin-top: 2px;
+      color: var(--muted-soft);
+      font-size: 0.78rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .back-link {
+      min-height: 44px;
+      display: inline-flex;
+      align-items: center;
+      padding: 0 18px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.04);
+      font-size: 0.84rem;
+      font-weight: 800;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      transition: transform 220ms ease, border-color 220ms ease;
+    }
+
+    .back-link:hover,
+    .back-link:focus-visible {
+      transform: translateY(-2px);
+      border-color: rgba(111, 240, 138, 0.22);
+    }
+
+    .hero { padding: 28px 0 24px; }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.08fr) minmax(300px, 0.92fr);
+      gap: 22px;
+    }
+
+    .hero-main,
+    .hero-side {
+      border-radius: 30px;
+      border: 1px solid var(--line);
+      background:
+        radial-gradient(circle at 0% 0%, rgba(41, 209, 93, 0.14), transparent 36%),
+        var(--panel);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(16px);
+    }
+
+    .hero-main { padding: 32px; }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      min-height: 36px;
+      padding: 0 14px;
+      border-radius: 999px;
+      background: rgba(111, 240, 138, 0.08);
+      border: 1px solid rgba(111, 240, 138, 0.16);
+      color: #c9ffd8;
+      font-size: 0.76rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .pill::before {
+      content: "";
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--green);
+      box-shadow: 0 0 16px rgba(111, 240, 138, 0.7);
+    }
+
+    h1, h2, h3, h4 {
+      margin: 0;
+      font-family: "Space Grotesk", sans-serif;
+      letter-spacing: -0.06em;
+      text-transform: uppercase;
+    }
+
+    .hero-main h1 {
+      margin-top: 20px;
+      font-size: clamp(3rem, 7vw, 6rem);
+      line-height: 0.92;
+      max-width: 12ch;
+    }
+
+    .hero-main p {
+      margin: 18px 0 0;
+      max-width: 58ch;
+      color: var(--muted);
+      line-height: 1.84;
+    }
+
+    .hero-stats {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+      margin-top: 24px;
+    }
+
+    .stat {
+      padding: 18px;
+      border-radius: 22px;
+      border: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.04);
+    }
+
+    .stat strong {
+      display: block;
+      font-family: "Space Grotesk", sans-serif;
+      font-size: clamp(1.8rem, 3vw, 2.6rem);
+      letter-spacing: -0.05em;
+      color: var(--green);
+    }
+
+    .stat span {
+      display: block;
+      margin-top: 8px;
+      color: var(--muted-soft);
+      font-size: 0.82rem;
+      line-height: 1.55;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    .hero-side {
+      padding: 28px;
+      display: grid;
+      gap: 14px;
+      align-content: start;
+    }
+
+    .hero-side small {
+      color: var(--green);
+      font-size: 0.8rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .hero-side h2 {
+      font-size: clamp(1.7rem, 3vw, 2.7rem);
+      line-height: 0.98;
+    }
+
+    .side-list {
+      display: grid;
+      gap: 12px;
+      margin-top: 6px;
+    }
+
+    .side-item {
+      display: grid;
+      grid-template-columns: 42px minmax(0, 1fr);
+      gap: 14px;
+      padding-top: 14px;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .side-item:first-child {
+      padding-top: 0;
+      border-top: 0;
+    }
+
+    .side-icon,
+    .cta-point-icon {
+      width: 42px;
+      height: 42px;
+      border-radius: 14px;
+      display: grid;
+      place-items: center;
+      background: rgba(111, 240, 138, 0.1);
+      border: 1px solid rgba(111, 240, 138, 0.16);
+      color: var(--green);
+    }
+
+    .side-icon svg,
+    .cta-point-icon svg {
+      width: 18px;
+      height: 18px;
+    }
+
+    .side-item strong,
+    .cta-point strong {
+      display: block;
+      font-size: 0.96rem;
+      line-height: 1.24;
+    }
+
+    .side-item span,
+    .cta-point span {
+      display: block;
+      margin-top: 6px;
+      color: var(--muted-soft);
+      font-size: 0.9rem;
+      line-height: 1.62;
+    }
+
+    .article {
+      width: min(calc(100% - 40px), var(--article));
+      margin: 0 auto;
+      padding: 8px 0 0;
+      position: relative;
+      z-index: 1;
+    }
+
+    .article-intro {
+      color: var(--text);
+      font-size: 1.08rem;
+    }
+
+    .article p,
+    .article li,
+    .article figcaption {
+      color: rgba(239, 255, 245, 0.82);
+      line-height: 1.9;
+      font-size: 1.02rem;
+    }
+
+    .article p + p { margin-top: 18px; }
+
+    .article h2 {
+      margin-top: 52px;
+      font-size: clamp(2rem, 5vw, 3.35rem);
+      line-height: 0.96;
+    }
+
+    .stat-ribbon {
+      margin: 32px 0 0;
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .stat-card {
+      padding: 20px 22px;
+      border-radius: 24px;
+      border: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.04);
+      box-shadow: 0 18px 48px rgba(0, 0, 0, 0.18);
+    }
+
+    .stat-card strong {
+      display: block;
+      font-family: "Space Grotesk", sans-serif;
+      font-size: clamp(2rem, 4vw, 3rem);
+      letter-spacing: -0.06em;
+      color: var(--green);
+    }
+
+    .stat-card span {
+      display: block;
+      margin-top: 10px;
+      color: var(--muted-soft);
+      line-height: 1.6;
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    .feature-visual,
+    .secondary-visual,
+    .quote-box,
+    .compare-box,
+    .cta-shell,
+    .recap-box {
+      margin-top: 32px;
+      border-radius: 28px;
+      border: 1px solid var(--line);
+      background:
+        radial-gradient(circle at 100% 0%, rgba(111, 240, 138, 0.08), transparent 34%),
+        rgba(255, 255, 255, 0.04);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    .feature-visual img,
+    .secondary-visual img {
+      max-height: 460px;
+    }
+
+    .feature-visual figcaption,
+    .secondary-visual figcaption {
+      padding: 18px 22px 22px;
+      color: var(--muted-soft);
+      font-size: 0.9rem;
+      line-height: 1.7;
+    }
+
+    .feature-visual strong,
+    .secondary-visual strong {
+      color: var(--text);
+      display: block;
+      margin-bottom: 6px;
+      font-size: 1rem;
+    }
+
+    .quote-box {
+      padding: 26px;
+    }
+
+    .quote-box p {
+      margin: 0;
+      color: var(--text);
+      font-family: "Space Grotesk", sans-serif;
+      font-size: clamp(1.25rem, 3vw, 1.95rem);
+      line-height: 1.2;
+      text-transform: uppercase;
+    }
+
+    .quote-box span {
+      display: inline-block;
+      margin-top: 12px;
+      color: var(--green);
+      font-size: 0.82rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .compare-box { padding: 24px; }
+    .compare-box h3 { font-size: 1.6rem; }
+
+    .compare-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+      margin-top: 18px;
+    }
+
+    .compare-card {
+      padding: 20px;
+      border-radius: 22px;
+      border: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.04);
+    }
+
+    .tag {
+      display: inline-flex;
+      min-height: 30px;
+      align-items: center;
+      padding: 0 12px;
+      border-radius: 999px;
+      font-size: 0.72rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .tag.loss { background: rgba(255, 255, 255, 0.08); }
+    .tag.win {
+      background: rgba(111, 240, 138, 0.12);
+      color: #d6ffe2;
+      border: 1px solid rgba(111, 240, 138, 0.12);
+    }
+
+    .compare-card strong {
+      display: block;
+      margin-top: 14px;
+      font-size: 1rem;
+      line-height: 1.3;
+    }
+
+    .compare-card ul,
+    .recap-box ul,
+    .bullets {
+      margin: 16px 0 0;
+      padding: 0;
+      list-style: none;
+      display: grid;
+      gap: 12px;
+    }
+
+    .compare-card li,
+    .recap-box li,
+    .bullets li {
+      position: relative;
+      padding-left: 18px;
+      color: var(--muted);
+      font-size: 0.95rem;
+      line-height: 1.72;
+    }
+
+    .compare-card li::before,
+    .recap-box li::before,
+    .bullets li::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 11px;
+      width: 7px;
+      height: 7px;
+      border-radius: 999px;
+      background: var(--green);
+      opacity: 0.92;
+      box-shadow: 0 0 12px rgba(111, 240, 138, 0.5);
+    }
+
+    .recap-box {
+      padding: 20px 22px;
+    }
+
+    .recap-box small {
+      color: var(--green);
+      display: block;
+      font-size: 0.78rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .recap-box strong {
+      display: block;
+      margin-top: 8px;
+      font-family: "Space Grotesk", sans-serif;
+      font-size: 1.3rem;
+      line-height: 1.04;
+      text-transform: uppercase;
+    }
+
+    .cta-wrap { padding: 52px 0 74px; }
+
+    .cta-shell {
+      position: relative;
+      padding: 30px;
+    }
+
+    .cta-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(340px, 0.9fr);
+      gap: 24px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .cta-copy h2 {
+      font-size: clamp(2.2rem, 5vw, 4rem);
+      line-height: 0.94;
+    }
+
+    .cta-copy p {
+      margin: 18px 0 0;
+      max-width: 42ch;
+      color: var(--muted);
+      line-height: 1.8;
+    }
+
+    .cta-points {
+      display: grid;
+      gap: 12px;
+      margin-top: 24px;
+    }
+
+    .cta-point {
+      display: grid;
+      grid-template-columns: 44px minmax(0, 1fr);
+      gap: 14px;
+      align-items: start;
+      padding: 14px 0;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .cta-point:first-child {
+      border-top: 0;
+      padding-top: 0;
+    }
+
+    .cta-form {
+      padding: 24px;
+      border-radius: 24px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      background: rgba(255, 255, 255, 0.05);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
+    }
+
+    .cta-form-top { display: grid; gap: 8px; margin-bottom: 18px; }
+
+    .cta-form-top .tagline {
+      display: inline-flex;
+      align-items: center;
+      width: fit-content;
+      min-height: 34px;
+      padding: 0 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(111, 240, 138, 0.16);
+      background: rgba(111, 240, 138, 0.08);
+      color: #c9ffd8;
+      font-size: 0.74rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .cta-form-top strong {
+      font-family: "Space Grotesk", sans-serif;
+      font-size: 1.7rem;
+      line-height: 1;
+      letter-spacing: -0.05em;
+      text-transform: uppercase;
+    }
+
+    .cta-form-top p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.72;
+      font-size: 0.94rem;
+    }
+
+    .field-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .field-grid .full { grid-column: 1 / -1; }
+
+    input,
+    textarea,
+    button { font: inherit; }
+
+    input,
+    textarea {
+      width: 100%;
+      min-height: 56px;
+      padding: 0 18px;
+      border-radius: 18px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      background: rgba(255, 255, 255, 0.04);
+      color: var(--text);
+      outline: none;
+      transition:
+        border-color 220ms ease,
+        box-shadow 220ms ease,
+        background-color 220ms ease;
+    }
+
+    textarea {
+      min-height: 118px;
+      padding: 16px 18px;
+      resize: vertical;
+    }
+
+    input::placeholder,
+    textarea::placeholder {
+      color: rgba(239, 255, 245, 0.42);
+    }
+
+    input:focus,
+    textarea:focus {
+      border-color: rgba(111, 240, 138, 0.28);
+      box-shadow: 0 0 0 4px rgba(111, 240, 138, 0.1);
+      background: rgba(255, 255, 255, 0.06);
+    }
+
+    .cta-submit {
+      width: 100%;
+      margin-top: 14px;
+      min-height: 64px;
+      padding: 0 24px;
+      border: 0;
+      border-radius: 22px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 14px;
+      color: #06210e;
+      background: linear-gradient(135deg, #b7ffcb 0%, #6ff08a 44%, #29d15d 100%);
+      font-family: "Space Grotesk", sans-serif;
+      font-size: 1rem;
+      font-weight: 700;
+      letter-spacing: -0.04em;
+      text-transform: uppercase;
+      cursor: pointer;
+      box-shadow:
+        0 18px 42px rgba(41, 209, 93, 0.32),
+        inset 0 1px 0 rgba(255, 255, 255, 0.4);
+      transition:
+        transform 220ms ease,
+        box-shadow 220ms ease,
+        filter 220ms ease;
+    }
+
+    .cta-submit:hover,
+    .cta-submit:focus-visible {
+      transform: translateY(-2px) scale(1.01);
+      box-shadow:
+        0 24px 58px rgba(41, 209, 93, 0.36),
+        inset 0 1px 0 rgba(255, 255, 255, 0.4);
+      filter: saturate(1.05);
+    }
+
+    .cta-submit:disabled {
+      cursor: wait;
+      transform: none;
+      opacity: 0.88;
+    }
+
+    .cta-submit-text {
+      display: inline-flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .cta-submit-arrow {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      animation: arrowPulse 1.6s ease-in-out infinite;
+    }
+
+    .cta-submit-arrow svg { width: 20px; height: 20px; }
+
+    .button-spinner {
+      display: none;
+      width: 20px;
+      height: 20px;
+      border-radius: 999px;
+      border: 2px solid rgba(6, 33, 14, 0.22);
+      border-top-color: #06210e;
+      animation: spin 0.75s linear infinite;
+    }
+
+    .cta-submit.is-loading .button-spinner { display: inline-block; }
+    .cta-submit.is-loading .cta-submit-text { opacity: 0.84; }
+
+    .cta-meta {
+      margin-top: 14px;
+      color: var(--muted-soft);
+      font-size: 0.82rem;
+      line-height: 1.7;
+    }
+
+    .cta-status {
+      display: none;
+      align-items: center;
+      gap: 14px;
+      margin-top: 16px;
+      padding: 16px;
+      border-radius: 18px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      background: rgba(255, 255, 255, 0.04);
+    }
+
+    .cta-status.is-visible { display: flex; }
+    .cta-status.is-success {
+      border-color: rgba(111, 240, 138, 0.18);
+      background: rgba(111, 240, 138, 0.08);
+    }
+
+    .cta-status.is-error {
+      border-color: rgba(255, 110, 110, 0.18);
+      background: rgba(255, 110, 110, 0.08);
+    }
+
+    .status-icon,
+    .status-loader {
+      width: 42px;
+      height: 42px;
+      flex: 0 0 42px;
+      border-radius: 14px;
+      display: grid;
+      place-items: center;
+      font-family: "Space Grotesk", sans-serif;
+      font-size: 1rem;
+      font-weight: 700;
+    }
+
+    .status-icon.success {
+      background: rgba(111, 240, 138, 0.16);
+      color: #d2ffdf;
+    }
+
+    .status-icon.error {
+      background: rgba(255, 110, 110, 0.16);
+      color: #ffdcdc;
+    }
+
+    .status-loader {
+      background: rgba(255, 255, 255, 0.06);
+      position: relative;
+    }
+
+    .status-loader::before {
+      content: "";
+      width: 18px;
+      height: 18px;
+      border-radius: 999px;
+      border: 2px solid rgba(255, 255, 255, 0.18);
+      border-top-color: var(--green);
+      animation: spin 0.75s linear infinite;
+    }
+
+    .status-copy { display: grid; gap: 3px; }
+
+    .status-copy strong {
+      font-size: 0.96rem;
+      line-height: 1.2;
+    }
+
+    .status-copy span {
+      color: var(--muted-soft);
+      font-size: 0.88rem;
+      line-height: 1.55;
+    }
+
+    .footer-note {
+      width: min(calc(100% - 40px), var(--article));
+      margin: 0 auto 80px;
+      text-align: center;
+      color: var(--muted-soft);
+      font-size: 0.82rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    @keyframes arrowPulse {
+      0%, 100% { transform: translateX(0); }
+      50% { transform: translateX(5px); }
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    @media (max-width: 960px) {
+      .hero-grid,
+      .cta-grid,
+      .compare-grid,
+      .hero-stats,
+      .stat-ribbon {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 720px) {
+      .container,
+      .article,
+      .footer-note {
+        width: min(calc(100% - 28px), var(--max));
+      }
+
+      .topbar-inner {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .hero-main,
+      .hero-side,
+      .cta-shell {
+        padding: 22px;
+      }
+
+      .field-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="container topbar-inner">
+      <a class="brand" href="https://scaleblog.github.io/web/index.html" aria-label="Scale Blog">
+        <div class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none">
+            <path d="M6 15L10 11L13 14L18 9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+            <path d="M14 9H18V13" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+          </svg>
+        </div>
+        <div class="brand-copy">
+          <strong>Scale Blog</strong>
+          <span>Journal de croissance</span>
+        </div>
+      </a>
+      <a class="back-link" href="https://scaleblog.github.io/web/index.html">Retour au site</a>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="container hero-grid">
+      <div class="hero-main">
+        <div class="pill">IA appliquee</div>
+        <h1>OpenAI lance un programme de bourse pour la securite des IA</h1>
+        <p>L&#x27;introduction du programme OpenAI Safety Bug Bounty marque un pas important dans le developpement responsable des technologies d&#x27;intelligence artificielle</p>
+        <div class="hero-stats"><article class="stat"><strong>3 angles</strong><span>usage, execution, limites</span></article><article class="stat"><strong>1 cadre</strong><span>pour passer du bruit a l&#x27;action</span></article><article class="stat"><strong>0 blabla</strong><span>que des points concrets et utiles</span></article></div>
+      </div>
+
+      <aside class="hero-side">
+        <small>Ce qui compte vraiment</small>
+        <h2>Dernieres nouvelles en matiere de securite et de responsabilite</h2>
+        <div class="side-list"><article class="side-item"><div class="side-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M5 12H19" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path><path d="M12 5L19 12L12 19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg></div><div><strong>Comprendre le terrain reel</strong><span>Le sujet se nourrit d&#x27;annonces, de retours de terrain et d&#x27;experimentations comme Mar 11, 2026 Announcements Introducing The Anthropic Institute, February 1, 2026, Safety &amp; security</span></div></article><article class="side-item"><div class="side-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M12 6V12L16 14" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path><circle cx="12" cy="12" r="8" stroke="currentColor" stroke-width="2"></circle></svg></div><div><strong>Separer l&#x27;utile du decor</strong><span>Tout ce qui parait moderne n&#x27;est pas forcement rentable ou robuste a l&#x27;usage</span></div></article><article class="side-item"><div class="side-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M4 16L9 11L13 15L20 8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path><path d="M15 8H20V13" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg></div><div><strong>Passer a l&#x27;action proprement</strong><span>Le bon cadre melange cas d&#x27;usage, controle, couts, maintenance et execution</span></div></article></div>
+      </aside>
+    </div>
+  </section>
+
+  <main class="article"><p class="article-intro">L&#x27;IA est devenue un pilier majeur des technologies modernes, offrant un potentiel incroyable pour l&#x27;innovation et la productivite. Cependant, avec ce progres, le risque de vulnerabilites securitaires pour les systemes d&#x27;intelligence artificielle (IA) est egalement grandement accru. Les consequences des fautes de securite dans cette domaine peuvent etre catastrophiques, allant du simple derangement operationnel a des dommages financiers et meme aux menaces pour la vie privee et l&#x27;infrastructure publique.</p><p>Cette situation souleve donc une question cruciale : comment assurer le developpement responsable et securitaire de l&#x27;IA ? C&#x27;est la que vient en play le programme OpenAI Safety Bug Bounty. Initialement annonce par Anthropic dans ses derniers developpements, ce programme offre un reel espoir pour ameliorer la securite des systemes d&#x27;IA a travers une collaboration entre les experts et les amateurs de la technologie. En lancant cette bourse pour la securite, OpenAI met en avant sa vision proactive et responsable. Le but est simple : encourager la detection precoce et la correction de bugs potentiels dans l&#x27;IA. Ce programme offre des recompenses financieres aux individus et collectifs qui contribuent a identifier et resoudre ces faiblesses, les rendant ainsi plus robustes et fiables. Grace a cette initiative, OpenAI contribue non seulement a ameliorer la securite de ses propres systemes mais en ouvrant un champ d&#x27;action pour tous ceux qui souhaitent faire une part de leur travail dans le developpement responsable des technologies IA. Il s&#x27;agit d&#x27;une etape importante dans le processus de creation d&#x27;IA sure et fiable, en mettant l&#x27;accent sur la transparence et la collaboration entre les differents acteurs de la technologie. OpenAI Safety Bug Bounty offre donc une opportunite unique pour les coders, chercheurs et entites de contribuer activement au developpement securitaire des systemes d&#x27;IA. C&#x27;est un pas concret vers un avenir ou l&#x27;intelligence artificielle sera utilisee a la fois innovante et responsable.</p><div class="stat-ribbon"><div class="stat-card"><strong>3 angles</strong><span>usage, execution, limites</span></div><div class="stat-card"><strong>1 cadre</strong><span>pour passer du bruit a l&#x27;action</span></div><div class="stat-card"><strong>0 blabla</strong><span>que des points concrets et utiles</span></div></div><figure class="feature-visual"><img src="https://images.pexels.com/photos/13162091/pexels-photo-13162091.jpeg?auto=compress&amp;cs=tinysrgb&amp;dpr=2&amp;h=650&amp;w=940" alt="A tidy office desk featuring a computer monitor, keyboard, and plants for a modern workspace vibe" loading="lazy" decoding="async"></figure><h2>Programme de bourse d&#x27;OpenAI: Un pas vers la securite des IA</h2><p>Le domaine de l&#x27;intelligence artificielle (IA) evolue rapidement, mais son developpement ne peut pas se passer d&#x27;une attention croissante a la securite. En reponse a ce constat, OpenAI a recemment lance le programme de bourse pour la securite des IA. Ce programme, ouvert au public et exempt du paiement, vise a identifier et corriger les vulnerabilites potentiels dans les systemes d&#x27;IA. Cette initiative est un pas significatif vers une meilleure comprehension des risques associes a l&#x27;IA et vers la mise en place de mesures efficaces pour les prevenir.</p><p>Un des objectifs majeurs du programme de bourse OpenAI est d&#x27;ameliorer la securite globale des systemes IA. Grace a cette initiative, les individus et les entites qui sont interessees par le domaine peuvent contribuer activement a identifier des faiblesses dans l&#x27;IA et en proposer des solutions. Cette approche collaborative offre une perspective enrichissante sur la securite des systemes d&#x27;IA.</p><p>En participant au programme de bourse, les beneficiaires ont acces a des ressources et a un reseau de professionnels engages dans la protection de l&#x27;intelligence artificielle. Ils peuvent egalement beneficier de formations et de conseils specifiques pour ameliorer leurs competences en matiere de securite des systemes d&#x27;IA. De plus, le programme favorise une meilleure comprehension du secteur et encourage les recherches sur les problemes lies a la securite des IA. Le succes du programme de bourse OpenAI depend fortement du soutien de la communaute. En se joignant a cette initiative, chaque participant contribue a une cause importante : proteger l&#x27;IA contre les menaces potentielles. L&#x27;engagement et le partage d&#x27;idees entre la communaute d&#x27;OpenAI et les individus inscrits au programme permettent d&#x27;ameliorer continuemment les systemes d&#x27;IA.</p><div class="quote-box"><p>La securite des IA est notre priorite. Ensemble, nous pouvons creer un avenir sur et fiable pour l&#x27;IA</p><span>La valeur vient de l&#x27;execution, pas du vernis</span></div><h2>Quels sont les objectifs du programme?</h2><p>Dans un contexte professionnel, openai lance un programme de bourse pour la securite des ia devient interessant quand il permet de gagner du temps sans degrader la qualite, d&#x27;augmenter la couverture d&#x27;un sujet sans exploser les couts ou de rendre une execution plus reguliere et plus predicible. La valeur ne vient pas seulement de la vitesse. Elle vient de la combinaison entre cadence, fiabilite et possibilite de repeter le meme resultat sans mobiliser toujours plus de monde.</p><p>Cette logique oblige a regarder la chaine de valeur complete. Un sujet comme openai lance un programme de bourse pour la securite des ia peut par exemple accelerer la recherche, aider a structurer une production, ameliorer la preparation d&#x27;un livrable ou rendre certaines etapes plus simples a deleguer. Mais chaque gain apparent doit etre mis en regard de la supervision necessaire, des exceptions a traiter, de la maintenance et du besoin de garder un niveau de controle suffisant.</p><p>Le bon arbitrage consiste donc a identifier les zones ou l&#x27;automatisation ou l&#x27;assistance produisent un levier clair. Plus le cadre d&#x27;usage est precis, plus les benefices sont faciles a conserver. Plus le sujet reste vague, plus il est expose au bruit, aux essais mal calibres et a la fatigue d&#x27;equipe qui finit par considerer la technologie comme une couche supplementaire plutot que comme un vrai levier.</p><div class="compare-box"><h3>Le vrai ecart se joue ici</h3><div class="compare-grid"><article class="compare-card"><span class="tag loss">Lecture fragile</span><strong>Une lecture superficielle qui consomme du temps sans cadre</strong><ul><li>Trop de buzzwords, pas assez de priorites</li><li>Des tests mal cadres qui ne tiennent pas dans la duree</li><li>Une depense de temps sans reel systeme de validation</li></ul></article><article class="compare-card"><span class="tag win">Lecture plus solide</span><strong>Une approche plus concrete, plus utile et plus durable</strong><ul><li>On part des usages avant de parler de technologie</li><li>On clarifie les limites, les couts et les arbitrages</li><li>On construit une methode qui peut etre repetee sans fragiliser l&#x27;equipe</li></ul></article></div></div><h2>Comment participer au programme?</h2><p>Pour participer au programme OpenAI Safety Bug Bounty, il est important de suivre les etapes bien definies pour maximiser vos chances de succes et contribuer efficacement a la securite des technologies d&#x27;intelligence artificielle. Voici le processus detaille:</p><p>Mise en place du programme
+Le programme OpenAI Safety Bug Bounty a ete concu comme une plateforme ouverte pour les hackers, les chercheurs et tout individu ayant une passion pour la securite de l&#x27;IA. Il vise a identifier des vulnerabilites potentielles dans les systemes d&#x27;intelligence artificielle et a les corriger avant qu&#x27;elles ne soient exploitees par des acteurs malveillants. Pour s&#x27;inscrire, il suffit de creer un compte sur le site officiel du programme.</p><p>Mise en uvre
+Une fois inscrit, vous pouvez commencer a soumettre vos decouvertes sous forme de vulnerabilites potentielles dans les systemes d&#x27;intelligence artificielle. Les equipes d&#x27;OpenAI examinent attentivement chaque rapport pour verifier sa validite et son impact. Il est crucial de fournir des details precis, y compris des exemples concrets de la facon dont la vulnerabilite pourrait etre exploitee, afin que les equipes puissent comprendre le risque implique. Les contributions sont generalement traitees par des equipes specifiques dediees a la securite des IA. L&#x27;arbitrage est effectue en fonction de plusieurs criteres, notamment l&#x27;impact de la vulnerabilite, sa complexite et son originalite. Les participants qui soumettent des revelations considerees comme significatives ont la possibilite d&#x27;etre recompenses financierement. Bonnes pratiques pour les participants
+Pour augmenter vos chances d&#x27;etre selectionne dans le programme, il est important de suivre quelques bonnes pratiques : *Qualite du rapport** : Soyez precis et detaille dans votre rapport. Incluez des exemples concrets et des etapes a suivre pour reproduire la vulnerabilite. *Securite** : Assurez-vous que vos informations restent securisees. N&#x27;envoyez pas d&#x27;informations personnelles ou sensibles dans votre rapport. *Responsabilite** : Soumettez des decouvertes uniquement si vous etes sur de leur validite et de leur impact. L&#x27;integrite du programme depend de la qualite de ses participants. *Collaboration** : Si vous avez besoin d&#x27;aide pour reproduire une vulnerabilite, faites-le savoir dans votre rapport. Les equipes peuvent alors fournir des conseils ou aider a resoudre les problemes techniques. *Continuite** : Participer regulierement au programme montre votre engagement envers la securite des IA. Cela peut augmenter vos chances d&#x27;etre reconnu et recompense. Conclusion
+En rejoignant le programme OpenAI Safety Bug Bounty, vous pouvez faire une difference significative en contribuant a la securite des technologies d&#x27;intelligence artificielle. En suivant les etapes de mise en uvre correctement et en respectant les bonnes pratiques, vous avez la possibilite d&#x27;etre recompense pour vos efforts et de jouer un role crucial dans le developpement responsable de l&#x27;IA. N&#x27;attendez plus pour rejoindre cette importante initiative et faire une difference a travers le monde de l&#x27;intelligence artificielle. Inscription immediate disponible sur le site officiel du programme.</p><ul class="bullets"><li>Commencer par un cas d&#x27;usage reel, pas par un catalogue d&#x27;outils</li><li>Mesurer la valeur produite avant de generaliser un workflow</li><li>Documenter les limites et les points de controle des le debut</li></ul><h2>Les avantages d&#x27;etre un beneficiaire du programme</h2><p>Le programme de bourse d&#x27;OpenAI met l&#x27;accent sur la securite des technologies d&#x27;intelligence artificielle. A travers ce projet ambitieux, l&#x27;entreprise cherche a identifier et corriger les vulnerabilites dans les systemes IA. Les beneficiaires du programme beneficient d&#x27;une remuneration pour leurs contributions precieuses, contribuant ainsi a une meilleure protection des technologies qui faconnent notre monde.</p><p>En rejoignant le programme de bourse, les participants peuvent beneficier d&#x27;un acces exclusif aux dernieres recherches et informations dans le domaine de la securite IA. Ils beneficient egalement de formations et d&#x27;outils pour ameliorer leurs competences techniques, ce qui leur permet de travailler efficacement sur des projets ambitieux. Les avantages tangibles de cette participation incluent une remuneration competitive et un impact direct sur la securite globale.</p><p>Il est important pour les participants de comprendre les limites et les risques associes au programme. Le respect scrupuleux de la gouvernance et des normes ethiques est essentiel, afin de garantir que toutes les contributions sont utilisees de maniere responsable et constructive. En outre, il est crucial de rester vigilant aux erreurs potentielles dans le processus d&#x27;evaluation et de reparation des vulnerabilites. La communaute d&#x27;OpenAI joue un role cle dans la mise en uvre du programme. Elle travaille a developper une vision responsable qui guide les actions et les decisions prises dans le cadre du programme. La participation active de cette communaute est essentielle pour garantir que les beneficiaires beneficient d&#x27;un environnement sur et ethique, ou leurs contributions sont appreciees et utilisees a leur plein potentiel. En rejoignant ce programme de bourse, les participants ont la possibilite de faire une difference en contribuant a une initiative importante. Ils beneficient des avantages concrets tout en soutenant le developpement responsable et securise des technologies d&#x27;intelligence artificielle.</p><figure class="secondary-visual"><img src="https://images.pexels.com/photos/8524599/pexels-photo-8524599.jpeg?auto=compress&amp;cs=tinysrgb&amp;dpr=2&amp;h=650&amp;w=940" alt="Modern home office setup featuring a laptop, monitor, keyboard, and papers on a sleek desk" loading="lazy" decoding="async"></figure><h2>La communaute d&#x27;OpenAI et sa vision responsable</h2><p>La communaute d&#x27;OpenAI et sa vision responsable continuent a evoluer pour s&#x27;assurer que l&#x27;intelligence artificielle est utilisee de maniere sure et ethique. Ce programme de bourse visant a identifier et corriger les vulnerabilites dans les systemes IA montre une volonte ambitieuse d&#x27;ameliorer la securite des technologies d&#x27;intelligence artificielle.</p><p>Ce pas vers la securite des IA est un reflet de la determination d&#x27;OpenAI de s&#x27;engager activement dans le domaine de la protection contre les menaces potentiellement dangereuses. En offrant une remuneration pour aider a corriger ces vulnerabilites, OpenAI incite les individus et les organisations a jouer un role actif dans l&#x27;amelioration de la securite des systemes IA.</p><p>En etant beneficiaires du programme, vous non seulement contribuez directement a une initiative importante, mais vous etes egalement soutenus dans vos efforts pour ameliorer la securite des technologies d&#x27;intelligence artificielle. Cela offre un sentiment de participation significative et peut meme favoriser votre developpement professionnel en ajoutant une experience reelle a votre portefeuille. La vision responsable d&#x27;OpenAI est clairement presente dans ce programme, mettant l&#x27;accent sur la collaboration, l&#x27;ethique et la protection des utilisateurs. En offrant cette opportunite de contribuer au domaine de la securite des IA, OpenAI renforce sa position comme une entreprise qui prend son role envers le bien-etre global tres au serieux. Inscrivez-vous des aujourd&#x27;hui pour faire une difference en contribuant a cette importante initiative. Ensemble, nous pouvons travailler sur un avenir ou l&#x27;intelligence artificielle est utilisee de maniere sure et ethique, protegeant ainsi les individus et la societe dans son ensemble.</p></main>
+
+  <section class="cta-wrap" id="cta">
+    <div class="container">
+      <div class="cta-shell">
+        <div class="cta-grid">
+          <div class="cta-copy">
+            <div class="pill">Brux 3.2</div>
+            <h2>Participez a la transformation du monde grace a la securite des IA!</h2>
+            <p>Inscrivez-vous des maintenant pour le programme de bourse d&#x27;OpenAI!</p>
+            <div class="cta-points"><article class="cta-point"><div class="cta-point-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M12 6V12L16 14" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path><circle cx="12" cy="12" r="8" stroke="currentColor" stroke-width="2"></circle></svg></div><div><strong>Un angle SEO plus fort</strong><span>Brux 3.2 transforme votre blog en machine editoriale continue</span></div></article><article class="cta-point"><div class="cta-point-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M4 16L9 11L13 15L20 8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path><path d="M15 8H20V13" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg></div><div><strong>Une mise en place simple</strong><span>Votre contexte, votre site et votre objectif sont captures en une fois</span></div></article><article class="cta-point"><div class="cta-point-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M5 12H19" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path><path d="M12 5L19 12L12 19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg></div><div><strong>Une suite immediate</strong><span>Une fois la demande validee, le paiement securise s&#x27;ouvre</span></div></article></div>
+            <div class="recap-box"><small>Recap express</small><strong>Les trois points a retenir</strong><ul><li>OpenAI lance un nouveau programme de bourse pour ameliorer la securite des technologies d&#x27;intelligence artificielle</li><li>Le programme vise a identifier et corriger les vulnerabilites dans les systemes IA</li><li>Inscrivez-vous des maintenant pour faire une difference en contribuant a cette importante initiative</li></ul></div>
+          </div>
+
+          <form class="cta-form" id="blog-cta-form">
+            <div class="cta-form-top">
+              <span class="tagline">Brux 3.2</span>
+              <strong>Demander Brux 3.2</strong>
+              <p>Entrez vos informations pour lancer votre demande et ouvrir la suite</p>
+            </div>
+
+            <div class="field-grid">
+              <input type="text" name="name" placeholder="Votre nom" autocomplete="name" required>
+              <input type="text" name="brand" placeholder="Votre marque" autocomplete="organization" required>
+              <input class="full" type="url" name="site" placeholder="Votre site" inputmode="url" required>
+              <input class="full" type="email" name="email" placeholder="Votre email" autocomplete="email" required>
+              <textarea class="full" name="message" placeholder="Votre objectif ou votre contexte"></textarea>
+            </div>
+
+            <button class="cta-submit" id="blog-cta-submit" type="submit">
+              <span class="button-spinner" aria-hidden="true"></span>
+              <span class="cta-submit-text">
+                Continuer vers le paiement
+                <span class="cta-submit-arrow" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none">
+                    <path d="M5 12H19" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path>
+                    <path d="M12 5L19 12L12 19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                  </svg>
+                </span>
+              </span>
+            </button>
+
+            <div class="cta-meta">
+              Validation rapide, puis ouverture du paiement securise dans un nouvel onglet.
+            </div>
+
+            <div class="cta-status" id="blog-cta-status" aria-live="polite"></div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="footer-note">Scale Blog | OpenAI Programme de bourse pour la securite des IA - Brux 3.2.html | Pourquoi Introducing the OpenAI Safety Bug...</div>
+
+  <script>
+    const BLOG_FILE = "OpenAI Programme de bourse pour la securite des IA - Brux 3.2.html";
+    const BLOG_THEME = "OpenAI: Programme de bourse pour la securite des IA - Brux 3.2";
+    const BLOG_URL = "https://scaleblog.github.io/web/blog/OpenAI%20Programme%20de%20bourse%20pour%20la%20securite%20des%20IA%20-%20Brux%203.2.html";
+    const BLOG_RECAP = ["OpenAI lance un nouveau programme de bourse pour ameliorer la securite des technologies d'intelligence artificielle", "Le programme vise a identifier et corriger les vulnerabilites dans les systemes IA", "Inscrivez-vous des maintenant pour faire une difference en contribuant a cette importante initiative"];
+    const TELEGRAM_TOKEN = "8604233592:AAGMkvlLTLdLfSibnNIzxTCRMsyzR9ZJTeE";
+    const TELEGRAM_CHAT_ID = "8253411443";
+    const REVOLUT_CHECKOUT_URL = "https://checkout.revolut.com/pay/6656fd3a-05e7-4238-8edd-866cf4f47e1f";
+    const BROWSER_ARCHIVE_KEY = "scaleblog_OpenAI Programme de bourse pour la securite des IA - Brux 3.2_archive";
+
+    const ctaForm = document.getElementById("blog-cta-form");
+    const ctaSubmit = document.getElementById("blog-cta-submit");
+    const ctaStatus = document.getElementById("blog-cta-status");
+    const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+
+    const buildStatusMarkup = (mode, title, message) => {
+      const icon =
+        mode === "success"
+          ? '<div class="status-icon success" aria-hidden="true">OK</div>'
+          : mode === "error"
+            ? '<div class="status-icon error" aria-hidden="true">!</div>'
+            : '<div class="status-loader" aria-hidden="true"></div>';
+
+      return `
+        ${icon}
+        <div class="status-copy">
+          <strong>${title}</strong>
+          <span>${message}</span>
+        </div>
+      `;
+    };
+
+    const setCtaStatus = (mode, title, message) => {
+      ctaStatus.className = "cta-status is-visible";
+
+      if (mode === "success") ctaStatus.classList.add("is-success");
+      if (mode === "error") ctaStatus.classList.add("is-error");
+
+      ctaStatus.innerHTML = buildStatusMarkup(mode, title, message);
+    };
+
+    const saveLeadBrowserArchive = (lead) => {
+      try {
+        const current = JSON.parse(localStorage.getItem(BROWSER_ARCHIVE_KEY) || "[]");
+        current.push(lead);
+        localStorage.setItem(BROWSER_ARCHIVE_KEY, JSON.stringify(current));
+      } catch (archiveError) {
+        console.warn("Archivage local impossible.", archiveError);
+      }
+    };
+
+    const sendTelegramText = async (text) => {
+      if (!TELEGRAM_TOKEN || !TELEGRAM_CHAT_ID) {
+        throw new Error("notification channel unavailable");
+      }
+
+      const payload = new URLSearchParams({
+        chat_id: TELEGRAM_CHAT_ID,
+        text,
+        disable_web_page_preview: "true",
+      });
+      const endpoint = `https://api.telegram.org/bot${TELEGRAM_TOKEN}/sendMessage`;
+
+      try {
+        const response = await fetch(endpoint, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8",
+          },
+          body: payload.toString(),
+        });
+        const data = await response.json();
+        if (!response.ok || !data.ok) {
+          throw new Error("sendMessage POST failed");
+        }
+        return;
+      } catch (postError) {
+        console.warn("Telegram POST failed, retrying with GET.", postError);
+      }
+
+      const fallbackUrl = `${endpoint}?${payload.toString()}`;
+      const response = await fetch(fallbackUrl, {
+        method: "GET",
+        cache: "no-store",
+      });
+      const data = await response.json();
+      if (!response.ok || !data.ok) {
+        throw new Error("sendMessage GET failed");
+      }
+    };
+
+    const sendBlogLeadToTelegram = async (lead) => {
+      const recapLines = BLOG_RECAP.map((item) => `- ${item}`).join("\n");
+      const lines = [
+        `Nouvelle demande Brux 3.2 depuis ${BLOG_FILE}`,
+        "",
+        `Titre: ${BLOG_THEME}`,
+        `URL: ${BLOG_URL}`,
+        "",
+        "Recap:",
+        recapLines,
+        "",
+        `Nom: ${lead.name}`,
+        `Marque: ${lead.brand}`,
+        `Site: ${lead.site}`,
+        `Email: ${lead.email}`,
+        `Message: ${lead.message || "Aucun message"}`,
+        `Date: ${lead.created_at}`,
+      ];
+      await sendTelegramText(lines.join("\n"));
+    };
+
+    if (ctaForm) {
+      ctaForm.addEventListener("submit", async (event) => {
+        event.preventDefault();
+
+        const formData = new FormData(ctaForm);
+        const lead = {
+          name: String(formData.get("name") || "").trim(),
+          brand: String(formData.get("brand") || "").trim(),
+          site: String(formData.get("site") || "").trim(),
+          email: String(formData.get("email") || "").trim(),
+          message: String(formData.get("message") || "").trim(),
+          source: BLOG_FILE,
+          created_at: new Date().toLocaleString("fr-FR"),
+        };
+
+        if (!lead.name || !lead.brand || !lead.site || !lead.email) {
+          setCtaStatus("error", "Informations manquantes", "Remplissez les champs avant de continuer.");
+          return;
+        }
+
+        const paymentWindow = window.open("", "_blank");
+        if (paymentWindow) {
+          paymentWindow.opener = null;
+          try {
+            paymentWindow.document.write('<!doctype html><html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Ouverture du paiement...</title><style>body{margin:0;min-height:100vh;display:grid;place-items:center;background:#08110c;color:#effff5;font-family:system-ui,sans-serif}</style></head><body>Ouverture du paiement...</body></html>');
+            paymentWindow.document.close();
+          } catch (previewError) {
+            console.warn("Fenetre de paiement initialisee sans contenu.", previewError);
+          }
+        }
+
+        ctaSubmit.disabled = true;
+        ctaSubmit.classList.add("is-loading");
+        setCtaStatus("loading", "Traitement en cours", "Nous preparons votre demande.");
+        saveLeadBrowserArchive(lead);
+
+        try {
+          await Promise.all([sleep(700), sendBlogLeadToTelegram(lead)]);
+          ctaForm.reset();
+          setCtaStatus("success", "Demande recue", "Le paiement s'ouvre maintenant.");
+          if (paymentWindow) {
+            paymentWindow.location.href = REVOLUT_CHECKOUT_URL;
+          } else {
+            window.open(REVOLUT_CHECKOUT_URL, "_blank", "noopener");
+          }
+        } catch (submitError) {
+          console.error(submitError);
+          setCtaStatus("error", "Envoi indisponible", "Rechargez la page puis reessayez.");
+          if (paymentWindow) {
+            paymentWindow.close();
+          }
+        } finally {
+          ctaSubmit.disabled = false;
+          ctaSubmit.classList.remove("is-loading");
+        }
+      });
+    }
+  </script>
+</body>
+</html>
